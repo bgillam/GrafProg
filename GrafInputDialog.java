@@ -95,6 +95,10 @@ public class GrafInputDialog extends JDialog
         return histoPanel;
     }
     
+    public HistoPanel getHisto(){
+        return histoPanel;
+    }
+    
     public void setHistoPanel(HistoPanel hp){
             histoPanel= hp;
     
