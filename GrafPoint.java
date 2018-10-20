@@ -1,0 +1,117 @@
+
+/**
+ * Write a description of class GrafPoint here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+public class GrafPoint extends GrafText
+{
+    
+    public static void main(String[] args){
+        GrafPoint gPoint = new GrafPoint(new GrafProg(), 2, 3, "x");
+        gPoint.setColor(Color.RED);
+        System.out.println(gPoint.getColor());
+        System.out.println(gPoint.getFont());
+
+    }
+    
+    
+    // instance variables - replace the example below with your own
+   public GrafPoint(){
+       super();
+       setGrafType(GrafType.POINT);
+       super.setText(".");
+   }
+   
+   public GrafPoint(GrafProg sess){
+       super(sess);
+       setGrafType(GrafType.POINT);
+       super.setText(".");
+       
+   }
+   
+   public GrafPoint(GrafProg sess, double x, double y){
+       super(sess, x, y, ".");
+       setGrafType(GrafType.POINT);
+   }
+   
+
+   public GrafPoint(GrafProg sess, double x, double y, String t){
+        super(sess, x, y, t);
+        setGrafType(GrafType.POINT);
+    }
+    
+   public GrafPoint(GrafProg sess, double x, double y, String t, Color c){
+        super(sess, x, y, t);
+        setGrafType(GrafType.POINT);
+        super.setColor(c);
+   }
+    
+    public GrafPoint(GrafProg sess, double x, double y, String t, Font f, Color c){
+        super(sess, x, y, t, f, c);
+        setGrafType(GrafType.POINT);
+    }
+   
+   
+     public void drawGraf(Graphics2D gc){
+      
+       gc.setColor(color);
+       GrafPrimitives.grafString(gStuff,x, y, getMark(),  gc);
+       gc.setColor(Color.BLACK);
+    }
+    
+    
+    
+     public static void createInputDialog(GrafProg gs){
+         GrafInputDialog gfd = new GrafInputDialog(gs);
+         gfd.setTitle("Point"); 
+         gfd.setPointPanel(gfd.addPointPanel());
+         gfd.getPointPanel().addX1Y1();
+         //gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false))); 
+         gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
+         gfd.addDeleterPanel(GrafType.POINT);   
+         gfd.getCreateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0    ) {
+                savePoint(gs,gfd);
+                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.POINT);    
+            }
+        });
+        gfd.getSaveChanges().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                gfd.setFinalSave(true);
+                savePoint(gs,gfd);
+                gs.setGrafList(gfd.getTempList());
+                gfd.dispose();
+            }
+        });
+        gfd.setModal(true);
+        gfd.pack();
+        gfd.setVisible(true);  
+     }
+    
+     private static void savePoint(GrafProg gSess, GrafInputDialog gfd){
+         if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
+             addPoint(gSess,gfd );
+             gfd.getPointPanel().blankX1();
+             gfd.getPointPanel().blankY1();
+   }
+
+    private static void addPoint(GrafProg gSess, GrafInputDialog gfd){
+       if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
+       if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
+       GrafPoint gPlot = new GrafPoint(gSess, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getMark(), gfd.getMarkChooser().getColor());
+       gfd.getTempList().add(gPlot);
+    }
+   
+   public void setMark(String s){super.setText(s);}
+   public String getMark(){return super.getText();}
+   
+}
