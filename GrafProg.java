@@ -149,17 +149,15 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
         case "Roots"                        : { GrafZeros.createInputDialog(this);  break;}
         case "Line Segment"                 : { GrafSegment.createInputDialog(this);   break;}
         case "Rectangle"                    : { GrafRectangle.createInputDialog(this);     break;}
-        case "Ellipse"                      : { GrafInputDialog gDialog = new GrafInputDialog(this, GrafType.ELLIPSE); break;}
-        case "Circle"                       : { GrafInputDialog gDialog = new GrafInputDialog(this, GrafType.CIRCLE); break;}
-        case "Text"                         : { GrafText.createInputDialog(this);
-            // gDialog = new GrafInputDialog(this, GrafType.TEXT); 
-                                                break;}
-        case "Scatterplot"                  : { GrafInputDialog gDialog = new GrafInputDialog(this, GrafType.SCATTER); break;} //createScatterDialog(); break;}
-        case "Column Plot"                  : { GrafInputDialog gDialog = new GrafInputDialog(this, GrafType.COLUMN); break;}
-        case "Boxplot"                      : { GrafInputDialog gDialog = new GrafInputDialog(this, GrafType.BOXPLOT); break;}
-        case "Histogram"                    : { GrafInputDialog gDialog = new GrafInputDialog(this, GrafType.HISTOGRAM); break;}
-        case "Distribution Polygon"         : { GrafInputDialog gDialog = new GrafInputDialog(this, GrafType.POLYGON); break;}
-        case "Ogive"                        : { GrafInputDialog gDialog = new GrafInputDialog(this, GrafType.OGIVE); break;}
+        case "Ellipse"                      : { GrafEllipse.createInputDialog(this); break;}
+        case "Circle"                       : { GrafCircle.createInputDialog(this);break;}
+        case "Text"                         : { GrafText.createInputDialog(this);  break;}
+        case "Scatterplot"                  : { GrafScatterPlot.createInputDialog(this);  break;} 
+        case "Column Plot"                  : { GrafColumnPlot.createInputDialog(this);     break;}
+        case "Boxplot"                      : { GrafBoxPlot.createInputDialog(this);   break;}
+        case "Histogram"                    : { GrafHistogram.createInputDialog(this);  break;}
+        case "Distribution Polygon"         : { GrafFreqPolygon.createInputDialog(this);   break;}
+        case "Ogive"                        : { GrafOgive.createInputDialog(this);  break;}
         
         
      }
@@ -169,42 +167,6 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
      //printObjectTypes
  }
  
- //private void createScatterDialog(){
- //   JDialog gDialog = GrafScatterPlot.createInputDialog(new String[]{"","col1","col2","col3","col4","col5"});
- //}
- 
- 
-private void openGrafInputDialog(GrafProg g, GrafType t){
-   /*if (t == GrafType.ONEVARSTATS) {
-       GrafStatsDialog statDialog = new GrafStatsDialog(g);
-       statDialog.setVisible(true); 
-       statDialog.setModal(true); 
-   }
-   /*else if (t == GrafType.ABOUT) {
-       About about = new About(this); 
-       about.setVisible(true); 
-       about.setModal(true); 
-   }
-   else if (t == GrafType.SET){
-       WindowSizeDialog tempDialog = new WindowSizeDialog(this); 
-       tempDialog.showWindowSizeDialog(); 
-       repaint(); 
-    }
-    else */
-    if (t == GrafType.REGRESS){
-       RegressionDialog rd = new RegressionDialog(this); 
-       rd.setVisible(true); 
-       rd.setModal(true); 
-   }
-   /*else if (t == GrafType.FREQCHART){
-       FrequencyChartDialog fcDialog = new FrequencyChartDialog(this); 
-       fcDialog.setVisible(true); 
-       fcDialog.setModal(true); 
-   }*/
-   //else {GrafInputDialog gDialog = new GrafInputDialog(g,t);  }
-   //return gDialog;
-   
-}
  
    
    //Setters and Getters

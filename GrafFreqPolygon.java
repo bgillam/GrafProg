@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.*;
 import java.util.Arrays;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 
 
@@ -157,6 +160,61 @@ public class GrafFreqPolygon extends GrafHistogram {
         myOwner.incrementBoxPlotsPlotted();     
         gc.setColor(Color.BLACK);
     }
+    
+    
+    public static void createInputDialog(GrafProg gs){
+        GrafInputDialog gfd = new GrafInputDialog(gs); 
+        gfd.setTitle("Histogram Polygon"); 
+        gfd.setHistoPanel(gfd.addHistoPanel());
+        gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
+        gfd.addDeleterPanel(GrafType.FREQPOLYGON); 
+        gfd.getCreateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0    ) {
+                saveFreqPolygon(gs,gfd);
+                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.FREQPOLYGON);    
+            }
+        });
+        gfd.getSaveChanges().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                gfd.setFinalSave(true);
+                saveFreqPolygon(gs,gfd);
+                gs.setGrafList(gfd.getTempList());
+                gfd.dispose();
+            }
+        });
+        gfd.setModal(true);
+        gfd.pack();
+        gfd.setVisible(true);     
+    
+    }
+    
+    private static void saveFreqPolygon(GrafProg gs, GrafInputDialog gfd){
+            int col = gfd.getColumnChooser().getInputColumn();
+            if (gfd.getFinalSave() == true && col == 0) return; 
+            addFreqPoly(gs, gfd);
+            gfd.getColumnChooser().setInputIndex(0);
+    
+    }
+    
+    private static void addFreqPoly(GrafProg gs, GrafInputDialog gfd){
+              int input = gfd.getInput();
+              if (input == 0) return;
+              GrafFreqPolygon gfpPlot;
+              if (gfd.getHistoPanel().numClassesChecked()){
+                  gfpPlot = new GrafFreqPolygon(gs, input, gfd.getHistoPanel().getBegin(), gfd.getHistoPanel().getEnd(), gfd.getHistoPanel().getNumClasses(), gfd.getMarkChooser().getGrafColor(), gfd.getHistoPanel().relativeHisto());
+              }else
+              {
+                  gfpPlot = new GrafFreqPolygon(gs, input, gfd.getHistoPanel().getBegin(), gfd.getHistoPanel().getEnd(), gfd.getHistoPanel().getClassSize(), gfd.getMarkChooser().getGrafColor(), gfd.getHistoPanel().relativeHisto());
+              }
+              // if (markChooser.verticalChecked()) gPlot.myOwner;
+              gfd.getTempList().add(gfpPlot);
+    
+    }
+    
+  
+    
+    
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

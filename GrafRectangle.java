@@ -82,7 +82,7 @@ public class GrafRectangle extends GrafObject
     
    }
    
-   public static void saveRectangle(GrafProg gs, GrafInputDialog gfd){
+   private static void saveRectangle(GrafProg gs, GrafInputDialog gfd){
         if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
         addRect(gs, gfd);
         gfd.getPointPanel().blankX1();
@@ -92,7 +92,7 @@ public class GrafRectangle extends GrafObject
     
     }
     
-    public static void addRect(GrafProg gs, GrafInputDialog gfd){
+    private static void addRect(GrafProg gs, GrafInputDialog gfd){
            if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
            if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
            if (Double.isNaN(gfd.getPointPanel().getW())){gfd.NumErrorMessage("Width", "valid number"); return;}

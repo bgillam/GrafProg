@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.*;
 import java.util.Arrays;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -161,6 +163,57 @@ public class GrafOgive extends GrafHistogram {
         myOwner.incrementBoxPlotsPlotted();     
         gc.setColor(Color.BLACK);
     }
+    
+    public static void createInputDialog(GrafProg gs){
+        GrafInputDialog gfd = new GrafInputDialog(gs); 
+        gfd.setTitle("Ogive"); 
+        gfd.setHistoPanel(gfd.addHistoPanel());
+        gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
+        gfd.addDeleterPanel(GrafType.FREQPOLYGON); 
+        gfd.getCreateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0    ) {
+                saveOgive(gs,gfd);
+                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.FREQPOLYGON);    
+            }
+        });
+        gfd.getSaveChanges().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                gfd.setFinalSave(true);
+                saveOgive(gs,gfd);
+                gs.setGrafList(gfd.getTempList());
+                gfd.dispose();
+            }
+        });
+        gfd.setModal(true);
+        gfd.pack();
+        gfd.setVisible(true);     
+    }
+    
+    private static void saveOgive(GrafProg gs, GrafInputDialog gfd){
+        int col = gfd.getColumnChooser().getInputColumn();
+        if (gfd.getFinalSave() == true && col == 0) return; 
+        addOgive(gs, gfd);
+        gfd.getColumnChooser().setInputIndex(0);
+    
+    }
+    
+    private static void addOgive(GrafProg gs, GrafInputDialog gfd){
+          int input = gfd.getInput();
+          if (input == 0) return;
+          GrafOgive oPlot;
+          if (gfd.getHistoPanel().numClassesChecked()){
+              oPlot = new GrafOgive(gs, input, gfd.getHistoPanel().getBegin(), gfd.getHistoPanel().getEnd(), gfd.getHistoPanel().getNumClasses(), gfd.getMarkChooser().getColor(), gfd.getHistoPanel().relativeHisto());
+          }else
+          {
+              oPlot = new GrafOgive(gs, input, gfd.getHistoPanel().getBegin(), gfd.getHistoPanel().getEnd(), gfd.getHistoPanel().getClassSize(), gfd.getMarkChooser().getColor(), gfd.getHistoPanel().relativeHisto());
+          }
+          // if (markChooser.verticalChecked()) gPlot.myOwner;
+          gfd.getTempList().add(oPlot);
+    
+    }
+    
+    
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}
     public int getColumnNumber(){ return columnNumber;}

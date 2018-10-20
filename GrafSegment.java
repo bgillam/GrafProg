@@ -78,7 +78,7 @@ public class GrafSegment extends GrafObject
    
     }
     
-    public static void saveSegment(GrafProg gs, GrafInputDialog gfd){
+    private static void saveSegment(GrafProg gs, GrafInputDialog gfd){
             if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
             addSegment(gs, gfd);
             gfd.getPointPanel().blankX1();
@@ -89,7 +89,7 @@ public class GrafSegment extends GrafObject
     }
     
     
-    public static void addSegment(GrafProg gs, GrafInputDialog gfd){
+    private static void addSegment(GrafProg gs, GrafInputDialog gfd){
             if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
             if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
             if (Double.isNaN(gfd.getPointPanel().getX2())){gfd.NumErrorMessage("x2", "valid number"); return;}

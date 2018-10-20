@@ -6,6 +6,8 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 //Class Header
 public class GrafColumnPlot extends GrafObject {
@@ -29,13 +31,7 @@ public class GrafColumnPlot extends GrafObject {
         sess.setMessage1("Plotting Column "+columnNumber);
     }
     
-    //constructor 
-    //public GrafColumnPlot(GrafProg sess, int column){
-    //    this(sess);
-    //  setColumnNumber(column);
-        
-    //}
-    
+       
     //drawGraf overriding method in parent GrafObject
     public void drawGraf(Graphics2D gc){
         double xMin = gStuff.getXMin();
@@ -55,6 +51,56 @@ public class GrafColumnPlot extends GrafObject {
         gc.setColor(Color.BLACK);
     }
     
+      public static void createInputDialog(GrafProg gs){
+        GrafInputDialog gfd = new GrafInputDialog(gs); 
+        gfd.setTitle("Column Plot");  
+        gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(true))); //addMarkPanel(gSess.getGraphics().getFont(), true, false, false, true, false, false, false);
+        gfd.addSeparatorPanel();
+        gfd.addDeleterPanel(GrafType.COLUMN); 
+        gfd.getCreateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0    ) {
+                saveColumn(gs,gfd);
+                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.COLUMN);    
+            }
+        });
+        gfd.getSaveChanges().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                gfd.setFinalSave(true);
+                saveColumn(gs,gfd);
+                gs.setGrafList(gfd.getTempList());
+                gfd.dispose();
+            }
+        });
+        gfd.setModal(true);
+        gfd.pack();
+        gfd.setVisible(true); 
+    }
+    
+    private static void saveColumn(GrafProg gs, GrafInputDialog gfd){
+        int col = gfd.getColumnChooser().getInputColumn();
+        if (gfd.getFinalSave() == true && col == 0) return; 
+        addColumn(gs, gfd); 
+        gfd.getColumnChooser().setInputIndex(0);
+    
+    }
+    
+    private static void addColumn(GrafProg gs, GrafInputDialog gfd){
+        int input = gfd.getInput();
+        if (input == 0)  return;
+        GrafColumnPlot gPlot = new GrafColumnPlot(gs, input);
+        gPlot.setGrafColor(gfd.getMarkChooser().getGrafColor());
+        //set correct mark for points
+        if (gfd.getMarkChooser().xMark()) gPlot.setMark("x"); 
+        else if (gfd.getMarkChooser().oMark()) gPlot.setMark("o"); 
+        else if (gfd.getMarkChooser().periodMark()) gPlot.setMark("."); 
+        else { String text = gfd.getMarkChooser().getTextMark(); 
+        gPlot.setMark(text);} 
+        if (gfd.getMarkChooser().isLineGraph()) gPlot.setConnected(true); else gPlot.setConnected(false);
+        gfd.getTempList().add(gPlot);
+    
+    }
+    
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}
     public int getColumnNumber(){ return columnNumber;}
@@ -67,6 +113,7 @@ public class GrafColumnPlot extends GrafObject {
         return connected;
     }
     
+  
     
     /* Setters and Getters from Parent GrafObject
      *  public void drawGraf(Graphics2D g2D){};

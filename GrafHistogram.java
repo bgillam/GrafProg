@@ -7,6 +7,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.*;
 import java.util.Arrays;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 
 
@@ -154,7 +157,55 @@ public class GrafHistogram extends GrafObject {
         
     }
     
-   
+    public static void createInputDialog(GrafProg gs){
+        GrafInputDialog gfd = new GrafInputDialog(gs); 
+        gfd.setTitle("Histogram"); 
+        gfd.setHistoPanel(gfd.addHistoPanel());
+        gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
+        gfd.addDeleterPanel(GrafType.HISTOGRAM); 
+        gfd.getCreateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0    ) {
+                saveHistogram(gs,gfd);
+                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.HISTOGRAM);    
+            }
+        });
+        gfd.getSaveChanges().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                gfd.setFinalSave(true);
+                saveHistogram(gs,gfd);
+                gs.setGrafList(gfd.getTempList());
+                gfd.dispose();
+            }
+        });
+        gfd.setModal(true);
+        gfd.pack();
+        gfd.setVisible(true);        
+    }
+    
+    private static void saveHistogram(GrafProg gs, GrafInputDialog gfd){
+        int col = gfd.getColumnChooser().getInputColumn();
+        if (gfd.getFinalSave() == true && col == 0) return; 
+        addHisto(gs,gfd);
+        gfd.getColumnChooser().setInputIndex(0);
+    
+    }
+    
+    private static void addHisto(GrafProg gs, GrafInputDialog gfd){
+          int input = gfd.getInput();
+          if (input == 0) return;
+          GrafHistogram hPlot;
+          if (gfd.getHistoPanel().numClassesChecked()){
+              hPlot = new GrafHistogram(gs, input, gfd.getHistoPanel().getBegin(), gfd.getHistoPanel().getEnd(), gfd.getHistoPanel().getNumClasses(), gfd.getMarkChooser().getGrafColor(), gfd.getHistoPanel().relativeHisto());
+          }else
+          {
+              hPlot = new GrafHistogram(gs, input, gfd.getHistoPanel().getBegin(), gfd.getHistoPanel().getEnd(), gfd.getHistoPanel().getClassSize(), gfd.getMarkChooser().getGrafColor(), gfd.getHistoPanel().relativeHisto());
+          }
+                 
+          if (gfd.getMarkChooser().fillChecked()) { hPlot.setFillFlag(true); hPlot.setFill(gfd.getMarkChooser().getFillColor()); }
+          gfd.getTempList().add(hPlot);
+    
+    }
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

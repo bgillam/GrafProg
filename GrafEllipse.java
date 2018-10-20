@@ -1,70 +1,126 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 //import GrafProg.GrafType;
 
 
 public class GrafEllipse extends GrafRectangle{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private GrafProg myOwner;
-	private GrafSettings gStuff;
-	//private Color fill = Color.WHITE;
-	//private boolean fillFlag = false;
-	
-	
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private GrafProg myOwner;
+    private GrafSettings gStuff;
+    //private Color fill = Color.WHITE;
+    //private boolean fillFlag = false;
+    
+    
 
-	public GrafEllipse(GrafProg sess) {
-		super(sess);
-		myOwner = sess;
-		gStuff = super.getGrafSettings();
-		this.setGrafType(GrafType.ELLIPSE);
-		// TODO Auto-generated constructor stub
-	}
-	
-	 public GrafEllipse(GrafProg sess, double x1, double y1, double width, double height){
-		    super(sess, x1, y1, width, height);
-		    setGrafType(GrafType.ELLIPSE);
-			setMoveable(false);
-			setGrafColor(Color.BLACK);
-			myOwner = sess;
-			gStuff = myOwner.getGrafSettings();
-			setX(x1);
-			setY(y1);
-			setWidth(width);
-			setHeight(height);
-		}
-		
-		public GrafEllipse(GrafProg sess, double x1, double y1, double width, double height, Color gColor){
-		    super(sess, x1, y1, width, height);
-		    setGrafType(GrafType.ELLIPSE);
-			setMoveable(false);
-			setGrafColor(gColor);
-			myOwner = sess;
-			gStuff = myOwner.getGrafSettings();
-			setX(x1);
-			setY(y1);
-			setWidth(width);
-			setHeight(height);
-		}
-	
-	
-	 public void drawGraf(Graphics2D gc){
-		 //System.out.println(super.getFillFlag());
-		 if (super.getFillFlag()) {
-			   gc.setColor(super.getFill());
-			   GrafPrimitives.fillEllipse(gStuff,getX(), getY(), getWidth(), getHeight(), gc );
-		   }
-		   gc.setColor(super.getGrafColor());
-		   GrafPrimitives.grafEllipse(gStuff,getX(), getY(), getWidth(), getHeight() ,gc);
-		   gc.setColor(Color.BLACK);
-		   gc.setPaint(Color.WHITE);
-		   
-		}
-	 
-	 public String toString(){
-		   return "Ellipse("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight()+ " "+getGrafColor()+")";
-	   }
+    public GrafEllipse(GrafProg sess) {
+        super(sess);
+        myOwner = sess;
+        gStuff = super.getGrafSettings();
+        this.setGrafType(GrafType.ELLIPSE);
+        // TODO Auto-generated constructor stub
+    }
+    
+     public GrafEllipse(GrafProg sess, double x1, double y1, double width, double height){
+            super(sess, x1, y1, width, height);
+            setGrafType(GrafType.ELLIPSE);
+            setMoveable(false);
+            setGrafColor(Color.BLACK);
+            myOwner = sess;
+            gStuff = myOwner.getGrafSettings();
+            setX(x1);
+            setY(y1);
+            setWidth(width);
+            setHeight(height);
+        }
+        
+        public GrafEllipse(GrafProg sess, double x1, double y1, double width, double height, Color gColor){
+            super(sess, x1, y1, width, height);
+            setGrafType(GrafType.ELLIPSE);
+            setMoveable(false);
+            setGrafColor(gColor);
+            myOwner = sess;
+            gStuff = myOwner.getGrafSettings();
+            setX(x1);
+            setY(y1);
+            setWidth(width);
+            setHeight(height);
+        }
+        
+    
+    
+     public void drawGraf(Graphics2D gc){
+         //System.out.println(super.getFillFlag());
+         if (super.getFillFlag()) {
+               gc.setColor(super.getFill());
+               GrafPrimitives.fillEllipse(gStuff,getX(), getY(), getWidth(), getHeight(), gc );
+           }
+           gc.setColor(super.getGrafColor());
+           GrafPrimitives.grafEllipse(gStuff,getX(), getY(), getWidth(), getHeight() ,gc);
+           gc.setColor(Color.BLACK);
+           gc.setPaint(Color.WHITE);
+           
+        }
+     
+     public static void createInputDialog(GrafProg gs){
+        GrafInputDialog gfd = new GrafInputDialog(gs);          
+        gfd.setTitle("ELLIPSE");  
+        gfd.setPointPanel(gfd.addPointPanel());
+        gfd.getPointPanel().addX1Y1();
+        gfd.getPointPanel().addWH();
+        gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false))); 
+        gfd.addDeleterPanel(GrafType.ELLIPSE); 
+        gfd.getCreateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0    ) {
+                saveEllipse(gs,gfd);
+                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.ELLIPSE);    
+            }
+        });
+        gfd.getSaveChanges().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                gfd.setFinalSave(true);
+                saveEllipse(gs,gfd);
+                gs.setGrafList(gfd.getTempList());
+                gfd.dispose();
+            }
+        });
+        gfd.setModal(true);
+        gfd.pack();
+        gfd.setVisible(true);  
+     }  
+     
+     private static void saveEllipse(GrafProg gs, GrafInputDialog gfd){
+        if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
+        addEllipse(gs, gfd);
+        gfd.getPointPanel().blankX1();
+        gfd.getPointPanel().blankY1();
+        gfd.getPointPanel().blankW();
+        gfd.getPointPanel().blankH();
+       
+       }
+       
+       private static void addEllipse(GrafProg gs, GrafInputDialog gfd){
+           if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
+           if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
+           if (Double.isNaN(gfd.getPointPanel().getW())){gfd.NumErrorMessage("width", "valid number"); return;}
+           if (Double.isNaN(gfd.getPointPanel().getH())){gfd.NumErrorMessage("Height", "valid number"); return;}    
+           GrafEllipse gPlot = new GrafEllipse(gs, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getPointPanel().getW(), gfd.getPointPanel().getH(),gfd.getMarkChooser().getColor());
+           if (gfd.getMarkChooser().fillChecked()) {
+               gPlot.setFillFlag(true);
+               gPlot.setFill(gfd.getMarkChooser().getFillColor());
+            }
+           gfd.getTempList().add(gPlot);
+        
+        }
+        
+        
+     public String toString(){
+           return "Ellipse("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight()+ " "+getGrafColor()+")";
+       }
 }

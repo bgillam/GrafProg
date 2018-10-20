@@ -7,7 +7,8 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.*;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.JDialog;
 
 
@@ -69,11 +70,60 @@ public class GrafScatterPlot extends GrafObject {
         gc.setColor(Color.BLACK);
     }
     
-    public static void createPanel(){
+    public static void createInputDialog(GrafProg gs){
+        GrafInputDialog gfd = new GrafInputDialog(gs); 
+        gfd.setTitle("ScatterPlot"); 
+        gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, true));
+        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(true))); 
+        gfd.addDeleterPanel(GrafType.SCATTER); 
+        gfd.getCreateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0    ) {
+                saveScatter(gs,gfd);
+                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.SCATTER);    
+            }
+        });
+        gfd.getSaveChanges().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                gfd.setFinalSave(true);
+                saveScatter(gs,gfd);
+                gs.setGrafList(gfd.getTempList());
+                gfd.dispose();
+            }
+        });
+        gfd.setModal(true);
+        gfd.pack();
+        gfd.setVisible(true); 
+    }
+    
+    private static void saveScatter(GrafProg gs, GrafInputDialog gfd){
+            int col = gfd.getColumnChooser().getInputColumn();
+            if (gfd.getFinalSave() == true && col == 0) return; 
+            addScatter(gs, gfd);
+            gfd.getColumnChooser().setInputIndex(0);
+            gfd.getColumnChooser().setOutputIndex(0);
     
     }
     
-    public JDialog createInputDialog(String[] str){
+    private static void addScatter(GrafProg gs, GrafInputDialog gfd){
+        int input = gfd.getInput();
+        int output = gfd.getOutput();
+        if (input == 0 || output == 0) return;
+        GrafScatterPlot gPlot = new GrafScatterPlot(gs, input, output);
+        gPlot.setGrafColor(gfd.getMarkChooser().getGrafColor());
+        //set correct mark for points
+        //markChooser = (ColorRadioMarkPanel)markChooser;
+        if (gfd.getMarkChooser().xMark()) gPlot.setMark("x"); 
+        else if (gfd.getMarkChooser().oMark()) gPlot.setMark("o"); 
+        else if (gfd.getMarkChooser().periodMark()) gPlot.setMark("."); 
+        else { String text = gfd.getMarkChooser().getTextMark(); 
+        gPlot.setMark(text);} 
+        if (gfd.getMarkChooser().isLineGraph()) gPlot.setConnected(true); else gPlot.setConnected(false);
+        gfd.getTempList().add(gPlot);
+    
+    }
+    
+    
+    /*public JDialog createInputDialog(String[] str){
             ColumnChooserPanel columnChooser;
             ColorRadioMarkPanel markChooser;
             JDialog jd = new JDialog();
@@ -84,7 +134,7 @@ public class GrafScatterPlot extends GrafObject {
             addMarkPanel(markChooser);
             
             return jd;
-    }
+    }*/
     
     
     
@@ -104,20 +154,20 @@ public class GrafScatterPlot extends GrafObject {
     
     
     /* Setters and Getters from Parent GrafObject
-	 *  public void drawGraf(Graphics2D g2D){};
+     *  public void drawGraf(Graphics2D g2D){};
    
-   		public void setGrafType(GrafProg.GrafType gt){grafType = gt;}
-   		public GrafProg.GrafType getType(){return grafType; }
+        public void setGrafType(GrafProg.GrafType gt){grafType = gt;}
+        public GrafProg.GrafType getType(){return grafType; }
    
-   		public boolean isMoveable(){ return moveable; } 
-   		public void setMoveable(boolean tf){ moveable = tf;  }
-   		public boolean getMoveable(){return moveable;}
+        public boolean isMoveable(){ return moveable; } 
+        public void setMoveable(boolean tf){ moveable = tf;  }
+        public boolean getMoveable(){return moveable;}
    
-   		public void setOwner(GrafProg owner){myOwner = owner;}
-   		public GrafProg getOwner(){return myOwner;}
+        public void setOwner(GrafProg owner){myOwner = owner;}
+        public GrafProg getOwner(){return myOwner;}
    
-   		public void setGrafColor(Color c){grafColor = Color.BLACK;   }
-   		public Color getGrafColor() { return grafColor;}
-	 */
-	
+        public void setGrafColor(Color c){grafColor = Color.BLACK;   }
+        public Color getGrafColor() { return grafColor;}
+     */
+    
 }
