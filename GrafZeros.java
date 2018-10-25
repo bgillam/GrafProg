@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class GrafZeros extends GrafObject 
 {
@@ -72,7 +73,7 @@ public class GrafZeros extends GrafObject
        GrafInputDialog gfd = new GrafInputDialog(gs);
        gfd.setTitle("ZEROS");
        gfd.setPointPanel(gfd.addPointPanel());
-       gfd.getPointPanel().setupZeros();
+       setupZeros(gfd);
        gfd.getPointPanel().setX1(gs.getGrafSettings().getXMin());
        gfd.getPointPanel().setX2(gs.getGrafSettings().getXMax());
        gfd.getPointPanel().initFx();
@@ -120,6 +121,27 @@ public class GrafZeros extends GrafObject
         GrafZeros gint = new GrafZeros(gs, gfd.getPointPanel().getF(), gfd.getPointPanel().getX1(), gfd.getPointPanel().getX2(), gfd.getPointPanel().getDx(),gfd.getMarkChooser().getColor(), gfd.getMarkChooser().getMark());
         gfd.getTempList().add(gint);
     }
+    
+     private static void setupZeros(GrafInputDialog gfd){
+        PointPanel pointPanel = gfd.getPointPanel();
+        pointPanel.setupFunctionChooser();
+        pointPanel.getX1Label().setText("Start x:");
+        pointPanel.getX2Label().setText("End x:");
+        pointPanel.getNLabel().setText("dx:");
+        pointPanel.setDx(.01);
+        pointPanel.getX2JText().setColumns(8);
+        pointPanel.getNJText().setColumns(8);
+        JPanel rightPanel = pointPanel.getRightPanel();
+        rightPanel.add(pointPanel.getX2Label(), BorderLayout.WEST);
+        rightPanel.add(pointPanel.getX2JText(), BorderLayout.CENTER);
+        JPanel rightPanel2 = pointPanel.getRightPanel2();
+        rightPanel2.add(pointPanel.getNLabel(), BorderLayout.WEST);
+        rightPanel2.add(pointPanel.getNJText(), BorderLayout.CENTER);
+        JPanel bottomPanel = pointPanel.getBottomPanel();
+        bottomPanel.add(rightPanel, BorderLayout.CENTER);
+        bottomPanel.add(rightPanel2, BorderLayout.EAST);
+    }
+    
  
    public void setStartX(double xval){ startX = xval; }
    public double getStartX() { return startX; } 

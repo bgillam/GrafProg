@@ -85,7 +85,7 @@ public class GrafTangent extends GrafObject
        GrafInputDialog gfd = new GrafInputDialog(gs);
        gfd.setTitle("TANGENT");
        gfd.setPointPanel(gfd.addPointPanel());
-       gfd.getPointPanel().setupTan();
+       gfd.getPointPanel().setupFunctionChooser();
        gfd.getPointPanel().initFx();
        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
        gfd.addDeleterPanel(GrafType.TANGENT); 

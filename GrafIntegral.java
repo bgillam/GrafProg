@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class GrafIntegral extends GrafObject 
 {
@@ -76,7 +77,7 @@ public class GrafIntegral extends GrafObject
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("INTEGRAL");
         gfd.setPointPanel(gfd.addPointPanel());
-        gfd.getPointPanel().setupIntegral();
+        setupIntegral(gfd);
         gfd.getPointPanel().initFx();
         gfd.addDeleterPanel(GrafType.INTEGRAL); 
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));//gSess.getGraphics().getFont(), true, false, false, false, false, false, false);
@@ -121,6 +122,22 @@ public class GrafIntegral extends GrafObject
         if (gfd.getPointPanel().getN()==null){ gfd.NumErrorMessage("n", "integer"); return;}
         GrafIntegral gint = new GrafIntegral(gs, gfd.getPointPanel().getF(), gfd.getPointPanel().getX1(), gfd.getPointPanel().getX2(), gfd.getPointPanel().getN(), gfd.getMarkChooser().getColor());
         gfd.getTempList().add(gint); 
+    }
+    
+    public static void setupIntegral(GrafInputDialog gfd){
+        PointPanel pointPanel = gfd.getPointPanel();
+        pointPanel.setupFunctionChooser();
+        pointPanel.getX2JText().setColumns(8);
+        pointPanel.getNJText().setColumns(8);
+        JPanel rightPanel = pointPanel.getRightPanel();
+        rightPanel.add(pointPanel.getX2Label(), BorderLayout.WEST);
+        rightPanel.add(pointPanel.getX2JText(), BorderLayout.CENTER);
+        JPanel rightPanel2 = pointPanel.getRightPanel2();
+        rightPanel2.add(pointPanel.getNLabel(), BorderLayout.WEST);
+        rightPanel2.add(pointPanel.getNJText(), BorderLayout.CENTER);
+        JPanel bottomPanel = pointPanel.getBottomPanel();
+        bottomPanel.add(rightPanel, BorderLayout.CENTER);
+        bottomPanel.add(rightPanel2, BorderLayout.EAST);
     }
  
    public void setX1(double xval){ x1 = xval; }

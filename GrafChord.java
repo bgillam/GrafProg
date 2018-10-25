@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class GrafChord extends GrafObject 
 {
@@ -70,7 +71,8 @@ public class GrafChord extends GrafObject
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("CHORD");
         gfd.setPointPanel(gfd.addPointPanel());
-        gfd.getPointPanel().setupChord();
+        //gfd.getPointPanel().
+        setupChord(gfd);
         gfd.getPointPanel().initFx();
         gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
         gfd.addDeleterPanel(GrafType.CHORD); 
@@ -117,6 +119,16 @@ public class GrafChord extends GrafObject
         gfd.getTempList().add(gch);      
    }
    
+   private static void setupChord(GrafInputDialog gfd){
+        PointPanel pointPanel = gfd.getPointPanel();
+        JPanel rightPanel = pointPanel.getRightPanel();
+        pointPanel.setupFunctionChooser();
+        pointPanel.getX2JText().setColumns(8);
+        rightPanel.add(pointPanel.getX2Label(), BorderLayout.WEST);
+        rightPanel.add(pointPanel.getX2JText(), BorderLayout.CENTER);
+        gfd.getPointPanel().getBottomPanel().add(rightPanel, BorderLayout.CENTER);
+    }
+   
     
    public void setX1(double xval){ x1 = xval; }
    public double getX1() { return x1; } 
@@ -126,6 +138,9 @@ public class GrafChord extends GrafObject
    public double gety1() { return y1; } 
    public void sety2(double xval){ y2 = xval; }
    public double gety2() { return y2; } 
+   
+   
+   
    public void calcY1(){
        try {
         y1 = FunctionString.fValue(functionString, x1);

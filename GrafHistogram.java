@@ -10,7 +10,22 @@ import java.util.Arrays;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+//import javax.swing.JDialog;
+//import java.util.ArrayList;
+import java.awt.BorderLayout;
+//import java.awt.Font;
+import javax.swing.UIManager;
+/*import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;*/
+import javax.swing.border.BevelBorder;
+//import javax.swing.JSeparator;
+//import javax.swing.SwingConstants;
 
 
 
@@ -160,7 +175,7 @@ public class GrafHistogram extends GrafObject {
     public static void createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Histogram"); 
-        gfd.setHistoPanel(gfd.addHistoPanel());
+        gfd.setHistoPanel(addHistoPanel(gs, gfd));
         gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
         gfd.addDeleterPanel(GrafType.HISTOGRAM); 
@@ -182,6 +197,19 @@ public class GrafHistogram extends GrafObject {
         gfd.pack();
         gfd.setVisible(true);        
     }
+
+    protected static HistoPanel addHistoPanel(GrafProg gs, GrafInputDialog gfd){
+        HistoPanel histoPanel = new HistoPanel();
+        histoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        histoPanel.setBackground(UIManager.getColor("Button.background"));
+        Double[] col1 = gs.getData().getColumnValues(1);
+        histoPanel.setBegin(GrafStats.getMin(col1));
+        histoPanel.setEnd(GrafStats.getMax(col1));
+        histoPanel.setNumClasses(10);
+        gfd.getContentPane().add(histoPanel, BorderLayout.CENTER);
+        return histoPanel;
+    }
+    
     
     private static void saveHistogram(GrafProg gs, GrafInputDialog gfd){
         int col = gfd.getColumnChooser().getInputColumn();
@@ -206,6 +234,8 @@ public class GrafHistogram extends GrafObject {
           gfd.getTempList().add(hPlot);
     
     }
+    
+    
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

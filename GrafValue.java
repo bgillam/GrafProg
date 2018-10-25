@@ -13,8 +13,7 @@ import java.awt.BorderLayout;
 import javax.swing.border.*;
 import javax.swing.UIManager;
 
-public class GrafValue extends GrafObject 
-{
+public class GrafValue extends GrafObject {
         private String functionString="";
         //private int segLength = 1000;
         private GrafProg myOwner;
@@ -62,7 +61,7 @@ public class GrafValue extends GrafObject
        GrafInputDialog gfd = new GrafInputDialog(gs);
        gfd.setTitle("FVALUE");
        gfd.setPointPanel(gfd.addPointPanel());
-       gfd.getPointPanel().setupTan();
+       gfd.getPointPanel().setupFunctionChooser();
        gfd.getPointPanel().initFx();
        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
        gfd.addDeleterPanel(GrafType.FVALUE);

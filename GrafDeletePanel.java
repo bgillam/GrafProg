@@ -31,7 +31,10 @@ public class GrafDeletePanel extends JPanel
     private GrafInputDialog caller;
    
     
-    public GrafDeletePanel(GrafInputDialog c, GrafType gType, ArrayList<GrafObject> tempList)
+    public GrafDeletePanel(GrafInputDialog c, 
+                        GrafType gType, 
+                       // GrafObject gObject,
+                    ArrayList<GrafObject> tempList)
     {
        //gType = grType;
        //tempList = gList;
@@ -44,6 +47,7 @@ public class GrafDeletePanel extends JPanel
        add(deleteComboBox, BorderLayout.CENTER);
        JPanel deleteButtonPanel = new JPanel();
        deleteButtonPanel.setLayout(new BorderLayout());
+       //set up delete button
        JButton deleteButton = new JButton("Delete");
        deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
@@ -55,9 +59,7 @@ public class GrafDeletePanel extends JPanel
             }
         });
        deleteButtonPanel.add(deleteButton, BorderLayout.NORTH);
-       
-       
-       
+       //set up edit button
        JButton editButton = new JButton("Edit");
        editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
@@ -70,7 +72,7 @@ public class GrafDeletePanel extends JPanel
         });
         deleteButtonPanel.add(editButton, BorderLayout.CENTER);
        
-       
+       //set up clear button
        JButton btnClearAll = new JButton("Clear All");
        btnClearAll.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
@@ -85,6 +87,7 @@ public class GrafDeletePanel extends JPanel
       add(deleteButtonPanel, BorderLayout.SOUTH);
     }
           
+    //reseets the list of objects for the delete combo box
     public void resetPlotListModel(ArrayList<GrafObject> tempList, GrafType gType){
              deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(getPlotList(tempList, gType)));  
              //caller.getColumnChooser().setInputIndex(0);

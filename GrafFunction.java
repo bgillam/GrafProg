@@ -72,7 +72,7 @@ public class GrafFunction extends GrafObject {
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("FUNCTION");
         gfd.setPointPanel(gfd.addPointPanel());
-        gfd.getPointPanel().addF();
+        gfd.getPointPanel().addFx();
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false))); 
         gfd.addDeleterPanel(GrafType.FUNCTION);   
         gfd.getCreateButton().addActionListener(new ActionListener() {

@@ -1,4 +1,5 @@
 
+
 /**
  * GrafInputDialog creates GrafObjects. 
  * 
@@ -48,13 +49,12 @@ public class GrafInputDialog extends JDialog
        
     }
     
-        
+    //creates dialog with buttons used by all Graf dialogs    
     public GrafInputDialog(GrafProg gs){
         gSess = gs;
         tempList = (ArrayList<GrafObject>)(gSess.getGrafList().clone()); //make a temporary copy of list to modify. This provides opportunity to cancel or save changes when ending dialog
         getContentPane().setLayout(new BorderLayout());
         addSeparatorPanel();  
-                  
         //Create-Save-Exit Options on bottom panel
         optionPanel.setLayout(new BorderLayout());
         optionPanel.add(createButton, BorderLayout.WEST);
@@ -69,6 +69,7 @@ public class GrafInputDialog extends JDialog
         getContentPane().add(optionPanel, BorderLayout.SOUTH);
     }
     
+    //adds a column chooser to the input dialog
     public ColumnChooserPanel addColumnChooserPanel(String[] str, boolean inputOn, boolean outputOn) {
          columnChooser = new ColumnChooserPanel(str, inputOn, outputOn);
          columnChooser.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -77,34 +78,7 @@ public class GrafInputDialog extends JDialog
          return columnChooser;
     }    
     
-    public ColumnChooserPanel getColumnChooser(){
-        return columnChooser;
-    }
-    
-    public void setColumnChooser(ColumnChooserPanel cp){
-        columnChooser = cp;
-    
-    }
-    public PointPanel getPointChooser(){
-        return ptPanel;
-    }
-    public MarkPanel getMarkChooser(){
-        return markChooser;
-   }
-    public HistoPanel getHistoPanel(){
-        return histoPanel;
-    }
-    
-    public HistoPanel getHisto(){
-        return histoPanel;
-    }
-    
-    public void setHistoPanel(HistoPanel hp){
-            histoPanel= hp;
-    
-    }
-  
-    //Create panel to input points and place NORTH. Used for Shapes
+     //Create panel to input points and place NORTH. Used for Shapes
     public PointPanel addPointPanel(){
         ptPanel = new PointPanel(tempList);
         ptPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -130,33 +104,22 @@ public class GrafInputDialog extends JDialog
     }
     
     
+    //add separator to dialog at CENTER
     public void addSeparatorPanel(){
         JPanel separatorPanel = new JPanel();
         separatorPanel.add(new JSeparator(SwingConstants.VERTICAL));
         getContentPane().add(separatorPanel, BorderLayout.CENTER);
     }
     
-    
-    public HistoPanel addHistoPanel(){
-        histoPanel = new HistoPanel();
-        histoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-        histoPanel.setBackground(UIManager.getColor("Button.background"));
-        Double[] col1 = gSess.getData().getColumnValues(1);
-        histoPanel.setBegin(GrafStats.getMin(col1));
-        histoPanel.setEnd(GrafStats.getMax(col1));
-        histoPanel.setNumClasses(10);
-        getContentPane().add(histoPanel, BorderLayout.CENTER);
-        return histoPanel;
-    }
-    
-   
-    //helpers
+    //displays error message in dialog
     public void NumErrorMessage(String str, String str2){
         JOptionPane.showMessageDialog(null,
                    "The value entered for "+str+" is not a "+str2 ,
                    "Number Format Error",
-                   JOptionPane.ERROR_MESSAGE);    }
+                   JOptionPane.ERROR_MESSAGE);   
+         }
     
+    //choose a column for input               
     public int getInput(){
             int input = columnChooser.getInputColumn();
             if (input == 0) { JOptionPane.showMessageDialog(null,
@@ -169,6 +132,7 @@ public class GrafInputDialog extends JDialog
          
     }
     
+    //choose a column for output
     public int getOutput(){
             int output = columnChooser.getOutputColumn();
              //output++;
@@ -180,6 +144,37 @@ public class GrafInputDialog extends JDialog
              }
              return output;
     }
+    
+    //getters and setter
+    public ColumnChooserPanel getColumnChooser(){
+        return columnChooser;
+    }
+    
+    public void setColumnChooser(ColumnChooserPanel cp){
+        columnChooser = cp;
+    
+    }
+    
+    public PointPanel getPointChooser(){
+        return ptPanel;
+    }
+    public MarkPanel getMarkChooser(){
+        return markChooser;
+   }
+    public HistoPanel getHistoPanel(){
+        return histoPanel;
+    }
+    
+    public HistoPanel getHisto(){
+        return histoPanel;
+    }
+    
+    public void setHistoPanel(HistoPanel hp){
+            histoPanel= hp;
+    
+    }
+  
+   
     
     public String[] getColumnsString(){
          String[] colArray = {"","col1","col2","col3","col4","col5"};
@@ -245,8 +240,11 @@ public class GrafInputDialog extends JDialog
     
     }
     
+    
+    
     public PointPanel getPtPanel(){
         return ptPanel;
     }
     
+        
 }

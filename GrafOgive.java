@@ -167,7 +167,7 @@ public class GrafOgive extends GrafHistogram {
     public static void createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Ogive"); 
-        gfd.setHistoPanel(gfd.addHistoPanel());
+        gfd.setHistoPanel(addHistoPanel(gs, gfd));
         gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
         gfd.addDeleterPanel(GrafType.FREQPOLYGON); 

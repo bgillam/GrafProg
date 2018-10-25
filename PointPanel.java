@@ -1,4 +1,6 @@
 
+
+
 /**
  * PointPanel input panel for shape types
  * 
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class PointPanel extends JPanel
 {
@@ -35,12 +39,12 @@ public class PointPanel extends JPanel
     private JTextField x2 = new JTextField();
     private JTextField y1 = new JTextField();
     private JTextField y2 = new JTextField();
-    private JTextField h = new JTextField();
-    private JTextField w = new JTextField();
-    private JTextField r = new JTextField();
-    private JTextField f = new JTextField();
-    private JTextField n = new JTextField();
-    private JButton copyButton = new JButton("Select");
+    private JTextField h = new JTextField();  //height
+    private JTextField w = new JTextField();  //width
+    private JTextField r = new JTextField();  //radius
+    private JTextField functionTextField = new JTextField();
+    private JTextField n = new JTextField();  //number of iterations
+    //private JButton copyButton = new JButton("Select");
     private JPanel topPanel = new JPanel();
     private JPanel bottomPanel = new JPanel();
     private JPanel leftPanel = new JPanel();
@@ -73,7 +77,6 @@ public class PointPanel extends JPanel
         tempList = tempListPassed;
         //gType = gTypePassed;
         x1.setColumns(8);
-        
         y1.setColumns(8);
         setBackground(new Color(220, 220, 220));
         setLayout(new BorderLayout());
@@ -88,72 +91,45 @@ public class PointPanel extends JPanel
         add(bottomPanel,BorderLayout.SOUTH);
     }
     
+    //loads first function String, if function is present
     public void initFx(){
        if (!(fComboBox.getItemCount()==0)) {
        String fString = (String)fComboBox.getItemAt(0);
        fString = fString.substring(4);
-       f.setText(fString) ;
+       functionTextField.setText(fString) ;
        }
     }
     
-    public void addF(){
-        f.setColumns(20);
+    //ads function inout field
+    public void addFx(){
+        functionTextField.setColumns(20);
         topPanel.add(fLabel, BorderLayout.WEST);
-        topPanel.add(f, BorderLayout.EAST);
+        topPanel.add(functionTextField, BorderLayout.EAST);
     }
-    public void setupChord(){
-        setupTan();
-        x2.setColumns(8);
-        rightPanel.add(x2Label, BorderLayout.WEST);
-        rightPanel.add(x2, BorderLayout.CENTER);
-        bottomPanel.add(rightPanel, BorderLayout.CENTER);
-    }
-    public void setupIntegral(){
-        setupTan();
-        x2.setColumns(8);
-        n.setColumns(8);
-        rightPanel.add(x2Label, BorderLayout.WEST);
-        rightPanel.add(x2, BorderLayout.CENTER);
-        rightPanel2.add(nLabel, BorderLayout.WEST);
-        rightPanel2.add(n, BorderLayout.CENTER);
-        bottomPanel.add(rightPanel, BorderLayout.CENTER);
-        bottomPanel.add(rightPanel2, BorderLayout.EAST);
-    }
-    public void setupZeros(){
-        setupTan();
-        x1Label.setText("Start x:");
-        x2Label.setText("End x:");
-        nLabel.setText("dx:");
-        setDx(.01);
-        x2.setColumns(8);
-        n.setColumns(8);
-        rightPanel.add(x2Label, BorderLayout.WEST);
-        rightPanel.add(x2, BorderLayout.CENTER);
-        rightPanel2.add(nLabel, BorderLayout.WEST);
-        rightPanel2.add(n, BorderLayout.CENTER);
-        bottomPanel.add(rightPanel, BorderLayout.CENTER);
-        bottomPanel.add(rightPanel2, BorderLayout.EAST);
-    }
-    
-    public void setupTan(){
+   
+     //sets up the function combobox
+    public void setupFunctionChooser(){
             leftPanel.add(functionText, BorderLayout.WEST);
             fComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafDeletePanel.getPlotList(tempList, GrafType.FUNCTION)));
             leftPanel.add(fComboBox, BorderLayout.CENTER);
-            copyButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent arg0    ) {
-                   f.setText(((String)fComboBox.getSelectedItem()).substring(4));
+            
+            fComboBox.addItemListener(new ItemListener(){
+                public void itemStateChanged(ItemEvent ie){
+                    functionTextField.setText(((String)fComboBox.getSelectedItem()).substring(4));
                 }
             });
-            leftPanel.add(copyButton, BorderLayout.EAST);
+            
             topPanel.add(leftPanel, BorderLayout.NORTH);
             topPanel.add(fLabel, BorderLayout.WEST);
-            f.setEditable(false);
-            topPanel.add(f,BorderLayout.CENTER);
+            functionTextField.setEditable(false);
+            topPanel.add(functionTextField,BorderLayout.CENTER);
             x1.setColumns(8);
             leftPanel2.add(x1Label, BorderLayout.WEST);
             leftPanel2.add(x1, BorderLayout.CENTER);
             bottomPanel.add(leftPanel2, BorderLayout.WEST);
-}
+    }
+
+    //Input for a point
     public void addX1Y1(){
         leftPanel.add(x1Label, BorderLayout.WEST);
         leftPanel.add(x1, BorderLayout.CENTER);
@@ -162,6 +138,8 @@ public class PointPanel extends JPanel
         topPanel.add(leftPanel, BorderLayout.WEST);
         topPanel.add(rightPanel, BorderLayout.EAST);
     }
+    
+    //input for a second point
     public void addX2Y2(){
         x2.setColumns(8);
         y2.setColumns(8);
@@ -172,6 +150,8 @@ public class PointPanel extends JPanel
         bottomPanel.add(leftPanel2, BorderLayout.WEST);
         bottomPanel.add(rightPanel2, BorderLayout.EAST);  
     }
+    
+    //input for width and height
     public void addWH(){
         w.setColumns(8);
         h.setColumns(8);
@@ -182,23 +162,35 @@ public class PointPanel extends JPanel
         bottomPanel.add(leftPanel2, BorderLayout.WEST);
         bottomPanel.add(rightPanel2, BorderLayout.EAST);
     }
+    
+    //input for radius
     public void addR(){
         r.setColumns(8);
         bottomPanel.add(rLabel,BorderLayout.WEST);
         bottomPanel.add(r, BorderLayout.EAST);
     }
     
+    //setters and getters
     public double getX1(){
         if (GrafInputHelpers.isDouble(x1.getText()))
             return Double.parseDouble(x1.getText());
         else
         return Double.NaN;
     }
+    
     public void setX1(double x){
         x1.setText(x+"");
     }
     public void blankX1(){
          x1.setText("");
+    }
+    
+    public JTextField getX1JText(){
+        return x1;
+    }
+    
+    public JLabel getX1Label(){
+        return x1Label;
     }
     
     public double getY1(){
@@ -219,6 +211,15 @@ public class PointPanel extends JPanel
         else
         return Double.NaN;
     }
+    
+    public JTextField getX2JText(){
+        return x2;
+    }
+    
+    public JLabel getX2Label(){
+        return x2Label;
+    }
+    
     public void setX2(double x){
         x2.setText(x+"");
     }
@@ -274,23 +275,33 @@ public class PointPanel extends JPanel
          r.setText("");
     }
     public String getF(){
-        return f.getText();
+        return functionTextField.getText();
     }
     public void blankF(){
-        f.setText("");
+        functionTextField.setText("");
     }
     public void setF(String s){
-        f.setText(s);
+        functionTextField.setText(s);
     }
     public String getNString(){
-          return n.getText();
-        }
+              return n.getText();
+            }
     public Integer getN(){
         if (GrafInputHelpers.isInt(n.getText()))
             return Integer.parseInt(n.getText());
         else
         return null;
     }
+    
+    public JTextField getNJText(){
+        return n;
+    
+    }
+    
+    public JLabel getNLabel(){
+        return nLabel;
+    }
+    
     public void setN(int num){
         n.setText(num+"");
     }
@@ -309,4 +320,21 @@ public class PointPanel extends JPanel
      public void blankDx(){
          n.setText("");
     }
+    
+    
+    
+    public  JPanel getRightPanel(){
+        return rightPanel;
+    }
+    
+    public  JPanel getRightPanel2(){
+        return rightPanel2;
+    }
+    
+    public JPanel getBottomPanel(){
+        return bottomPanel;
+        
+    }
+    
+    
 }   
