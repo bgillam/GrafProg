@@ -9,6 +9,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 //import javax.swing.JDialog;
 //import java.util.ArrayList;
@@ -178,11 +179,14 @@ public class GrafHistogram extends GrafObject {
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
         gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
-        gfd.addDeleterPanel(GrafType.HISTOGRAM); 
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.HISTOGRAM)); 
+        
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+        
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveHistogram(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.HISTOGRAM);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex()))); 
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -235,7 +239,17 @@ public class GrafHistogram extends GrafObject {
     
     }
     
-    
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.HISTOGRAM);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+            GrafHistogram currentHistoPlot = (GrafHistogram)tempList.get(plotIndex.get(i)); 
+            plotListArray[i] = "input: "+currentHistoPlot.getColumnNumber()+" "+currentHistoPlot.getGrafColor();   
+           
+        }
+       return plotListArray;
+    }
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

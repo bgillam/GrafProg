@@ -120,10 +120,10 @@ public class GrafDeletePanel extends JPanel
                         if (currentScatterPlot.getConnected()) con = "connected"; else con = "discrete";
                         plotListArray[i] = "input: "+currentScatterPlot.getInputColumnNumber()+", output: "+currentScatterPlot.getOutputColumnNumber()+" "+con;    
                         break;
-               case HISTOGRAM:
+               /*case HISTOGRAM:
                         GrafHistogram currentHistoPlot = (GrafHistogram)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "input: "+currentHistoPlot.getColumnNumber()+" "+currentHistoPlot.getGrafColor();    
-                        break;
+                        break;*/
               case FREQPOLYGON: 
                         GrafFreqPolygon currentFreqPolygon = (GrafFreqPolygon)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "input: "+currentFreqPolygon.getColumnNumber();  
