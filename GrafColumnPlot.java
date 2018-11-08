@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.io.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 //Class Header
 public class GrafColumnPlot extends GrafObject {
@@ -57,11 +58,12 @@ public class GrafColumnPlot extends GrafObject {
         gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
         gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(true))); //addMarkPanel(gSess.getGraphics().getFont(), true, false, false, true, false, false, false);
         gfd.addSeparatorPanel();
-        gfd.addDeleterPanel(GrafType.COLUMN); 
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.COLUMN)); 
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveColumn(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.COLUMN);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -100,6 +102,21 @@ public class GrafColumnPlot extends GrafObject {
         gfd.getTempList().add(gPlot);
     
     }
+    
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.COLUMN);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+             GrafColumnPlot currentColumnPlot = (GrafColumnPlot)tempList.get(plotIndex.get(i)); 
+            if (currentColumnPlot.getConnected()) con = "connected"; else con = "discrete";
+            plotListArray[i] = "input: "+currentColumnPlot.getColumnNumber()+" "+con;    
+        }
+       return plotListArray;
+    }
+    
+    
+    
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

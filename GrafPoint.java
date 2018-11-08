@@ -10,7 +10,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 public class GrafPoint extends GrafText
 {
@@ -77,24 +78,26 @@ public class GrafPoint extends GrafText
          gfd.getPointPanel().addX1Y1();
          //gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false))); 
          gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
-         gfd.addDeleterPanel(GrafType.POINT);   
+         gfd.setDeleter(gfd.addDeleterPanel(GrafType.POINT));   
+         gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
          gfd.getCreateButton().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0    ) {
+         public void actionPerformed(ActionEvent arg0    ) {
                 savePoint(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.POINT);    
-            }
-        });
-        gfd.getSaveChanges().addActionListener(new ActionListener() {
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+                //gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.POINT);    
+         }
+         });
+         gfd.getSaveChanges().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 gfd.setFinalSave(true);
                 savePoint(gs,gfd);
                 gs.setGrafList(gfd.getTempList());
                 gfd.dispose();
             }
-        });
-        gfd.setModal(true);
-        gfd.pack();
-        gfd.setVisible(true);  
+         });
+         gfd.setModal(true);
+         gfd.pack();
+         gfd.setVisible(true);  
      }
     
      private static void savePoint(GrafProg gSess, GrafInputDialog gfd){
@@ -110,8 +113,43 @@ public class GrafPoint extends GrafText
        GrafPoint gPlot = new GrafPoint(gSess, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getMark(), gfd.getMarkChooser().getColor());
        gfd.getTempList().add(gPlot);
     }
+    
+     public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.POINT);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+            GrafPoint currentP = (GrafPoint)tempList.get(plotIndex.get(i)); 
+            plotListArray[i] = "("+currentP.getX()+", "+currentP.getY()+")";   
+        }
+       return plotListArray;
+    }
    
    public void setMark(String s){super.setText(s);}
    public String getMark(){return super.getText();}
    
 }
+
+
+/* Inherited from GrafObject
+   private GrafProg.GrafType grafType;
+   private Color grafColor = Color.BLACK; 
+   private boolean moveable;
+   private GrafProg myOwner;
+     
+   
+   public void drawGraf(Graphics2D g2D){};
+   
+   public void setGrafType(GrafProg.GrafType gt){grafType = gt;}
+   public GrafProg.GrafType getType(){return grafType; }
+   
+   public boolean isMoveable(){ return moveable; } 
+   public void setMoveable(boolean tf){ moveable = tf;  }
+   public boolean getMoveable(){return moveable;}
+   
+   public void setOwner(GrafProg owner){myOwner = owner;}
+   public GrafProg getOwner(){return myOwner;}
+   
+   public void setGrafColor(Color c){grafColor = c;   }
+   public Color getGrafColor() { return grafColor;}
+  */

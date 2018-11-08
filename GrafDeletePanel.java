@@ -102,7 +102,7 @@ public class GrafDeletePanel extends JPanel
              
             //Switch statements here!
             switch (gType){
-               case TEXT:
+               /*case TEXT:
                         GrafText currentT = (GrafText)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "("+currentT.getX()+", "+currentT.getY()+"); ("+currentT.getText()+")"; 
                         break;
@@ -114,7 +114,7 @@ public class GrafDeletePanel extends JPanel
                case BOXPLOT:
                         GrafBoxPlot currentBoxPlot = (GrafBoxPlot)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "input: "+currentBoxPlot.getColumnNumber();    
-                        break;
+                        break;*/
                case SCATTER: 
                         GrafScatterPlot currentScatterPlot = (GrafScatterPlot)tempList.get(plotIndex.get(i)); 
                         if (currentScatterPlot.getConnected()) con = "connected"; else con = "discrete";
@@ -134,10 +134,10 @@ public class GrafDeletePanel extends JPanel
                        break;
                
                
-               case POINT:
+               /*case POINT:
                         GrafPoint currentP = (GrafPoint)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "("+currentP.getX()+", "+currentP.getY()+")";   
-                        break;
+                        break;*/
                case LINESEGMENT:
                         GrafSegment currentS = (GrafSegment)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "("+currentS.getX1()+", "+currentS.getY1()+"); ("+currentS.getX2()+", "+currentS.getY2()+")";    
@@ -389,7 +389,7 @@ public class GrafDeletePanel extends JPanel
     }
     
     //indexPlots creates an index of positions of GrafObjects of type gType
-    private static void indexPlots(ArrayList<GrafObject> tempList, GrafType gType){
+    public static void indexPlots(ArrayList<GrafObject> tempList, GrafType gType){
             int i = 0;
             plotIndex.clear();
             if (tempList != null)
@@ -399,6 +399,13 @@ public class GrafDeletePanel extends JPanel
                 }
     }
 
+     public JComboBox getDeleteComboBox(){
+        return deleteComboBox;
+        }
+        
+   public ArrayList<Integer> getPlotIndex(){
+       return plotIndex;
+    }
     
 }
 

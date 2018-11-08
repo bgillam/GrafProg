@@ -9,6 +9,8 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 
 public class GrafText extends GrafObject 
@@ -78,11 +80,13 @@ public class GrafText extends GrafObject
          gfd.setPointPanel(gfd.addPointPanel());
          gfd.getPointPanel().addX1Y1();
          gfd.setMarkChooser(gfd.addMarkPanel(new TextMarkPanel()));
-         gfd.addDeleterPanel(GrafType.TEXT);   
+         gfd.setDeleter(gfd.addDeleterPanel(GrafType.TEXT));//something wrong here?
+         gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
          gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveText(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.TEXT);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+                //resetPlotListModel(gfd.getTempList(), deletePanel.getPlotIndex(), deleteComboBox);    
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -113,7 +117,17 @@ public class GrafText extends GrafObject
        gfd.getTempList().add(gPlot);
   }  
     
-    
+ public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.TEXT);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+            GrafText currentT = (GrafText)tempList.get(plotIndex.get(i)); 
+            plotListArray[i] = "("+currentT.getX()+", "+currentT.getY()+"); ("+currentT.getText()+")"; 
+        }
+       return plotListArray;
+ }
+ 
  }
    
 

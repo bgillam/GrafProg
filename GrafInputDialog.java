@@ -205,6 +205,8 @@ public class GrafInputDialog extends JDialog
         return ptPanel;
     
     }
+    
+    
 
     public JButton getCreateButton(){
         return createButton;
@@ -238,6 +240,10 @@ public class GrafInputDialog extends JDialog
     public GrafDeletePanel getDeleter(){
         return deleter;
     
+    }
+    
+    public void setDeleter(GrafDeletePanel gdp){
+        deleter = gdp;
     }
     
     
