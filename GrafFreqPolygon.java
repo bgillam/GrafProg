@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.util.ArrayList;
 
 
 
@@ -168,11 +168,14 @@ public class GrafFreqPolygon extends GrafHistogram {
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
         gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
-        gfd.addDeleterPanel(GrafType.FREQPOLYGON); 
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.FREQPOLYGON)); 
+        
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+        
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveFreqPolygon(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.FREQPOLYGON);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -213,7 +216,16 @@ public class GrafFreqPolygon extends GrafHistogram {
     }
     
   
-    
+     public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.FREQPOLYGON);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+            GrafFreqPolygon currentFreqPolygon = (GrafFreqPolygon)tempList.get(plotIndex.get(i)); 
+            plotListArray[i] = "input: "+currentFreqPolygon.getColumnNumber();  
+        }
+       return plotListArray;
+    }
     
     
     //Setters and Getters

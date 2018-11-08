@@ -3,6 +3,8 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 
 
 public class GrafSegment extends GrafObject 
@@ -57,11 +59,12 @@ public class GrafSegment extends GrafObject
         gfd.getPointPanel().addX1Y1();
         gfd.getPointPanel().addX2Y2();
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false)));  
-        gfd.addDeleterPanel(GrafType.LINESEGMENT);
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.LINESEGMENT));
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));          
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveSegment(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.LINESEGMENT);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));        
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -99,6 +102,17 @@ public class GrafSegment extends GrafObject
     
     }
     
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.LINESEGMENT);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+             GrafSegment currentS = (GrafSegment)tempList.get(plotIndex.get(i)); 
+             plotListArray[i] = "("+currentS.getX1()+", "+currentS.getY1()+"); ("+currentS.getX2()+", "+currentS.getY2()+")";    
+        }
+       return plotListArray;
+    }
+    
    public void setX1(double xval){ x1 = xval; }
    public double getX1() { return x1; }
    public void setX2(double xval){ x2 = xval; }
@@ -117,7 +131,7 @@ public class GrafSegment extends GrafObject
    
  }
    
-
+ 
 
 /* Inherited from GrafObject
    private GrafProg.GrafType grafType;

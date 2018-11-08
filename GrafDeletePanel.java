@@ -114,7 +114,7 @@ public class GrafDeletePanel extends JPanel
                case BOXPLOT:
                         GrafBoxPlot currentBoxPlot = (GrafBoxPlot)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "input: "+currentBoxPlot.getColumnNumber();    
-                        break;*/
+                        break;
                case SCATTER: 
                         GrafScatterPlot currentScatterPlot = (GrafScatterPlot)tempList.get(plotIndex.get(i)); 
                         if (currentScatterPlot.getConnected()) con = "connected"; else con = "discrete";
@@ -123,7 +123,7 @@ public class GrafDeletePanel extends JPanel
                /*case HISTOGRAM:
                         GrafHistogram currentHistoPlot = (GrafHistogram)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "input: "+currentHistoPlot.getColumnNumber()+" "+currentHistoPlot.getGrafColor();    
-                        break;*/
+                        break;
               case FREQPOLYGON: 
                         GrafFreqPolygon currentFreqPolygon = (GrafFreqPolygon)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "input: "+currentFreqPolygon.getColumnNumber();  
@@ -131,17 +131,17 @@ public class GrafDeletePanel extends JPanel
               case OGIVE: 
                        GrafOgive currentOgive = (GrafOgive)tempList.get(plotIndex.get(i)); 
                        plotListArray[i] = "input: "+currentOgive.getColumnNumber();  
-                       break;
+                       break;*/
                
                
                /*case POINT:
                         GrafPoint currentP = (GrafPoint)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "("+currentP.getX()+", "+currentP.getY()+")";   
-                        break;*/
+                        break;
                case LINESEGMENT:
                         GrafSegment currentS = (GrafSegment)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "("+currentS.getX1()+", "+currentS.getY1()+"); ("+currentS.getX2()+", "+currentS.getY2()+")";    
-                        break;
+                        break;*/
                case RECTANGLE:
                         GrafRectangle currentR = (GrafRectangle)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "("+currentR.getX()+", "+currentR.getY()+"); ("+currentR.getWidth()+", "+currentR.getHeight()+")";                    

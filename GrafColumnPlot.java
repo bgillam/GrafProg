@@ -59,7 +59,9 @@ public class GrafColumnPlot extends GrafObject {
         gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(true))); //addMarkPanel(gSess.getGraphics().getFont(), true, false, false, true, false, false, false);
         gfd.addSeparatorPanel();
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.COLUMN)); 
+        
         gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+        
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveColumn(gs,gfd);

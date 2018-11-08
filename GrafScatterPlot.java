@@ -10,6 +10,7 @@ import java.io.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JDialog;
+import java.util.ArrayList;
 
 
 //Class Header
@@ -75,11 +76,14 @@ public class GrafScatterPlot extends GrafObject {
         gfd.setTitle("ScatterPlot"); 
         gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, true));
         gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(true))); 
-        gfd.addDeleterPanel(GrafType.SCATTER); 
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.SCATTER)); 
+        
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));          
+        
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveScatter(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.SCATTER);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -122,6 +126,18 @@ public class GrafScatterPlot extends GrafObject {
     
     }
     
+    
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.SCATTER);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+            GrafScatterPlot currentScatterPlot = (GrafScatterPlot)tempList.get(plotIndex.get(i)); 
+            if (currentScatterPlot.getConnected()) con = "connected"; else con = "discrete";
+            plotListArray[i] = "input: "+currentScatterPlot.getInputColumnNumber()+", output: "+currentScatterPlot.getOutputColumnNumber()+" "+con;   
+        }
+       return plotListArray;
+    }
     
     /*public JDialog createInputDialog(String[] str){
             ColumnChooserPanel columnChooser;
