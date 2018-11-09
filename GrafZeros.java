@@ -77,12 +77,13 @@ public class GrafZeros extends GrafObject
        gfd.getPointPanel().setX1(gs.getGrafSettings().getXMin());
        gfd.getPointPanel().setX2(gs.getGrafSettings().getXMax());
        gfd.getPointPanel().initFx();
-       gfd.addDeleterPanel(GrafType.FZERO); 
+       gfd.setDeleter(gfd.addDeleterPanel(GrafType.FZERO)); 
+       gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));
        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
        gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveZero(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.FZERO);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));       
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -142,7 +143,19 @@ public class GrafZeros extends GrafObject
         bottomPanel.add(rightPanel2, BorderLayout.EAST);
     }
     
- 
+   public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.FZERO);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+            GrafZeros currentZ = (GrafZeros)tempList.get(plotIndex.get(i));
+            String str = "function: "+currentZ.getFunctionString()+" roots: ";
+            for (double root: currentZ.getZeroList()) str = str+root+" ";
+            plotListArray[i] = str;                 
+        }
+       return plotListArray;
+     }
+    
    public void setStartX(double xval){ startX = xval; }
    public double getStartX() { return startX; } 
    public void setEndX(double xval){ endX = xval; }

@@ -8,7 +8,7 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class GrafTangent extends GrafObject 
@@ -88,11 +88,12 @@ public class GrafTangent extends GrafObject
        gfd.getPointPanel().setupFunctionChooser();
        gfd.getPointPanel().initFx();
        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
-       gfd.addDeleterPanel(GrafType.TANGENT); 
+       gfd.setDeleter(gfd.addDeleterPanel(GrafType.TANGENT)); 
+       gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
        gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveTangent(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.TANGENT);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));     
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -129,8 +130,19 @@ public class GrafTangent extends GrafObject
         gfd.getTempList().add(gt); 
     }
     
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.TANGENT);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+               GrafTangent currentTan = (GrafTangent)tempList.get(plotIndex.get(i)); 
+               plotListArray[i] = "("+currentTan.getFunctionString()+", "+currentTan.getX()+")";                    
+        }
+       return plotListArray;
+     }
     
-    
+     
+     
    public void setX(double xval){ x = xval; }
    public double getX() { return x; }   
    public void setFunctionString(String fString){ functionString = fString; }

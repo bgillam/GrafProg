@@ -6,12 +6,14 @@
 //import javax.swing.*;
 import java.io.*;
 import java.awt.*;
-import javax.swing.JOptionPane;import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import javax.swing.border.*;
 import javax.swing.UIManager;
+import java.util.ArrayList;
 
 public class GrafValue extends GrafObject {
         private String functionString="";
@@ -56,7 +58,7 @@ public class GrafValue extends GrafObject {
        myOwner.setMessage2(toString());
        //gStuff.getGrafPanel().repaint();
    }
- 
+   
    public static void createInputDialog(GrafProg gs){
        GrafInputDialog gfd = new GrafInputDialog(gs);
        gfd.setTitle("FVALUE");
@@ -64,12 +66,12 @@ public class GrafValue extends GrafObject {
        gfd.getPointPanel().setupFunctionChooser();
        gfd.getPointPanel().initFx();
        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
-       gfd.addDeleterPanel(GrafType.FVALUE);
-       
+       gfd.setDeleter(gfd.addDeleterPanel(GrafType.FVALUE));
+       gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));      
        gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveValue(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.FVALUE);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex()))); 
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -106,7 +108,16 @@ public class GrafValue extends GrafObject {
         gfd.getTempList().add(gv); 
     }
    
-   
+   public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.FVALUE);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+               GrafValue currentV = (GrafValue)tempList.get(plotIndex.get(i)); 
+               plotListArray[i] = "("+currentV.getFunctionString()+", "+currentV.getX()+")";                    
+        }
+       return plotListArray;
+     }
    
    public void setX(double xval){ x = xval; }
    public double getX() { return x; }   

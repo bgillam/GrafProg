@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import javax.swing.border.*;
 import javax.swing.UIManager;
+import java.util.ArrayList;
 
 //Class Header
 public class GrafFunction extends GrafObject {
@@ -72,13 +73,15 @@ public class GrafFunction extends GrafObject {
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("FUNCTION");
         gfd.setPointPanel(gfd.addPointPanel());
+        
         gfd.getPointPanel().addFx();
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false))); 
-        gfd.addDeleterPanel(GrafType.FUNCTION);   
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.FUNCTION));   
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));      
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveFunction(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.FUNCTION);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));    
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -117,6 +120,17 @@ public class GrafFunction extends GrafObject {
         GrafFunction gf = new GrafFunction(gSess, gfd.getPtPanel().getF(), gfd.getMarkChooser().getColor());
         gfd.getTempList().add(gf);
     }
+    
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.FUNCTION);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+              GrafFunction currentF = (GrafFunction)tempList.get(plotIndex.get(i)); 
+              plotListArray[i] = "Y"+(i)+" ="+currentF.getFunction();                    
+        }
+       return plotListArray;
+     }
     
     //Setters and Getters
     public void setFunction(String s){ functionString = s;}

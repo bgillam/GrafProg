@@ -2,6 +2,7 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class GrafRectangle extends GrafObject 
 {
@@ -60,12 +61,12 @@ public class GrafRectangle extends GrafObject
            gfd.getPointPanel().addX1Y1();
            gfd.getPointPanel().addWH();
            gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
-             
-           gfd.addDeleterPanel(GrafType.RECTANGLE); 
+           gfd.setDeleter(gfd.addDeleterPanel(GrafType.RECTANGLE)); 
+           gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));      
            gfd.getCreateButton().addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0    ) {
                     saveRectangle(gs,gfd);
-                    gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.RECTANGLE);    
+                     gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));     
                 }
             });
             gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -106,6 +107,18 @@ public class GrafRectangle extends GrafObject
     
     }
    
+     public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.RECTANGLE);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+             GrafRectangle currentR = (GrafRectangle)tempList.get(plotIndex.get(i)); 
+             plotListArray[i] = "("+currentR.getX()+", "+currentR.getY()+"); ("+currentR.getWidth()+", "+currentR.getHeight()+")";    
+        }
+       return plotListArray;
+     }
+     
+     
    public void setX(double xval){ x = xval; }
    public double getX() { return x; }
    public void setWidth(double val){ width = val; }

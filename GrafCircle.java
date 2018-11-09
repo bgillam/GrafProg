@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.util.ArrayList;
 
 //import GrafProg.GrafType;
 
@@ -65,11 +65,12 @@ public class GrafCircle extends GrafObject{
         gfd.getPointPanel().addX1Y1();
         gfd.getPointPanel().addR();
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false))); 
-        gfd.addDeleterPanel(GrafType.CIRCLE); 
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.CIRCLE)); 
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));      
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveCircle(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.CIRCLE);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));     
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -107,6 +108,17 @@ public class GrafCircle extends GrafObject{
        gfd.getTempList().add(gPlot);
     
     }
+    
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.CIRCLE);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+             GrafCircle currentCirc = (GrafCircle)tempList.get(plotIndex.get(i)); 
+             plotListArray[i] = "("+currentCirc.getCx()+", "+currentCirc.getCy()+"); ("+currentCirc.getR()+")";                    
+        }
+       return plotListArray;
+     }
         
    public void setCx(double xval){ cX = xval; }
    public double getCx() { return cX; }

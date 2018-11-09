@@ -94,8 +94,9 @@ public class PointPanel extends JPanel
     //loads first function String, if function is present
     public void initFx(){
        if (!(fComboBox.getItemCount()==0)) {
-       String fString = (String)fComboBox.getItemAt(0);
-       fString = fString.substring(4);
+          // System.out.println("Item Count: "fComboBox.getItemCount());
+           String fString = (String)fComboBox.getItemAt(0);
+           fString = fString.substring(4);
        functionTextField.setText(fString) ;
        }
     }
@@ -110,7 +111,7 @@ public class PointPanel extends JPanel
      //sets up the function combobox
     public void setupFunctionChooser(){
             leftPanel.add(functionText, BorderLayout.WEST);
-            fComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafDeletePanel.getPlotList(tempList, GrafType.FUNCTION)));
+            fComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafFunction.getPlotList(tempList, GrafDeletePanel.indexPlots(tempList, GrafType.FUNCTION))));
             leftPanel.add(fComboBox, BorderLayout.CENTER);
             
             fComboBox.addItemListener(new ItemListener(){

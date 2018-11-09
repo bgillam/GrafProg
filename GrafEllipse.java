@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 
 //import GrafProg.GrafType;
@@ -75,11 +76,12 @@ public class GrafEllipse extends GrafRectangle{
         gfd.getPointPanel().addX1Y1();
         gfd.getPointPanel().addWH();
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false))); 
-        gfd.addDeleterPanel(GrafType.ELLIPSE); 
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.ELLIPSE)); 
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));      
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveEllipse(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.ELLIPSE);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));      
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -119,6 +121,16 @@ public class GrafEllipse extends GrafRectangle{
         
         }
         
+        public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.ELLIPSE);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+             GrafEllipse currentE = (GrafEllipse)tempList.get(plotIndex.get(i)); 
+             plotListArray[i] = "("+currentE.getX()+", "+currentE.getY()+"); ("+currentE.getWidth()+", "+currentE.getHeight()+")";            
+        }
+       return plotListArray;
+     }
         
      public String toString(){
            return "Ellipse("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight()+ " "+getGrafColor()+")";

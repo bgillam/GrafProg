@@ -141,7 +141,7 @@ public class GrafDeletePanel extends JPanel
                case LINESEGMENT:
                         GrafSegment currentS = (GrafSegment)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "("+currentS.getX1()+", "+currentS.getY1()+"); ("+currentS.getX2()+", "+currentS.getY2()+")";    
-                        break;*/
+                        break;
                case RECTANGLE:
                         GrafRectangle currentR = (GrafRectangle)tempList.get(plotIndex.get(i)); 
                         plotListArray[i] = "("+currentR.getX()+", "+currentR.getY()+"); ("+currentR.getWidth()+", "+currentR.getHeight()+")";                    
@@ -186,7 +186,7 @@ public class GrafDeletePanel extends JPanel
                         String str = "function: "+currentZ.getFunctionString()+" roots: ";
                         for (double root: currentZ.getZeroList()) str = str+root+" ";
                         plotListArray[i] = str;                    
-                        break;
+                        break;*/
                  
                 default: System.out.println("bad GrafType in GrafDeletePanel!"+gType);
                          break;
@@ -389,7 +389,7 @@ public class GrafDeletePanel extends JPanel
     }
     
     //indexPlots creates an index of positions of GrafObjects of type gType
-    public static void indexPlots(ArrayList<GrafObject> tempList, GrafType gType){
+    public static ArrayList<Integer> indexPlots(ArrayList<GrafObject> tempList, GrafType gType){
             int i = 0;
             plotIndex.clear();
             if (tempList != null)
@@ -397,6 +397,7 @@ public class GrafDeletePanel extends JPanel
                     if (gObject.getType() == gType) plotIndex.add(i);
                     i++;
                 }
+                return plotIndex;
     }
 
      public JComboBox getDeleteComboBox(){

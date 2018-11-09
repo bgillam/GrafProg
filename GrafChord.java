@@ -8,7 +8,7 @@ import java.io.*;
 import java.awt.*;;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -75,11 +75,12 @@ public class GrafChord extends GrafObject
         setupChord(gfd);
         gfd.getPointPanel().initFx();
         gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
-        gfd.addDeleterPanel(GrafType.CHORD); 
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.CHORD)); 
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveChord(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.CHORD);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));   
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -129,6 +130,16 @@ public class GrafChord extends GrafObject
         gfd.getPointPanel().getBottomPanel().add(rightPanel, BorderLayout.CENTER);
     }
    
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.CHORD);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+               GrafChord currentC = (GrafChord)tempList.get(plotIndex.get(i)); 
+               plotListArray[i] = "function: "+currentC.getFunctionString()+", X1: "+currentC.getX1()+" , X2: "+currentC.getX2();                     
+        }
+       return plotListArray;
+     }
     
    public void setX1(double xval){ x1 = xval; }
    public double getX1() { return x1; } 

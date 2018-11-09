@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -79,13 +79,14 @@ public class GrafIntegral extends GrafObject
         gfd.setPointPanel(gfd.addPointPanel());
         setupIntegral(gfd);
         gfd.getPointPanel().initFx();
-        gfd.addDeleterPanel(GrafType.INTEGRAL); 
+        gfd.setDeleter(gfd.addDeleterPanel(GrafType.INTEGRAL)); 
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));//gSess.getGraphics().getFont(), true, false, false, false, false, false, false);
         
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveIntegral(gs,gfd);
-                gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.INTEGRAL);    
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));   
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -140,6 +141,17 @@ public class GrafIntegral extends GrafObject
         bottomPanel.add(rightPanel2, BorderLayout.EAST);
     }
  
+    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, GrafType.INTEGRAL);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+               GrafIntegral currentI = (GrafIntegral)tempList.get(plotIndex.get(i));
+               plotListArray[i] = "function: "+currentI.getFunctionString()+", X1: "+currentI.getX1()+" X2: "+currentI.getX2();                                        
+        }
+       return plotListArray;
+     }
+    
    public void setX1(double xval){ x1 = xval; }
    public double getX1() { return x1; } 
    public void setX2(double xval){ x2 = xval; }
