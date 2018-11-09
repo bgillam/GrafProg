@@ -89,118 +89,33 @@ public class GrafDeletePanel extends JPanel
           
     //reseets the list of objects for the delete combo box
     public void resetPlotListModel(ArrayList<GrafObject> tempList, GrafType gType){
-             deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(getPlotList(tempList, gType)));  
-             //caller.getColumnChooser().setInputIndex(0);
+               switch (gType){
+                 case TEXT: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafText.getPlotList(tempList, plotIndex))); break;
+                 case COLUMN: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafColumnPlot.getPlotList(tempList, plotIndex))); break;
+                 case BOXPLOT: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafText.getPlotList(tempList, plotIndex))); break;
+                 case SCATTER: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafBoxPlot.getPlotList(tempList, plotIndex))); break;
+                 case HISTOGRAM: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafText.getPlotList(tempList, plotIndex))); break;
+                 case FREQPOLYGON: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafHistogram.getPlotList(tempList, plotIndex))); break;
+                 case OGIVE: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafOgive.getPlotList(tempList, plotIndex))); break;
+                 case POINT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafPoint.getPlotList(tempList, plotIndex))); break;
+                 case LINESEGMENT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafSegment.getPlotList(tempList, plotIndex))); break;
+                 case RECTANGLE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafRectangle.getPlotList(tempList, plotIndex))); break;
+                 case ELLIPSE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafEllipse.getPlotList(tempList, plotIndex))); break;
+                 case CIRCLE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafCircle.getPlotList(tempList, plotIndex))); break;
+                 case FUNCTION:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafFunction.getPlotList(tempList, plotIndex))); break;
+                 case FVALUE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafValue.getPlotList(tempList, plotIndex))); break;
+                 case TANGENT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafTangent.getPlotList(tempList, plotIndex))); break;
+                 case CHORD:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafChord.getPlotList(tempList, plotIndex))); break;
+                 case INTEGRAL:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafIntegral.getPlotList(tempList, plotIndex))); break;
+                 case FZERO:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafZeros.getPlotList(tempList, plotIndex))); break;
+             }
+             
+             
+             
     }
     
-//    Create list of plots of requested type
-    public static String[] getPlotList(ArrayList<GrafObject> tempList,GrafType gType){
-        String con;
-        indexPlots(tempList, gType);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-             
-            //Switch statements here!
-            switch (gType){
-               /*case TEXT:
-                        GrafText currentT = (GrafText)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "("+currentT.getX()+", "+currentT.getY()+"); ("+currentT.getText()+")"; 
-                        break;
-               case COLUMN:
-                        GrafColumnPlot currentColumnPlot = (GrafColumnPlot)tempList.get(plotIndex.get(i)); 
-                        if (currentColumnPlot.getConnected()) con = "connected"; else con = "discrete";
-                        plotListArray[i] = "input: "+currentColumnPlot.getColumnNumber()+" "+con;    
-                        break;
-               case BOXPLOT:
-                        GrafBoxPlot currentBoxPlot = (GrafBoxPlot)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "input: "+currentBoxPlot.getColumnNumber();    
-                        break;
-               case SCATTER: 
-                        GrafScatterPlot currentScatterPlot = (GrafScatterPlot)tempList.get(plotIndex.get(i)); 
-                        if (currentScatterPlot.getConnected()) con = "connected"; else con = "discrete";
-                        plotListArray[i] = "input: "+currentScatterPlot.getInputColumnNumber()+", output: "+currentScatterPlot.getOutputColumnNumber()+" "+con;    
-                        break;
-               /*case HISTOGRAM:
-                        GrafHistogram currentHistoPlot = (GrafHistogram)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "input: "+currentHistoPlot.getColumnNumber()+" "+currentHistoPlot.getGrafColor();    
-                        break;
-              case FREQPOLYGON: 
-                        GrafFreqPolygon currentFreqPolygon = (GrafFreqPolygon)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "input: "+currentFreqPolygon.getColumnNumber();  
-                        break;
-              case OGIVE: 
-                       GrafOgive currentOgive = (GrafOgive)tempList.get(plotIndex.get(i)); 
-                       plotListArray[i] = "input: "+currentOgive.getColumnNumber();  
-                       break;*/
-               
-               
-               /*case POINT:
-                        GrafPoint currentP = (GrafPoint)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "("+currentP.getX()+", "+currentP.getY()+")";   
-                        break;
-               case LINESEGMENT:
-                        GrafSegment currentS = (GrafSegment)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "("+currentS.getX1()+", "+currentS.getY1()+"); ("+currentS.getX2()+", "+currentS.getY2()+")";    
-                        break;
-               case RECTANGLE:
-                        GrafRectangle currentR = (GrafRectangle)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "("+currentR.getX()+", "+currentR.getY()+"); ("+currentR.getWidth()+", "+currentR.getHeight()+")";                    
-                        //plotListArray[i] = currentR.toString();
-                        break;
-               case ELLIPSE:
-                        GrafEllipse currentE = (GrafEllipse)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "("+currentE.getX()+", "+currentE.getY()+"); ("+currentE.getWidth()+", "+currentE.getHeight()+")";                    
-                        break;
-               case CIRCLE:
-                        GrafCircle currentCirc = (GrafCircle)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "("+currentCirc.getCx()+", "+currentCirc.getCy()+"); ("+currentCirc.getR()+")";                    
-                        break;
-               case POLYGON:
-                        //GrafPolygon currentPolygon = (GrafPolygon)tempList.get(plotIndex.get(i)); 
-                        //plotListArray[i] = "input: "+currentPolygon.getColumnNumber();  
-                        break;
-               case FUNCTION:
-                        GrafFunction currentF = (GrafFunction)tempList.get(plotIndex.get(i)); 
-                        //plotListArray[i+1] = "Y"+(i)+" ="+currentF.getFunction();        
-                        plotListArray[i] = "Y"+(i)+" ="+currentF.getFunction();        
-                        break;
-                        
-               case FVALUE:
-                        GrafValue currentV = (GrafValue)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "("+currentV.getFunctionString()+", "+currentV.getX()+")";   
-                        break;
-               case TANGENT:
-                        GrafTangent currentTan = (GrafTangent)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "("+currentTan.getFunctionString()+", "+currentTan.getX()+")";   
-                        break;
-               case CHORD:
-                        GrafChord currentC = (GrafChord)tempList.get(plotIndex.get(i)); 
-                        plotListArray[i] = "function: "+currentC.getFunctionString()+", X1: "+currentC.getX1()+" , X2: "+currentC.getX2();                 
-                        break;
-               case INTEGRAL:
-                        GrafIntegral currentI = (GrafIntegral)tempList.get(plotIndex.get(i));
-                        plotListArray[i] = "function: "+currentI.getFunctionString()+", X1: "+currentI.getX1()+" X2: "+currentI.getX2();                    
-                        break;
-               case FZERO:
-                        GrafZeros currentZ = (GrafZeros)tempList.get(plotIndex.get(i));
-                        String str = "function: "+currentZ.getFunctionString()+" roots: ";
-                        for (double root: currentZ.getZeroList()) str = str+root+" ";
-                        plotListArray[i] = str;                    
-                        break;*/
-                 
-                default: System.out.println("bad GrafType in GrafDeletePanel!"+gType);
-                         break;
-        
-            }        
-            
-                          
-              
-              
-        }
-                    
-        return plotListArray;
-        
-    }
+    
+
     
     public void setDeleteValues(int index, ArrayList<GrafObject> tempList, GrafType gType){
         int toBeRemoved = plotIndex.get(index);
