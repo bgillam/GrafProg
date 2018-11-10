@@ -31,13 +31,8 @@ public class GrafDeletePanel extends JPanel
     private GrafInputDialog caller;
    
     
-    public GrafDeletePanel(GrafInputDialog c, 
-                        GrafType gType, 
-                       // GrafObject gObject,
-                    ArrayList<GrafObject> tempList)
+    public GrafDeletePanel(GrafInputDialog c, GrafType gType, ArrayList<GrafObject> tempList)
     {
-       //gType = grType;
-       //tempList = gList;
        caller = c;  
        setBackground(new Color(220, 220, 220));
        setLayout(new BorderLayout());
@@ -109,9 +104,6 @@ public class GrafDeletePanel extends JPanel
                  case INTEGRAL:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafIntegral.getPlotList(tempList, plotIndex))); break;
                  case FZERO:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafZeros.getPlotList(tempList, plotIndex))); break;
              }
-             
-             
-             
     }
     
     
@@ -168,9 +160,9 @@ public class GrafDeletePanel extends JPanel
                 return plotIndex;
     }
 
-     public JComboBox getDeleteComboBox(){
-        return deleteComboBox;
-        }
+   public JComboBox getDeleteComboBox(){
+       return deleteComboBox;
+   }
         
    public ArrayList<Integer> getPlotIndex(){
        return plotIndex;
