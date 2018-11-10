@@ -128,6 +128,14 @@ public class GrafText extends GrafObject
        return plotListArray;
  }
  
+ public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+         GrafText tEdit = (GrafText)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+         caller.getPointChooser().setX1(tEdit.getX());
+         caller.getPointChooser().setY1(tEdit.getY());
+         caller.getMarkChooser().setTextString(tEdit.getText());
+         caller.getMarkChooser().setGrafFont(tEdit.getFont());
+         caller.getMarkChooser().setColor(tEdit.getGrafColor());
+       }
  }
    
 

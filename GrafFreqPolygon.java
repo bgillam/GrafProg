@@ -227,6 +227,18 @@ public class GrafFreqPolygon extends GrafHistogram {
        return plotListArray;
     }
     
+    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                    GrafFreqPolygon gfpEdit = (GrafFreqPolygon)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                    caller.getColumnChooser().setInputIndex(gfpEdit.getColumnNumber());
+                    caller.getMarkChooser().setFillChecked(gfpEdit.getFillFlag());
+                    caller.getMarkChooser().setColor(gfpEdit.getGrafColor());  
+                    caller.getMarkChooser().setFillColor(gfpEdit.getFill());  
+                    caller.getHisto().setBegin(gfpEdit.getBegin());
+                    caller.getHisto().setEnd(gfpEdit.getEnd());
+                    caller.getHisto().setnumClassesChecked(gfpEdit.getByNumClassChecked());
+                    caller.getHisto().setNumClasses(gfpEdit.getNumClasses());
+                    caller.getHisto().setClassSize(gfpEdit.getClassWidth());
+       }
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

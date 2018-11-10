@@ -224,7 +224,21 @@ public class GrafOgive extends GrafHistogram {
              plotListArray[i] = "input: "+currentOgive.getColumnNumber();  
         }
        return plotListArray;
+       
     }
+    
+    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                    GrafOgive oEdit = (GrafOgive)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                    caller.getColumnChooser().setInputIndex(oEdit.getColumnNumber());
+                    caller.getMarkChooser().setFillChecked(oEdit.getFillFlag());
+                    caller.getMarkChooser().setColor(oEdit.getGrafColor());  
+                    caller.getMarkChooser().setFillColor(oEdit.getFill());  
+                    caller.getHisto().setBegin(oEdit.getBegin());
+                    caller.getHisto().setEnd(oEdit.getEnd());
+                    caller.getHisto().setnumClassesChecked(oEdit.getByNumClassChecked());
+                    caller.getHisto().setNumClasses(oEdit.getNumClasses());
+                    caller.getHisto().setClassSize(oEdit.getClassWidth());   
+       }
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

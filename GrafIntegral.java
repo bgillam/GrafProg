@@ -151,6 +151,17 @@ public class GrafIntegral extends GrafObject
         }
        return plotListArray;
      }
+     
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                   GrafIntegral intEdit = (GrafIntegral)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(intEdit.getFunctionString());
+                     caller.getPointChooser().setX1(intEdit.getX1());
+                     caller.getPointChooser().setX2(intEdit.getX2());
+                     caller.getPointChooser().setN(intEdit.getN());
+                     caller.getMarkChooser().setColor(intEdit.getGrafColor());
+                  
+                    
+       }
     
    public void setX1(double xval){ x1 = xval; }
    public double getX1() { return x1; } 

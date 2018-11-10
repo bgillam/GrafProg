@@ -251,6 +251,19 @@ public class GrafHistogram extends GrafObject {
        return plotListArray;
     }
     
+    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                    GrafHistogram histEdit = (GrafHistogram)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                    caller.getColumnChooser().setInputIndex(histEdit.getColumnNumber());
+                    caller.getMarkChooser().setFillChecked(histEdit.getFillFlag());
+                    caller.getMarkChooser().setColor(histEdit.getGrafColor());  
+                    caller.getMarkChooser().setFillColor(histEdit.getFill());  
+                    caller.getHisto().setBegin(histEdit.getBegin());
+                    caller.getHisto().setEnd(histEdit.getEnd());
+                    caller.getHisto().setnumClassesChecked(histEdit.getByNumClassChecked());
+                    caller.getHisto().setNumClasses(histEdit.getNumClasses());
+                    caller.getHisto().setClassSize(histEdit.getClassWidth());
+       }
+    
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}
     public int getColumnNumber(){ return columnNumber;}

@@ -155,6 +155,17 @@ public class GrafZeros extends GrafObject
         }
        return plotListArray;
      }
+     
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                   GrafZeros zEdit = (GrafZeros)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(zEdit.getFunctionString());
+                     caller.getPointChooser().setX1(zEdit.getStartX());
+                     caller.getPointChooser().setX2(zEdit.getEndX());
+                     caller.getPointChooser().setDx(zEdit.getDx());
+                     caller.getMarkChooser().setColor(zEdit.getGrafColor());
+                  
+                    
+       }
     
    public void setStartX(double xval){ startX = xval; }
    public double getStartX() { return startX; } 

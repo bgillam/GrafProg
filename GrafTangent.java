@@ -141,7 +141,14 @@ public class GrafTangent extends GrafObject
        return plotListArray;
      }
     
-     
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                     GrafTangent vEdit = (GrafTangent)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(vEdit.getFunctionString());
+                     caller.getPointChooser().setX1(vEdit.getX());
+                     caller.getMarkChooser().setColor(vEdit.getGrafColor());
+                  
+                    
+       }
      
    public void setX(double xval){ x = xval; }
    public double getX() { return x; }   

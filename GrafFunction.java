@@ -131,6 +131,14 @@ public class GrafFunction extends GrafObject {
         }
        return plotListArray;
      }
+     
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                   GrafFunction gEdit = (GrafFunction)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                   caller.getPointChooser().setF(gEdit.getFunction());
+                   caller.getMarkChooser().setColor(gEdit.getGrafColor());
+                  
+                    
+       }
     
     //Setters and Getters
     public void setFunction(String s){ functionString = s;}

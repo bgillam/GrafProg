@@ -119,6 +119,19 @@ public class GrafCircle extends GrafObject{
         }
        return plotListArray;
      }
+     
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                    GrafEllipse circEdit = (GrafEllipse)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setX1(circEdit.getX());
+                     caller.getPointChooser().setY1(circEdit.getY());
+                     caller.getPointChooser().setW(circEdit.getWidth());
+                     caller.getPointChooser().setH(circEdit.getHeight());
+                     caller.getMarkChooser().setFillChecked(circEdit.getFillFlag());
+                     caller.getMarkChooser().setColor(circEdit.getGrafColor());  
+                     caller.getMarkChooser().setFillColor(circEdit.getFill());  
+                  
+                    
+       }
         
    public void setCx(double xval){ cX = xval; }
    public double getCx() { return cX; }

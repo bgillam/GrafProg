@@ -141,6 +141,15 @@ public class GrafChord extends GrafObject
        return plotListArray;
      }
     
+      public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                     GrafChord chEdit = (GrafChord)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(chEdit.getFunctionString());
+                     caller.getPointChooser().setX1(chEdit.getX1());
+                     caller.getPointChooser().setX2(chEdit.getX2());
+                     caller.getMarkChooser().setColor(chEdit.getGrafColor());
+                    
+       }
+     
    public void setX1(double xval){ x1 = xval; }
    public double getX1() { return x1; } 
    public void setX2(double xval){ x2 = xval; }

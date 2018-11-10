@@ -118,6 +118,18 @@ public class GrafRectangle extends GrafObject
        return plotListArray;
      }
      
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                     GrafRectangle rEdit = (GrafRectangle)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setX1(rEdit.getX());
+                     caller.getPointChooser().setY1(rEdit.getY());
+                     caller.getPointChooser().setW(rEdit.getWidth());
+                     caller.getPointChooser().setH(rEdit.getHeight());
+                     caller.getMarkChooser().setFillChecked(rEdit.getFillFlag());
+                     caller.getMarkChooser().setColor(rEdit.getGrafColor());  
+                     caller.getMarkChooser().setFillColor(rEdit.getFill());  
+                    
+       }
+     
      
    public void setX(double xval){ x = xval; }
    public double getX() { return x; }

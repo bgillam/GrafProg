@@ -139,18 +139,17 @@ public class GrafScatterPlot extends GrafObject {
        return plotListArray;
     }
     
-    /*public JDialog createInputDialog(String[] str){
-            ColumnChooserPanel columnChooser;
-            ColorRadioMarkPanel markChooser;
-            JDialog jd = new JDialog();
-            jd.setTitle("ScatterPlot"); 
-            columnChooser = addColumnChooserPanel(getColumnsString(),true, true);
-            ///Need to add a new ColorRadioPanel Here. Put routine in Grafobject so others can access.
-            markChooser = new ColorRadioMarkPanel(true); //addMarkPanel(gSess.getGraphics().getFont(), true, false, false, true, false, false, false);
-            addMarkPanel(markChooser);
-            
-            return jd;
-    }*/
+    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+         GrafScatterPlot scEdit = (GrafScatterPlot)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+         caller.getColumnChooser().setInputIndex(scEdit.getInputColumnNumber());
+         caller.getColumnChooser().setOutputIndex(scEdit.getOutputColumnNumber());
+         caller.getMarkChooser().setMark(scEdit.getMark());
+         caller.getMarkChooser().setConnectedChecked(scEdit.getConnected());
+         caller.getMarkChooser().setColor(scEdit.getGrafColor()); 
+       }
+ 
+    
+   
     
     
     

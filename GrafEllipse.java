@@ -131,6 +131,19 @@ public class GrafEllipse extends GrafRectangle{
         }
        return plotListArray;
      }
+     
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                     GrafEllipse ellEdit = (GrafEllipse)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setX1(ellEdit.getX());
+                     caller.getPointChooser().setY1(ellEdit.getY());
+                     caller.getPointChooser().setW(ellEdit.getWidth());
+                     caller.getPointChooser().setH(ellEdit.getHeight());
+                     caller.getMarkChooser().setFillChecked(ellEdit.getFillFlag());
+                     caller.getMarkChooser().setColor(ellEdit.getGrafColor());  
+                     caller.getMarkChooser().setFillColor(ellEdit.getFill());  
+                  
+                    
+       }
         
      public String toString(){
            return "Ellipse("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight()+ " "+getGrafColor()+")";

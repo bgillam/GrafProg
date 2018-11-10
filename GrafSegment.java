@@ -113,6 +113,17 @@ public class GrafSegment extends GrafObject
        return plotListArray;
     }
     
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                     GrafSegment lEdit = (GrafSegment)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setX1(lEdit.getX1());
+                     caller.getPointChooser().setY1(lEdit.getY1());
+                     caller.getPointChooser().setX2(lEdit.getX2());
+                     caller.getPointChooser().setY2(lEdit.getY2());
+                     //caller.getMarkChooser().setTextString(ptEdit.getText());
+                     //caller.getMarkChooser().setCurrentFont(ptEdit.getFont());
+                     caller.getMarkChooser().setColor(lEdit.getGrafColor());   
+       }
+    
    public void setX1(double xval){ x1 = xval; }
    public double getX1() { return x1; }
    public void setX2(double xval){ x2 = xval; }

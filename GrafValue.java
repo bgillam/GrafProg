@@ -118,6 +118,15 @@ public class GrafValue extends GrafObject {
         }
        return plotListArray;
      }
+     
+     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                   GrafTangent fvEdit = (GrafTangent)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(fvEdit.getFunctionString());
+                     caller.getPointChooser().setX1(fvEdit.getX());
+                     caller.getMarkChooser().setColor(fvEdit.getGrafColor());
+                  
+                    
+       }
    
    public void setX(double xval){ x = xval; }
    public double getX() { return x; }   
