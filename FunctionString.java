@@ -1,4 +1,4 @@
-/**************************************
+        /**************************************
 * FunctionString for GrafProg Project *
 *  @author Bill Gillam                *
 *  2/25/15                            *
@@ -22,7 +22,7 @@ public class FunctionString {
            System.out.println(fValue("-X",-1.0));
            System.out.println(fValue("x-(-2)",-1.0));
            System.out.println(fValue("exp(-x^2)", -1.0));
-		   System.out.println(fValue("exp(-x^2)", 1.0));
+           System.out.println(fValue("exp(-x^2)", 1.0));
         }catch (Exception e){}
     }
 
@@ -293,8 +293,8 @@ public class FunctionString {
         do{ 
             pos = fString.indexOf("--",pos+1);
             if (pos == -1) break;            
-			fString =  fString.substring(0,pos)+""+fString.substring(pos+2, fString.length());
-			//System.out.println(fString);
+            fString =  fString.substring(0,pos)+""+fString.substring(pos+2, fString.length());
+            //System.out.println(fString);
         }while (pos != -1);
         
         
