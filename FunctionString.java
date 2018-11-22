@@ -1,4 +1,4 @@
-        /**************************************
+/**************************************
 * FunctionString for GrafProg Project *
 *  @author Bill Gillam                *
 *  2/25/15                            *
@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 
 //import java.io.*;
 import javax.swing.JOptionPane;
+import java.util.Scanner;
 
 //Class FunctionString
 public class FunctionString {
@@ -18,11 +19,17 @@ public class FunctionString {
     public static void main(String args[]){
         String test = "123e56i8";
         try{
-           for (int i=0; i<8; i++) System.out.println(i+" "+GrafInputHelpers.isAnAlphaChar(test,i));
-           System.out.println(fValue("-X",-1.0));
-           System.out.println(fValue("x-(-2)",-1.0));
-           System.out.println(fValue("exp(-x^2)", -1.0));
-           System.out.println(fValue("exp(-x^2)", 1.0));
+           //for (int i=0; i<8; i++) System.out.println(i+" "+GrafInputHelpers.isAnAlphaChar(test,i));
+           //System.out.println(fValue("-X",-1.0));
+           //System.out.println(fValue("x-(-2)",-1.0));
+           //System.out.println(fValue("exp(-x^2)", -1.0));
+           //System.out.println(fValue("exp(-x^2)", 1.0));
+           //System.out.println("Here we go");
+           //System.out.println(fValue("x^4 - 2x + 5", -1.0));
+           //System.out.println(fValue("x^4 - 2x + 5", 1.0));
+           System.out.println(fValue("3-2x", -1.0));
+           //System.out.println("again:");
+           //System.out.println(fValue("3-2x", 1.0));
         }catch (Exception e){}
     }
 
@@ -42,30 +49,26 @@ public class FunctionString {
     public static boolean isValidAtX(String functionString, double x){ //returns 0 for empty String. -1 for error 1 for OK
         if (functionString.equals("")) { JOptionPane.showMessageDialog(null, "Empty Function String! ", "Error!" , JOptionPane.ERROR_MESSAGE); return false;}
         try{
-                if (Double.isNaN(fValue(functionString, x))) return false; else return true;
-                //return true;
+           if (Double.isNaN(fValue(functionString, x))) return false; else return true;
            } catch (NumberFormatException e){JOptionPane.showMessageDialog(null, "Invalid function! ", "Error!" , JOptionPane.ERROR_MESSAGE); return false;
            } catch (ArithmeticException e) { JOptionPane.showMessageDialog(null, "Function not defined at x = "+x+"!", "Error!" , JOptionPane.ERROR_MESSAGE); return false;
            } catch (DomainViolationException e) { return false; 
            } catch (FunctionFormatException e) { return false;  
-           } catch (Exception e) {return false;}
-           //return true;
-        
-           
-        }      
+           } catch (Exception e) {return false;}  
+    }      
     
+    //Ignores domain error
     public static boolean isValidAtXIgnoreDomainError(String functionString, double x){
         if (functionString.equals("")) { JOptionPane.showMessageDialog(null, "Empty Function String! ", "Error!" , JOptionPane.ERROR_MESSAGE); return false;}
         try{
-                if (Double.isNaN(fValue(functionString, x))) return false; else return true;
-                //return true;
+           if (Double.isNaN(fValue(functionString, x))) return false; else return true;
            } catch (NumberFormatException e){JOptionPane.showMessageDialog(null, "Invalid function! ", "Error!" , JOptionPane.ERROR_MESSAGE); return false;
            } catch (ArithmeticException e) { JOptionPane.showMessageDialog(null, "Function not defined at x = "+x+"!", "Error!" , JOptionPane.ERROR_MESSAGE); return false;
            } catch (DomainViolationException e) { return true; 
            } catch (FunctionFormatException e) { return false;  
            } catch (Exception e) { return false;}
-           //return true;
-        }   
+           
+    }   
     
     
     // checks from counter-1 to left to return the left boundry of a numeric substring
@@ -124,17 +127,17 @@ public class FunctionString {
         String leftSubstr="";;
         try{
             leftSubstr = fString.substring(getBeginLeftNumPos(counter,fString),counter);
+            //System.out.println("fString: "+fString);
             return Double.parseDouble(leftSubstr);
         } catch (NumberFormatException e){
             
-            //System.out.println(fString);
+            System.out.println("number format exception: "+fString);
             
             
             return 0;
             
         }
     }
-    
     
       
     //gets the number  string to the right of position count. 
@@ -143,8 +146,6 @@ public class FunctionString {
             int end = getEndRightNumPos(counter, fString)+1;
             return Double.parseDouble(fString.substring(counter+1, end));
     }
-    
-   
     
  // tests for symbols that are not a function, operator, decimal point or parentheses. returns false if it finds an invalid symbol
     private static boolean tokensOK(String fString){
@@ -242,7 +243,6 @@ public class FunctionString {
     private static String addMultSigns(String fString){
         int counter;
         counter = 1;
-        //int keyCode;
         //insert times signs between an letter and a number or ( and number 
         if (fString.length() == 1) return fString;
         do{
@@ -281,26 +281,74 @@ public class FunctionString {
             pos = fString.indexOf("PI",pos+1);
             if (pos == -1) break;
             fString =  fString.substring(0,pos)+Double.toString(Math.PI)+fString.substring(pos+2, fString.length());
-            //System.out.println(fString);
         }while (pos != -1);
-        //System.out.println("out");
         return fString;
     }
     
-    private static String replaceDoubleMinus(String fString){
+    private static String replaceDoubleOperator(String fString){
         int pos = -1;
-        //System.out.println("In fString"+fString);
+        String token = "--";
         do{ 
-            pos = fString.indexOf("--",pos+1);
+            pos = fString.indexOf(token,pos+1);
             if (pos == -1) break;            
-            fString =  fString.substring(0,pos)+""+fString.substring(pos+2, fString.length());
-            //System.out.println(fString);
+            fString =  fString.substring(0,pos)+"+"+fString.substring(pos+2, fString.length());
+            //System.out.println(token);
         }while (pos != -1);
-        
+        token = "++";
+        do{ 
+            pos = fString.indexOf(token,pos+1);
+            if (pos == -1) break;            
+            fString =  fString.substring(0,pos)+"+"+fString.substring(pos+2, fString.length());
+            //System.out.println(token);
+        }while (pos != -1);
+        token = "+-";
+        do{ 
+            pos = fString.indexOf(token,pos+1);
+            if (pos == -1) break;            
+            fString =  fString.substring(0,pos)+"-"+fString.substring(pos+2, fString.length());
+            //System.out.println(token);
+        }while (pos != -1);
+        token = "-+";
+        do{ 
+            pos = fString.indexOf(token,pos+1);
+            if (pos == -1) break;            
+            fString =  fString.substring(0,pos)+"-"+fString.substring(pos+2, fString.length());
+            //System.out.println(token);
+        }while (pos != -1);
+        //token = "-(";
+        //do{ 
+        //    pos = fString.indexOf(token,pos+1);
+        //    if (pos == -1) break;            
+        //    fString =  fString.substring(0,pos)+"-1*("+fString.substring(pos+2, fString.length());
+        //}while (pos != -1);
         
         return fString;
     }
     
+    private static String replaceMinusParen(String fString){
+        int pos = -1;
+        String token = "-(";
+        do{ 
+            pos = fString.indexOf(token,pos+1);
+            if (pos == -1) break;            
+            fString =  fString.substring(0,pos)+"-1*("+fString.substring(pos+2, fString.length());
+        }while (pos != -1);
+        return fString;
+    }
+        
+    private static String replaceMinusX(String fString){
+        int minusXPos = fString.indexOf("-X");
+         while (minusXPos != -1){
+            String first = fString.substring(0,minusXPos);
+            String last = fString.substring(minusXPos+2);
+            fString = first+"-1*X"+last;
+            //System.out.println("first:"+first+"   last"+last+"   final:"+fString);
+            minusXPos = fString.indexOf("-X");
+         }
+        
+        
+        return fString;
+    }
     
     //parses string from left to right performing additions and subtractions
     private static String addAndSub(String middle){
@@ -472,7 +520,11 @@ public class FunctionString {
         //System.out.println("in eval: " +fString);
         int rp = 0;
         double r = 0;
+        printFStringAndWait(fString);
         String first,fs,middle,last;
+        //System.out.println(fString+", "+x);         
+        fString = replaceDoubleOperator(fString);
+        //fString = replaceMinusParen(fString);
         fString.toLowerCase();
         fString = FunctionString.rightFunctions(fString);
         if (fString.equals("domainError")) throw new DomainViolationException();
@@ -498,19 +550,11 @@ public class FunctionString {
         }
        
         middle = doExponents(middle); 
-        
-       
-        
         middle = multAndDiv(middle);
-        
-       
-        
         middle = addAndSub(middle);
         fs = first+middle+last;
         
-        
-        
-        
+        //System.out.println(fs);  
         
         try {r = Double.parseDouble(fs);}
         catch (NumberFormatException e){ r = eval(fs);}
@@ -536,49 +580,33 @@ public class FunctionString {
          return 0;
     }
     
+    private static void printFStringAndWait(String fString){
+         Scanner scan= new Scanner(System.in);
+         System.out.println(fString);
+         System.out.println("made it here");
+         String text = scan.nextLine();
+    }
        
     //given a string representing a function  and an input value, returns an output value
     public static double fValue(String fString, double x) throws DomainViolationException, FunctionFormatException {
+         
          double r;
          int errorCode = 0;
          if (fString.equals("")) return 0; 
-         fString = fString.toUpperCase();
+         fString = fString.toUpperCase(); //all caps
          fString = removeString(" ",fString); //remove blanks
          fString = addMultSigns(fString); //add * signs where needed. ex: 2(3+5 -> 2*(3+5)
-         
-        int minusXPos = fString.indexOf("-X");
-        while (minusXPos != -1){
-            String first = fString.substring(0,minusXPos);
-            String last = fString.substring(minusXPos+2);
-            fString = first+"-1*X"+last;
-            //System.out.println("first:"+first+"   last"+last+"   final:"+fString);
-            minusXPos = fString.indexOf("-X");
-        }
-            
-            
+         fString = replaceMinusX(fString);
          fString = replaceX(fString,x);  //replace x with its value
-         
-         
-         //System.out.println(fString+", "+x);         
-         if (fString.indexOf("--") == 0) fString = "+"+fString.substring(2); //bad bad bad
-         if (fString.indexOf("-(-") == 0) fString = "-1*"+fString.substring(1);
-         if (fString.indexOf("(--") == 0) fString = "("+fString.substring(3);
-         if (fString.indexOf("-(") == 0) fString = "-1*("+fString.substring(2);
-         //if (fString.indexOf("-X") == 0) fString = "-1*X"+fString.substring(2);
-         //if (x<-5) System.out.println(fString);
-         //System.out.println();
-        //fString = replaceDoubleMinus(fString);
-         
          fString = replacePI(fString); //replace pi with its approximation 
-          
-         
          errorCode = checkErrors(fString); //check for non-matching parentheses and other typo errors
+         
          errorMsg(errorCode);
          if (errorCode != 0) {
              return Double.NaN; } //possibly do something, but more likely implement a try-catch later
-         //System.out.println(fString);
+         
          try{ r=Double.parseDouble(fString); } //if we can't parse what we have to a number, 
-         catch (NumberFormatException e){ r = eval(fString); } //call eval to simplify 
+         catch (NumberFormatException e){r = eval(fString); } //call eval to simplify 
          return r;
     }
 
