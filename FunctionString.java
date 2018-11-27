@@ -520,16 +520,19 @@ public class FunctionString {
         //System.out.println("in eval: " +fString);
         int rp = 0;
         double r = 0;
-        printFStringAndWait(fString);
+        //printFStringAndWait(fString);
         String first,fs,middle,last;
         //System.out.println(fString+", "+x);         
         fString = replaceDoubleOperator(fString);
         //fString = replaceMinusParen(fString);
         fString.toLowerCase();
+        //printFStringAndWait(fString);
         fString = FunctionString.rightFunctions(fString);
+        //printFStringAndWait(fString);
         if (fString.equals("domainError")) throw new DomainViolationException();
         int lp = fString.lastIndexOf('(');     //     getInnerLeftParensPos(fString); //find the number of left parentheses
         if (lp != -1){ 
+            
             rp = fString.indexOf(')' , lp); //matchingRightParens(fString);  //find the number of right parentheses
             if (lp == 0) {
                 first = "";
@@ -537,27 +540,35 @@ public class FunctionString {
                 last = fString.substring(rp+1, fString.length());
             }
             else{
-            
                 first = fString.substring(0, lp);
                 middle = fString.substring(lp+1,rp);
                 last = fString.substring(rp+1, fString.length());
             }
         }
         else{
+            
             first = "";
             middle = fString;
             last = "";
         }
-       
+        System.out.println("middle "+middle);
         middle = doExponents(middle); 
+        System.out.println("middle after exponents "+middle);
         middle = multAndDiv(middle);
+        System.out.println("middle after multdiv"+middle);
         middle = addAndSub(middle);
-        fs = first+middle+last;
+        System.out.println("middle after add sub"+middle);
+        System.out.println("first = "+first);  
+        System.out.println("middle = "+middle);  
+        System.out.println("last = "+last);  
+        fs = first+middle+last;   
         
-        //System.out.println(fs);  
-        
+        System.out.println("fs = "+fs);  
+        printFStringAndWait(fString);  
         try {r = Double.parseDouble(fs);}
-        catch (NumberFormatException e){ r = eval(fs);}
+        catch (NumberFormatException e){ 
+            printFStringAndWait(fString);
+            r = eval(fs);}
         return r;
     }
 
@@ -582,8 +593,8 @@ public class FunctionString {
     
     private static void printFStringAndWait(String fString){
          Scanner scan= new Scanner(System.in);
-         System.out.println(fString);
-         System.out.println("made it here");
+         System.out.println("fString = "+fString);
+         System.out.println("Enter to contiue");
          String text = scan.nextLine();
     }
        
