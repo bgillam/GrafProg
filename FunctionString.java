@@ -377,7 +377,7 @@ public class FunctionString {
     
     //parses string from left to right performing multiplications and divisions
     private static String multAndDiv(String middle){
-        //System.out.println("in multAndDiv: " +middle);
+        System.out.println("in multAndDiv: " +middle);
         int counter = 0;
         do {
             try{ 
@@ -397,6 +397,7 @@ public class FunctionString {
                 //}else {} //some sort of error handling either throw or dialog
            }
            counter++;
+           System.out.println("pass "+counter+": "+middle);
         }while (counter < middle.length());
         return middle;  //addAndSub(middle);
     }
@@ -555,9 +556,9 @@ public class FunctionString {
         middle = doExponents(middle); 
         System.out.println("middle after exponents "+middle);
         middle = multAndDiv(middle);
-        System.out.println("middle after multdiv"+middle);
+        System.out.println("middle after multdiv "+middle);
         middle = addAndSub(middle);
-        System.out.println("middle after add sub"+middle);
+        System.out.println("middle after add sub "+middle);
         System.out.println("first = "+first);  
         System.out.println("middle = "+middle);  
         System.out.println("last = "+last);  
@@ -608,11 +609,12 @@ public class FunctionString {
          fString = removeString(" ",fString); //remove blanks
          fString = addMultSigns(fString); //add * signs where needed. ex: 2(3+5 -> 2*(3+5)
          fString = replaceMinusX(fString);
+         fString = replaceMinusParen(fString);
          fString = replaceX(fString,x);  //replace x with its value
          fString = replacePI(fString); //replace pi with its approximation 
-         errorCode = checkErrors(fString); //check for non-matching parentheses and other typo errors
+         errorMsg(checkErrors(fString)); //check for non-matching parentheses and other typo errors
          
-         errorMsg(errorCode);
+         //errorMsg(errorCode);
          if (errorCode != 0) {
              return Double.NaN; } //possibly do something, but more likely implement a try-catch later
          
