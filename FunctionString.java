@@ -1,4 +1,4 @@
-/**************************************
+  /**************************************
 * FunctionString for GrafProg Project *
 *  @author Bill Gillam                *
 *  2/25/15                            *
@@ -27,7 +27,7 @@ public class FunctionString {
            //System.out.println("Here we go");
            //System.out.println(fValue("x^4 - 2x + 5", -1.0));
            //System.out.println(fValue("x^4 - 2x + 5", 1.0));
-           System.out.println(fValue("3-2x", -1.0));
+           //System.out.println(fValue("3-2x", -1.0));
            //System.out.println("again:");
            //System.out.println(fValue("3-2x", 1.0));
         }catch (Exception e){}
@@ -112,7 +112,17 @@ public class FunctionString {
     //returns the first part of a string before the numeric string that includes position counter
     //used to return the part of the string that precedes the substring of interest
     private static String getPreString(int counter, String fString){
-        if (getBeginLeftNumPos(counter, fString) == 0) return ""; else return fString.substring(0, getBeginLeftNumPos(counter,fString));
+        int beginLeftNumPos = getBeginLeftNumPos(counter, fString);
+        if (beginLeftNumPos == 0) return ""; 
+        else try{
+            //System.out.println("Last digit: "+fString.substring(beginLeftNumPos-1, beginLeftNumPos));
+            Double.parseDouble(fString.substring(beginLeftNumPos-1, beginLeftNumPos));
+            //System.out.println("return "+fString.substring(0, beginLeftNumPos)+"+");
+            return fString.substring(0, beginLeftNumPos)+"+";
+        }
+        catch (NumberFormatException e){     
+            return fString.substring(0, beginLeftNumPos);
+        }
     }
     
     //returns// return the part of the string that comes after the substring of interest
@@ -377,7 +387,7 @@ public class FunctionString {
     
     //parses string from left to right performing multiplications and divisions
     private static String multAndDiv(String middle){
-        System.out.println("in multAndDiv: " +middle);
+        //System.out.println("in multAndDiv: " +middle);
         int counter = 0;
         do {
             try{ 
@@ -387,6 +397,10 @@ public class FunctionString {
             catch (NumberFormatException e){ }
             
             if (middle.charAt(counter) == '*') {
+                //String pre = getPreString(counter, middle);
+                //System.out.println("Mid1 = "+getLeftNum(counter,middle));
+                //System.out.println("Mid2 = "+getRightNum(counter,middle));
+                //System.out.println("Post = "+ getPostString(counter, middle));
                 middle = getPreString(counter, middle)+(getLeftNum(counter,middle)*getRightNum(counter,middle))+getPostString(counter, middle);
                 counter = 0;
             }   
@@ -397,7 +411,7 @@ public class FunctionString {
                 //}else {} //some sort of error handling either throw or dialog
            }
            counter++;
-           System.out.println("pass "+counter+": "+middle);
+           //System.out.println("pass "+counter+": "+middle);
         }while (counter < middle.length());
         return middle;  //addAndSub(middle);
     }
@@ -552,23 +566,23 @@ public class FunctionString {
             middle = fString;
             last = "";
         }
-        System.out.println("middle "+middle);
+        //System.out.println("middle "+middle);
         middle = doExponents(middle); 
-        System.out.println("middle after exponents "+middle);
+        //System.out.println("middle after exponents "+middle);
         middle = multAndDiv(middle);
-        System.out.println("middle after multdiv "+middle);
+        //System.out.println("middle after multdiv "+middle);
         middle = addAndSub(middle);
-        System.out.println("middle after add sub "+middle);
-        System.out.println("first = "+first);  
-        System.out.println("middle = "+middle);  
-        System.out.println("last = "+last);  
+        //System.out.println("middle after add sub "+middle);
+        //System.out.println("first = "+first);  
+        //System.out.println("middle = "+middle);  
+        //System.out.println("last = "+last);  
         fs = first+middle+last;   
         
-        System.out.println("fs = "+fs);  
-        printFStringAndWait(fString);  
+        //System.out.println("fs = "+fs);  
+        //printFStringAndWait(fString);  
         try {r = Double.parseDouble(fs);}
         catch (NumberFormatException e){ 
-            printFStringAndWait(fString);
+            //printFStringAndWait(fString);
             r = eval(fs);}
         return r;
     }
