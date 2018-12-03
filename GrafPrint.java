@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class GrafPrint here.
+ * Prints current window
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Bill Gillam)
+ * @version (11/30/18)
  */
 public class GrafPrint
 {

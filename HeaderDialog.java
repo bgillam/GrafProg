@@ -1,3 +1,8 @@
+/**************************************** 
+*  Header editor for GrafProg Project *
+*  @author Bill Gillam                  *
+*  2/25/15                              *
+*****************************************/ 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;

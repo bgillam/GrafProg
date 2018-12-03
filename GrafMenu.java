@@ -1,6 +1,5 @@
 
 /**
- * Write a description of class GrafMenu here.
  * Main menu for GrafProg instance
  * @author (Bill Gillam)
  * @version (4/4/18)

@@ -1,4 +1,9 @@
-
+/**************************************** 
+*  TableFunctionDialog  for GrafProg Project 
+*  Dialog to generates table values from a function
+*  @author Bill Gillam                  
+*  2/25/15                              
+*****************************************/ 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;

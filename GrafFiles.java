@@ -1,6 +1,5 @@
 
 /**
- * Write a description of class GrafFiles here.
  * File Handling Routines for GrafProg
  * @author (Bill Gillam)
  * @version (4/6/18)

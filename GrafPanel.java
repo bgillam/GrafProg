@@ -1,5 +1,6 @@
 /********************************* 
 * GrafPanel for GrafProg Project *
+* Panel graphs are painted on
 *  @author Bill Gillam           *
 *  2/25/15                       *
 **********************************/
