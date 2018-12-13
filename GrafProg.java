@@ -29,7 +29,7 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
     private int width = 600;
     private int height = 600;
     private GrafSettings grafSet = new GrafSettings(this);  //Stores window settings
-    private GrafPrimitives grafPrim = new GrafPrimitives(this);  //draw line, point or character
+    //private GrafPrimitives grafPrim = new GrafPrimitives(this);  //draw line, point or character
     private GrafTable data = new GrafTable(this, 100,10);  //table for data 
     private ArrayList<GrafObject> grafObjectList = new ArrayList<GrafObject>(); //list of objects to be graphed
     private GrafAxes axes = new GrafAxes(this);   //axes object
@@ -96,7 +96,7 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
   }
   
   //Close an open file
-  private void closeGraf(){
+  public void closeGraf(){
     if (!grafSaved) 
         switch (JOptionPane.showConfirmDialog(null, "Save File?", "File"+grafFile.toString()+"not saved.", JOptionPane.YES_NO_CANCEL_OPTION)){
         case JOptionPane.YES_OPTION : { GrafFiles.saveFile(this); setAsSaved(); }    
@@ -191,8 +191,8 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
    public GrafSettings getGrafSettings() {return grafSet;}
    public void setGrafSettings(GrafSettings gs) { grafSet = gs; }
    
-   public GrafPrimitives getGrafPrimitives(){  return grafPrim; }
-   public void setGrafPrim(GrafPrimitives gp){}
+   //public GrafPrimitives getGrafPrimitives(){  return grafPrim; }
+   //public void setGrafPrim(GrafPrimitives gp){}
       
    public String getCopiedText(){return copiedText;}
    public void setCopiedText(String s){ copiedText = s;}

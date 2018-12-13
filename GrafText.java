@@ -18,7 +18,7 @@ public class GrafText extends GrafObject
         private GrafProg myOwner;
         protected GrafSettings gStuff;
         private Font font;
-        protected Color color;
+        //protected Color color;
         protected double x = 0;
         protected double y = 0;
         
@@ -67,14 +67,14 @@ public class GrafText extends GrafObject
    public Font getFont(){return font;}
    public String getText(){return text;}
    public void setText(String s){text = s;}
-   public void setColor(Color c){
-       color=c;
-   }
-   public Color getColor(){
-    return color;
-    }
+   //public void setColor(Color c){
+   //    color=c;
+   //}
+   //public Color getColor(){
+   // return color;
+   // }
    
-  public static void createInputDialog(GrafProg gs){
+  public static GrafInputDialog createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
          gfd.setTitle("TEXT"); 
          gfd.setPointPanel(gfd.addPointPanel());
@@ -100,6 +100,7 @@ public class GrafText extends GrafObject
         gfd.setModal(true);
         gfd.pack();
         gfd.setVisible(true);  
+        return gfd;
      }
     
   private static void saveText(GrafProg gSess, GrafInputDialog gfd){

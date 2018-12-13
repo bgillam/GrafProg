@@ -15,17 +15,7 @@ import javax.swing.JComboBox;
 
 public class GrafPoint extends GrafText
 {
-    
-    public static void main(String[] args){
-        GrafPoint gPoint = new GrafPoint(new GrafProg(), 2, 3, "x");
-        gPoint.setColor(Color.RED);
-        System.out.println(gPoint.getColor());
-        System.out.println(gPoint.getFont());
-
-    }
-    
-    
-    // instance variables - replace the example below with your own
+   //Constructors      
    public GrafPoint(){
        super();
        setGrafType(GrafType.POINT);
@@ -53,25 +43,24 @@ public class GrafPoint extends GrafText
    public GrafPoint(GrafProg sess, double x, double y, String t, Color c){
         super(sess, x, y, t);
         setGrafType(GrafType.POINT);
-        super.setColor(c);
+        setGrafColor(c);
    }
-    
-    public GrafPoint(GrafProg sess, double x, double y, String t, Font f, Color c){
+   
+   public GrafPoint(GrafProg sess, double x, double y, String t, Font f, Color c){
         super(sess, x, y, t, f, c);
         setGrafType(GrafType.POINT);
-    }
+   }
    
    
      public void drawGraf(Graphics2D gc){
-      
-       gc.setColor(color);
+       gc.setColor(getGrafColor());
        GrafPrimitives.grafString(gStuff,x, y, getMark(),  gc);
        gc.setColor(Color.BLACK);
     }
     
     
     
-     public static void createInputDialog(GrafProg gs){
+     public static GrafInputDialog createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
          gfd.setTitle("Point"); 
          gfd.setPointPanel(gfd.addPointPanel());
@@ -98,6 +87,7 @@ public class GrafPoint extends GrafText
          gfd.setModal(true);
          gfd.pack();
          gfd.setVisible(true);  
+         return gfd;
      }
     
      private static void savePoint(GrafProg gSess, GrafInputDialog gfd){
@@ -105,7 +95,7 @@ public class GrafPoint extends GrafText
              addPoint(gSess,gfd );
              gfd.getPointPanel().blankX1();
              gfd.getPointPanel().blankY1();
-   }
+    }
 
     private static void addPoint(GrafProg gSess, GrafInputDialog gfd){
        if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}

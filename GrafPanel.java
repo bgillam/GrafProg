@@ -12,7 +12,7 @@ import javax.swing.*;
 
 import java.io.*;
 import java.awt.*;
-import java.awt.event.*;
+//import java.awt.*;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -35,6 +35,7 @@ public class GrafPanel extends JPanel implements Serializable
     
       
     public void paintComponent(Graphics g){
+        //System.out.println("in paint");
         grafCanvas = (Graphics2D)g;
         String functionList = "";
         for (GrafObject graf: gFrame.getGrafList()){
@@ -50,7 +51,7 @@ public class GrafPanel extends JPanel implements Serializable
       }
     
     public void printPanel(){
-       PrinterJob printJob = PrinterJob.getPrinterJob();
+      PrinterJob printJob = PrinterJob.getPrinterJob();
       printJob.setJobName("Print GrafPanel");
       printJob.setPrintable (new Printable() {    
         public int print(Graphics g, PageFormat pf, int pageNum){
@@ -71,5 +72,11 @@ public class GrafPanel extends JPanel implements Serializable
     
     //Getters and Setters
     public void setOwner(GrafProg gs) {gFrame = gs;}
+    
+    //public Graphics2D getGrafCanvas(){
+        //System.out.println(grafCanvas);
+        //repaint();
+        //return grafCanvas;
+    //.}
  
 }
