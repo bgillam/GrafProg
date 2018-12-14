@@ -8,20 +8,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 /**
- * The test class GrafPointTest.
+ * The test class GrafAxesTest.
  *
  * @author  (your name)
  * @version (a version number or a date)
  */
 
-public class GrafPointTest
+public class GrafAxesTest
 {
     private GrafProg  gSess;
-    private GrafPoint gPoint;
+    private GrafAxes gAxes;
     /**
      * Default constructor for test class GrafPointTest
      */
-    public GrafPointTest()
+    public GrafAxesTest()
     {
     }
 
@@ -34,37 +34,18 @@ public class GrafPointTest
     public void setUp()
     {
        gSess = new GrafProg();
-       gPoint = new GrafPoint(gSess, 2, 3, "x", Color.BLACK);
+       gAxes = new GrafAxes(gSess);
     }
     
     @Test
     public void drawGrafTest(){
-        assertNotNull(gPoint.getGrafColor());
         assertNotNull(gSess.getGrafPanel());
         assertNotNull(gSess.getGrafPanel().getGraphics());
         Graphics g = gSess.getGrafPanel().getGraphics();
-        gPoint.drawGraf((Graphics2D)g);
-    }
-    
-    @Test
-    public void createInputDialogTest(){
-        gPoint.createInputDialog(gSess);
-        
+        gAxes.drawGraf((Graphics2D)g);
     }
     
   
-    @Test
-    public void setAndGetMarkTest(){
-         gPoint.setMark("x");  
-         assertEquals(gPoint.getMark(), "x");
-    }  
-    
-    @Test
-    public void setAndGetColorRedTest(){
-        gPoint.setGrafColor(Color.RED);
-        assertEquals(gPoint.getGrafColor(),Color.RED);
-    }
-
     /**
      * Tears down the test fixture.
      *

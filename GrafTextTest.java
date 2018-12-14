@@ -14,14 +14,14 @@ import java.awt.Graphics2D;
  * @version (a version number or a date)
  */
 
-public class GrafPointTest
+public class GrafTextTest
 {
     private GrafProg  gSess;
-    private GrafPoint gPoint;
+    private GrafText gText;
     /**
      * Default constructor for test class GrafPointTest
      */
-    public GrafPointTest()
+    public GrafTextTest()
     {
     }
 
@@ -34,35 +34,35 @@ public class GrafPointTest
     public void setUp()
     {
        gSess = new GrafProg();
-       gPoint = new GrafPoint(gSess, 2, 3, "x", Color.BLACK);
+       gText = new GrafText(gSess, 2, 3, "x");
     }
     
     @Test
     public void drawGrafTest(){
-        assertNotNull(gPoint.getGrafColor());
+        assertNotNull(gText.getGrafColor());
         assertNotNull(gSess.getGrafPanel());
         assertNotNull(gSess.getGrafPanel().getGraphics());
         Graphics g = gSess.getGrafPanel().getGraphics();
-        gPoint.drawGraf((Graphics2D)g);
+        gText.drawGraf((Graphics2D)g);
     }
     
     @Test
     public void createInputDialogTest(){
-        gPoint.createInputDialog(gSess);
+        gText.createInputDialog(gSess);
         
     }
     
   
     @Test
     public void setAndGetMarkTest(){
-         gPoint.setMark("x");  
-         assertEquals(gPoint.getMark(), "x");
+         gText.setText("x");  
+         assertEquals(gText.getText(), "x");
     }  
     
     @Test
     public void setAndGetColorRedTest(){
-        gPoint.setGrafColor(Color.RED);
-        assertEquals(gPoint.getGrafColor(),Color.RED);
+        gText.setGrafColor(Color.RED);
+        assertEquals(gText.getGrafColor(),Color.RED);
     }
 
     /**
