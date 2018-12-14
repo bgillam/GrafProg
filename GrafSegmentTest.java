@@ -8,20 +8,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 /**
- * The test class GrafTextTest.
+ * The test class GrafSegmentTest.
  *
  * @author  (your name)
  * @version (a version number or a date)
  */
 
-public class GrafTextTest
+public class GrafSegmentTest
 {
     private GrafProg  gSess;
-    private GrafText gText;
+    private GrafSegment gSeg;
     /**
      * Default constructor for test class GrafPointTest
      */
-    public GrafTextTest()
+    public GrafSegmentTest()
     {
     }
 
@@ -34,37 +34,45 @@ public class GrafTextTest
     public void setUp()
     {
        gSess = new GrafProg();
-       gText = new GrafText(gSess, 2, 3, "x");
+       gSeg = new GrafSegment(gSess, 2, 3, 4, 5);
     }
     
     @Test
     public void drawGrafTest(){
-        assertNotNull(gText.getGrafColor());
+        assertNotNull(gSeg.getGrafColor());
         assertNotNull(gSess.getGrafPanel());
         assertNotNull(gSess.getGrafPanel().getGraphics());
         Graphics g = gSess.getGrafPanel().getGraphics();
-        gText.drawGraf((Graphics2D)g);
+        gSeg.drawGraf((Graphics2D)g);
     }
     
     @Test
     public void createInputDialogTest(){
-        gText.createInputDialog(gSess);
+        gSeg.createInputDialog(gSess);
         
     }
     
-  
-    @Test
-    public void setAndGetMarkTest(){
-         gText.setText("x");  
-         assertEquals(gText.getText(), "x");
-    }  
-    
+      
     @Test
     public void setAndGetColorRedTest(){
-        gText.setGrafColor(Color.RED);
-        assertEquals(gText.getGrafColor(),Color.RED);
+        gSeg.setGrafColor(Color.RED);
+        assertEquals(gSeg.getGrafColor(),Color.RED);
     }
-
+    
+    @Test 
+    public void setAndGetCoords(){
+        gSeg.setX1(1);
+        gSeg.setY1(2);
+        gSeg.setX2(3);
+        gSeg.setY2(4);
+        double d = .000001;
+        assertEquals(gSeg.getX1(),1.0,d);
+        assertEquals(gSeg.getY1(),2.0,d);
+        assertEquals(gSeg.getX2(),3.0,d);
+        assertEquals(gSeg.getY2(),4.0,d);
+    } 
+   
+   
     /**
      * Tears down the test fixture.
      *

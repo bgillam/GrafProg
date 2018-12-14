@@ -1,5 +1,6 @@
 
 
+
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -8,20 +9,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 /**
- * The test class GrafTextTest.
+ * The test class GrafCircleTest.
  *
  * @author  (your name)
  * @version (a version number or a date)
  */
 
-public class GrafTextTest
+public class GrafCircleTest
 {
     private GrafProg  gSess;
-    private GrafText gText;
+    private GrafCircle gCircle;
     /**
      * Default constructor for test class GrafPointTest
      */
-    public GrafTextTest()
+    public GrafCircleTest()
     {
     }
 
@@ -34,37 +35,47 @@ public class GrafTextTest
     public void setUp()
     {
        gSess = new GrafProg();
-       gText = new GrafText(gSess, 2, 3, "x");
+       gCircle = new GrafCircle(gSess, 2, 3, 4);
     }
     
     @Test
     public void drawGrafTest(){
-        assertNotNull(gText.getGrafColor());
+        assertNotNull(gCircle.getGrafColor());
         assertNotNull(gSess.getGrafPanel());
         assertNotNull(gSess.getGrafPanel().getGraphics());
         Graphics g = gSess.getGrafPanel().getGraphics();
-        gText.drawGraf((Graphics2D)g);
+        gCircle.drawGraf((Graphics2D)g);
     }
     
     @Test
     public void createInputDialogTest(){
-        gText.createInputDialog(gSess);
+       gCircle.createInputDialog(gSess);
         
     }
     
-  
+      
     @Test
-    public void setAndGetMarkTest(){
-         gText.setText("x");  
-         assertEquals(gText.getText(), "x");
-    }  
-    
-    @Test
-    public void setAndGetColorRedTest(){
-        gText.setGrafColor(Color.RED);
-        assertEquals(gText.getGrafColor(),Color.RED);
+    public void setAndGetColorTest(){
+        gCircle.setGrafColor(Color.RED);
+        assertEquals(gCircle.getGrafColor(),Color.RED);
+        gCircle.setFill(Color.BLUE);
+        assertEquals(gCircle.getFill(),Color.BLUE);
     }
-
+    
+    @Test 
+    public void setAndGetCoords(){
+        gCircle.setCx(1);
+        gCircle.setCy(2);
+        gCircle.setR(3);
+        
+        double d = .000001;
+        assertEquals(gCircle.getCx(),1.0,d);
+        assertEquals(gCircle.getCy(),2.0,d);
+        assertEquals(gCircle.getR(),3.0,d);
+        
+    } 
+   
+   
     /**
      * Tears down the test fixture.
      *

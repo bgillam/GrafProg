@@ -118,11 +118,11 @@ public class GrafPoint extends GrafText
     
     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                     GrafPoint ptEdit = (GrafPoint)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                     caller.getPointChooser().setX1(ptEdit.getX());
-                     caller.getPointChooser().setY1(ptEdit.getY());
-                     caller.getMarkChooser().setTextString(ptEdit.getMark());
-                     //caller.getMarkChooser().setCurrentFont(ptEdit.getFont());
-                     caller.getMarkChooser().setColor(ptEdit.getGrafColor());     
+                    caller.getPointChooser().setX1(ptEdit.getX());
+                    caller.getPointChooser().setY1(ptEdit.getY());
+                    caller.getMarkChooser().setTextString(ptEdit.getMark());
+                    //caller.getMarkChooser().setCurrentFont(ptEdit.getFont());
+                    caller.getMarkChooser().setColor(ptEdit.getGrafColor());     
        }
    
    public void setMark(String s){super.setText(s);}

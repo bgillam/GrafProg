@@ -1,5 +1,6 @@
 
 
+
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -8,20 +9,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 /**
- * The test class GrafTextTest.
+ * The test class GrafEllipseTest.
  *
  * @author  (your name)
  * @version (a version number or a date)
  */
 
-public class GrafTextTest
+public class GrafEllipseTest
 {
     private GrafProg  gSess;
-    private GrafText gText;
+    private GrafRectangle gRect;
     /**
      * Default constructor for test class GrafPointTest
      */
-    public GrafTextTest()
+    public GrafEllipseTest()
     {
     }
 
@@ -34,37 +35,47 @@ public class GrafTextTest
     public void setUp()
     {
        gSess = new GrafProg();
-       gText = new GrafText(gSess, 2, 3, "x");
+       gRect = new GrafEllipse(gSess, 2, 3, 4, 5);
     }
     
     @Test
     public void drawGrafTest(){
-        assertNotNull(gText.getGrafColor());
+        assertNotNull(gRect.getGrafColor());
         assertNotNull(gSess.getGrafPanel());
         assertNotNull(gSess.getGrafPanel().getGraphics());
         Graphics g = gSess.getGrafPanel().getGraphics();
-        gText.drawGraf((Graphics2D)g);
+        gRect.drawGraf((Graphics2D)g);
     }
     
     @Test
     public void createInputDialogTest(){
-        gText.createInputDialog(gSess);
+       gRect.createInputDialog(gSess);
         
     }
     
-  
+      
     @Test
-    public void setAndGetMarkTest(){
-         gText.setText("x");  
-         assertEquals(gText.getText(), "x");
-    }  
-    
-    @Test
-    public void setAndGetColorRedTest(){
-        gText.setGrafColor(Color.RED);
-        assertEquals(gText.getGrafColor(),Color.RED);
+    public void setAndGetColorTest(){
+        gRect.setGrafColor(Color.RED);
+        assertEquals(gRect.getGrafColor(),Color.RED);
+        gRect.setFill(Color.BLUE);
+        assertEquals(gRect.getFill(),Color.BLUE);
     }
-
+    
+    @Test 
+    public void setAndGetCoords(){
+        gRect.setX(1);
+        gRect.setY(2);
+        gRect.setWidth(3);
+        gRect.setHeight(4);
+        double d = .000001;
+        assertEquals(gRect.getX(),1.0,d);
+        assertEquals(gRect.getY(),2.0,d);
+        assertEquals(gRect.getWidth(),3.0,d);
+        assertEquals(gRect.getHeight(),4.0,d);
+    } 
+   
+   
     /**
      * Tears down the test fixture.
      *
