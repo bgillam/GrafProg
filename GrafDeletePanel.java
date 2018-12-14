@@ -168,6 +168,10 @@ public class GrafDeletePanel extends JPanel
        return plotIndex;
     }
     
+    public void setPlotIndex(ArrayList<Integer> index){
+        plotIndex = index;
+    }
+    
 }
 
 

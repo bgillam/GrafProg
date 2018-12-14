@@ -22,7 +22,13 @@ public class GrafText extends GrafObject
         protected double x = 0;
         protected double y = 0;
         
-   public GrafText(){}
+        
+        
+   public GrafText(){
+     super();
+     setGrafType(GrafType.TEXT);
+     setText("");
+    }
         
    public GrafText(GrafProg sess){
         setText("");
@@ -67,12 +73,7 @@ public class GrafText extends GrafObject
    public Font getFont(){return font;}
    public String getText(){return text;}
    public void setText(String s){text = s;}
-   //public void setColor(Color c){
-   //    color=c;
-   //}
-   //public Color getColor(){
-   // return color;
-   // }
+  
    
   public static GrafInputDialog createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
