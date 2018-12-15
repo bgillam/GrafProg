@@ -58,7 +58,7 @@ public class GrafCircle extends GrafObject{
         }
      
         
-    public static void createInputDialog(GrafProg gs){
+    public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);     
         gfd.setTitle("CIRCLE"); 
         gfd.setPointPanel(gfd.addPointPanel());
@@ -83,7 +83,8 @@ public class GrafCircle extends GrafObject{
         });
         gfd.setModal(true);
         gfd.pack();
-        gfd.setVisible(true);  
+        gfd.setVisible(true); 
+        return gfd;
     }
     
     private static void saveCircle(GrafProg gs, GrafInputDialog gfd){
@@ -121,11 +122,11 @@ public class GrafCircle extends GrafObject{
      }
      
      public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                    GrafEllipse circEdit = (GrafEllipse)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                     caller.getPointChooser().setX1(circEdit.getX());
-                     caller.getPointChooser().setY1(circEdit.getY());
-                     caller.getPointChooser().setW(circEdit.getWidth());
-                     caller.getPointChooser().setH(circEdit.getHeight());
+                     GrafCircle circEdit = (GrafCircle)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setX1(circEdit.getCx());
+                     caller.getPointChooser().setX2(circEdit.getCy());
+                     caller.getPointChooser().setR(circEdit.getR());
+                     //caller.getPointChooser().setH(circEdit.getHeight());
                      caller.getMarkChooser().setFillChecked(circEdit.getFillFlag());
                      caller.getMarkChooser().setColor(circEdit.getGrafColor());  
                      caller.getMarkChooser().setFillColor(circEdit.getFill());  

@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 /**
  * The test class GrafTextTest.
  *
@@ -18,6 +19,8 @@ public class GrafTextTest
 {
     private GrafProg  gSess;
     private GrafText gText;
+    private ArrayList<GrafObject> aList;
+    private ArrayList<Integer> indexList;
     /**
      * Default constructor for test class GrafPointTest
      */
@@ -35,6 +38,18 @@ public class GrafTextTest
     {
        gSess = new GrafProg();
        gText = new GrafText(gSess, 2, 3, "x");
+       aList = new ArrayList<GrafObject>();
+       for (int i=0; i<10; i++){
+           aList.add(new GrafPoint(gSess));
+           aList.add(new GrafText(gSess));
+       }
+       indexList = new ArrayList<Integer>();
+       for (int i = 0; i<aList.size(); i++){
+           
+           if (aList.get(i).getType() == GrafType.TEXT) 
+               indexList.add(i);
+           
+       }
     }
     
     @Test
@@ -52,6 +67,19 @@ public class GrafTextTest
         
     }
     
+    public void getPlotListTest(){
+        gText.getPlotList(aList, indexList);
+        
+    }
+    
+    @Test
+    public void setDeleteValuesTest(){
+        GrafInputDialog gid = gText.createInputDialog(gSess);
+        //gid.getMarkChooser().setTextString("");
+        gid.getDeleter().setPlotIndex(indexList); 
+        gText.setDeleteValues(3, gid, aList);
+    
+    }
   
     @Test
     public void setAndGetMarkTest(){

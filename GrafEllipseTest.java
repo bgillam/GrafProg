@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 /**
  * The test class GrafEllipseTest.
  *
@@ -19,6 +20,8 @@ public class GrafEllipseTest
 {
     private GrafProg  gSess;
     private GrafRectangle gRect;
+    private ArrayList<GrafObject> aList;
+    private ArrayList<Integer> indexList;
     /**
      * Default constructor for test class GrafPointTest
      */
@@ -36,6 +39,18 @@ public class GrafEllipseTest
     {
        gSess = new GrafProg();
        gRect = new GrafEllipse(gSess, 2, 3, 4, 5);
+       aList = new ArrayList<GrafObject>();
+       for (int i=0; i<10; i++){
+           aList.add(new GrafText(gSess));
+           aList.add(new GrafEllipse(gSess));
+       }
+       indexList = new ArrayList<Integer>();
+       for (int i = 0; i<aList.size(); i++){
+           
+           if (aList.get(i).getType() == GrafType.ELLIPSE) 
+               indexList.add(i);
+           
+       }
     }
     
     @Test
@@ -52,6 +67,20 @@ public class GrafEllipseTest
        gRect.createInputDialog(gSess);
         
     }
+    
+    @Test
+    public void getPlotListTest(){
+        gRect.getPlotList(aList, indexList);
+        
+    }
+    
+    @Test
+    public void setDeleteValuesTest(){
+        GrafInputDialog gid = gRect.createInputDialog(gSess);
+        gid.getDeleter().setPlotIndex(indexList); 
+        gRect.setDeleteValues(3, gid, aList );
+    
+    }  
     
       
     @Test

@@ -20,7 +20,7 @@ public class GrafPointTest
     private GrafProg  gSess;
     private GrafPoint gPoint;
     private ArrayList<GrafObject> aList;
-    ArrayList<Integer> indexList;
+    private ArrayList<Integer> indexList;
     /**
      * Default constructor for test class GrafPointTest
      */
@@ -45,7 +45,7 @@ public class GrafPointTest
        }
        indexList = new ArrayList<Integer>();
        for (int i = 0; i<aList.size(); i++){
-           System.out.println("item "+i+": "+aList.get(i).getType());
+           
            if (aList.get(i).getType() == GrafType.POINT) 
                indexList.add(i);
            
@@ -68,8 +68,8 @@ public class GrafPointTest
         
     }
     
-    public String[] getPlotListTest(){
-        return gPoint.getPlotList(aList, indexList);
+    public void getPlotListTest(){
+        gPoint.getPlotList(aList, indexList);
         
     }
     

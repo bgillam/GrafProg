@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 /**
  * The test class GrafCircleTest.
  *
@@ -19,6 +20,8 @@ public class GrafCircleTest
 {
     private GrafProg  gSess;
     private GrafCircle gCircle;
+    private ArrayList<GrafObject> aList;
+    private ArrayList<Integer> indexList;
     /**
      * Default constructor for test class GrafPointTest
      */
@@ -36,6 +39,18 @@ public class GrafCircleTest
     {
        gSess = new GrafProg();
        gCircle = new GrafCircle(gSess, 2, 3, 4);
+       aList = new ArrayList<GrafObject>();
+       for (int i=0; i<10; i++){
+           aList.add(new GrafText(gSess));
+           aList.add(new GrafCircle(gSess));
+       }
+       indexList = new ArrayList<Integer>();
+       for (int i = 0; i<aList.size(); i++){
+           
+           if (aList.get(i).getType() == GrafType.CIRCLE) 
+               indexList.add(i);
+           
+       }
     }
     
     @Test
@@ -52,6 +67,20 @@ public class GrafCircleTest
        gCircle.createInputDialog(gSess);
         
     }
+    
+    @Test
+    public void getPlotListTest(){
+        gCircle.getPlotList(aList, indexList);
+        
+    }
+    
+    @Test
+    public void setDeleteValuesTest(){
+        GrafInputDialog gid = gCircle.createInputDialog(gSess);
+        gid.getDeleter().setPlotIndex(indexList); 
+        gCircle.setDeleteValues(3, gid, aList );
+    
+    }  
     
       
     @Test

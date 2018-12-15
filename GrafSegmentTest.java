@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 /**
  * The test class GrafSegmentTest.
  *
@@ -18,6 +19,8 @@ public class GrafSegmentTest
 {
     private GrafProg  gSess;
     private GrafSegment gSeg;
+    private ArrayList<GrafObject> aList;
+    private ArrayList<Integer> indexList;
     /**
      * Default constructor for test class GrafPointTest
      */
@@ -35,6 +38,18 @@ public class GrafSegmentTest
     {
        gSess = new GrafProg();
        gSeg = new GrafSegment(gSess, 2, 3, 4, 5);
+       aList = new ArrayList<GrafObject>();
+       for (int i=0; i<10; i++){
+           aList.add(new GrafText(gSess));
+           aList.add(new GrafSegment(gSess));
+       }
+       indexList = new ArrayList<Integer>();
+       for (int i = 0; i<aList.size(); i++){
+           
+           if (aList.get(i).getType() == GrafType.LINESEGMENT) 
+               indexList.add(i);
+           
+       }
     }
     
     @Test
@@ -52,7 +67,20 @@ public class GrafSegmentTest
         
     }
     
-      
+     public void getPlotListTest(){
+        gSeg.getPlotList(aList, indexList);
+        
+    }
+    
+    @Test
+    public void setDeleteValuesTest(){
+        GrafInputDialog gid = gSeg.createInputDialog(gSess);
+        gid.getDeleter().setPlotIndex(indexList); 
+        gSeg.setDeleteValues(3, gid, aList );
+    
+    }  
+    
+    
     @Test
     public void setAndGetColorRedTest(){
         gSeg.setGrafColor(Color.RED);

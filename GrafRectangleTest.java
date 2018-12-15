@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 /**
  * The test class GrafRectangleTest.
  *
@@ -19,6 +20,8 @@ public class GrafRectangleTest
 {
     private GrafProg  gSess;
     private GrafRectangle gRect;
+    private ArrayList<GrafObject> aList;
+    private ArrayList<Integer> indexList;
     /**
      * Default constructor for test class GrafPointTest
      */
@@ -36,6 +39,18 @@ public class GrafRectangleTest
     {
        gSess = new GrafProg();
        gRect = new GrafRectangle(gSess, 2, 3, 4, 5);
+       aList = new ArrayList<GrafObject>();
+       for (int i=0; i<10; i++){
+           aList.add(new GrafText(gSess));
+           aList.add(new GrafRectangle(gSess));
+       }
+       indexList = new ArrayList<Integer>();
+       for (int i = 0; i<aList.size(); i++){
+           
+           if (aList.get(i).getType() == GrafType.RECTANGLE) 
+               indexList.add(i);
+           
+       }
     }
     
     @Test
@@ -53,6 +68,19 @@ public class GrafRectangleTest
         
     }
     
+    @Test
+    public void getPlotListTest(){
+        gRect.getPlotList(aList, indexList);
+        
+    }
+    
+    @Test
+    public void setDeleteValuesTest(){
+        GrafInputDialog gid = gRect.createInputDialog(gSess);
+        gid.getDeleter().setPlotIndex(indexList); 
+        gRect.setDeleteValues(3, gid, aList );
+    
+    }  
       
     @Test
     public void setAndGetColorTest(){
