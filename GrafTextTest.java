@@ -38,18 +38,8 @@ public class GrafTextTest
     {
        gSess = new GrafProg();
        gText = new GrafText(gSess, 2, 3, "x");
-       aList = new ArrayList<GrafObject>();
-       for (int i=0; i<10; i++){
-           aList.add(new GrafPoint(gSess));
-           aList.add(new GrafText(gSess));
-       }
-       indexList = new ArrayList<Integer>();
-       for (int i = 0; i<aList.size(); i++){
-           
-           if (aList.get(i).getType() == GrafType.TEXT) 
-               indexList.add(i);
-           
-       }
+       aList = MockMaker.createMockObjectList(gSess);
+       indexList = MockMaker.createMockIndexList(aList, GrafType.TEXT);
     }
     
     @Test

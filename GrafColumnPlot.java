@@ -21,6 +21,18 @@ public class GrafColumnPlot extends GrafObject {
     private boolean connected = false;
         
     //Constructor
+    public GrafColumnPlot(GrafProg sess){
+        int column = 1;
+        setGrafType(GrafType.COLUMN);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+        myOwner = sess;
+        gStuff = myOwner.getGrafSettings();
+        setColumnNumber(column);
+        table = myOwner.getData();
+        sess.setMessage1("Plotting Column "+columnNumber);
+    }
+    
     public GrafColumnPlot(GrafProg sess, int column){
         setGrafType(GrafType.COLUMN);
         setMoveable(false);

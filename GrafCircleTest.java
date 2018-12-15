@@ -39,18 +39,8 @@ public class GrafCircleTest
     {
        gSess = new GrafProg();
        gCircle = new GrafCircle(gSess, 2, 3, 4);
-       aList = new ArrayList<GrafObject>();
-       for (int i=0; i<10; i++){
-           aList.add(new GrafText(gSess));
-           aList.add(new GrafCircle(gSess));
-       }
-       indexList = new ArrayList<Integer>();
-       for (int i = 0; i<aList.size(); i++){
-           
-           if (aList.get(i).getType() == GrafType.CIRCLE) 
-               indexList.add(i);
-           
-       }
+       aList = MockMaker.createMockObjectList(gSess);
+       indexList = MockMaker.createMockIndexList(aList, GrafType.CIRCLE);
     }
     
     @Test

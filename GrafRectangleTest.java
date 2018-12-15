@@ -39,18 +39,8 @@ public class GrafRectangleTest
     {
        gSess = new GrafProg();
        gRect = new GrafRectangle(gSess, 2, 3, 4, 5);
-       aList = new ArrayList<GrafObject>();
-       for (int i=0; i<10; i++){
-           aList.add(new GrafText(gSess));
-           aList.add(new GrafRectangle(gSess));
-       }
-       indexList = new ArrayList<Integer>();
-       for (int i = 0; i<aList.size(); i++){
-           
-           if (aList.get(i).getType() == GrafType.RECTANGLE) 
-               indexList.add(i);
-           
-       }
+       aList = MockMaker.createMockObjectList(gSess);
+       indexList = MockMaker.createMockIndexList(aList, GrafType.RECTANGLE);
     }
     
     @Test

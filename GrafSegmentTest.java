@@ -38,18 +38,8 @@ public class GrafSegmentTest
     {
        gSess = new GrafProg();
        gSeg = new GrafSegment(gSess, 2, 3, 4, 5);
-       aList = new ArrayList<GrafObject>();
-       for (int i=0; i<10; i++){
-           aList.add(new GrafText(gSess));
-           aList.add(new GrafSegment(gSess));
-       }
-       indexList = new ArrayList<Integer>();
-       for (int i = 0; i<aList.size(); i++){
-           
-           if (aList.get(i).getType() == GrafType.LINESEGMENT) 
-               indexList.add(i);
-           
-       }
+       aList = MockMaker.createMockObjectList(gSess);
+       indexList = MockMaker.createMockIndexList(aList, GrafType.LINESEGMENT);
     }
     
     @Test

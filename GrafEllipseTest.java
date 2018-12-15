@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class GrafEllipseTest
 {
     private GrafProg  gSess;
-    private GrafRectangle gRect;
+    private GrafEllipse gRect;
     private ArrayList<GrafObject> aList;
     private ArrayList<Integer> indexList;
     /**
@@ -39,18 +39,8 @@ public class GrafEllipseTest
     {
        gSess = new GrafProg();
        gRect = new GrafEllipse(gSess, 2, 3, 4, 5);
-       aList = new ArrayList<GrafObject>();
-       for (int i=0; i<10; i++){
-           aList.add(new GrafText(gSess));
-           aList.add(new GrafEllipse(gSess));
-       }
-       indexList = new ArrayList<Integer>();
-       for (int i = 0; i<aList.size(); i++){
-           
-           if (aList.get(i).getType() == GrafType.ELLIPSE) 
-               indexList.add(i);
-           
-       }
+       aList = MockMaker.createMockObjectList(gSess);
+       indexList = MockMaker.createMockIndexList(aList, GrafType.ELLIPSE);
     }
     
     @Test

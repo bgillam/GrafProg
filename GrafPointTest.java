@@ -38,19 +38,9 @@ public class GrafPointTest
     {
        gSess = new GrafProg();
        gPoint = new GrafPoint(gSess, 2, 3, "x", Color.BLACK);
-       aList = new ArrayList<GrafObject>();
-       for (int i=0; i<10; i++){
-           aList.add(new GrafText(gSess));
-           aList.add(new GrafPoint(gSess));
-       }
-       indexList = new ArrayList<Integer>();
-       for (int i = 0; i<aList.size(); i++){
-           
-           if (aList.get(i).getType() == GrafType.POINT) 
-               indexList.add(i);
-           
-       }
-             
+       aList = MockMaker.createMockObjectList(gSess);
+       indexList = MockMaker.createMockIndexList(aList, GrafType.POINT);
+                 
     }
     
     @Test
