@@ -92,6 +92,8 @@ public class GrafRectangleTest
         assertEquals(gRect.getWidth(),3.0,d);
         assertEquals(gRect.getHeight(),4.0,d);
     } 
+    
+    
    
    
     /**

@@ -9,22 +9,22 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 /**
- * The test class GrafTextTest.
+ * The test class GrafScatterplotTest.
  *
  * @author  (your name)
  * @version (a version number or a date)
  */
 
-public class GrafTextTest
+public class GrafScatterplotTest
 {
     private GrafProg  gSess;
-    private GrafText gText;
+    private GrafScatterPlot gScat;
     private ArrayList<GrafObject> aList;
     private ArrayList<Integer> indexList;
     /**
      * Default constructor for test class GrafPointTest
      */
-    public GrafTextTest()
+    public GrafScatterplotTest()
     {
     }
 
@@ -37,60 +37,60 @@ public class GrafTextTest
     public void setUp()
     {
        gSess = new GrafProg();
-       gText = new GrafText(gSess, 2, 3, "x");
+       gScat = new GrafScatterPlot(gSess);
        aList = MockMaker.createMockObjectList(gSess);
-       indexList = MockMaker.createMockIndexList(aList, GrafType.TEXT);
+       indexList = MockMaker.createMockIndexList(aList, GrafType.SCATTER);
+                 
     }
     
     @Test
     public void drawGrafTest(){
-        assertNotNull(gText.getGrafColor());
+        assertNotNull(gScat.getGrafColor());
         assertNotNull(gSess.getGrafPanel());
         assertNotNull(gSess.getGrafPanel().getGraphics());
         Graphics g = gSess.getGrafPanel().getGraphics();
-        gText.drawGraf((Graphics2D)g);
+        gScat.drawGraf((Graphics2D)g);
     }
     
     @Test
     public void createInputDialogTest(){
-        gText.createInputDialog(gSess);
+        gScat.createInputDialog(gSess);
         
     }
     
     public void getPlotListTest(){
-        gText.getPlotList(aList, indexList);
+        gScat.getPlotList(aList, indexList);
         
     }
     
     @Test
     public void setDeleteValuesTest(){
-        GrafInputDialog gid = gText.createInputDialog(gSess);
-        //gid.getMarkChooser().setTextString("");
+        GrafInputDialog gid = gScat.createInputDialog(gSess);
         gid.getDeleter().setPlotIndex(indexList); 
-        gText.setDeleteValues(3, gid, aList);
+        gScat.setDeleteValues(3, gid, aList );
     
     }
-  
+    
     @Test
     public void setAndGetMarkTest(){
-         gText.setText("x");  
-         assertEquals(gText.getText(), "x");
+         gScat.setMark("x");  
+         assertEquals(gScat.getMark(), "x");
     }  
     
     @Test
     public void setAndGetColorRedTest(){
-        gText.setGrafColor(Color.RED);
-        assertEquals(gText.getGrafColor(),Color.RED);
+        gScat.setGrafColor(Color.RED);
+        assertEquals(gScat.getGrafColor(),Color.RED);
     }
     
     @Test
-    public void setAndGetX1Y1Test(){
-        gText.setX(5);
-        gText.setY(7);
-        Double d = .000001;
-        assertEquals(gText.getX(),5,d);
-        assertEquals(gText.getY(),7,d);
-        
+    public void setAndGetConnectedAndColumns(){
+        gScat.setInputColumnNumber(1);
+        assertEquals(gScat.getInputColumnNumber(),1);
+        gScat.setOutputColumnNumber(2);
+        assertEquals(gScat.getOutputColumnNumber(),2);
+        gScat.setConnected(true);
+        assertEquals(gScat.getConnected(),true);
     }
 
     /**

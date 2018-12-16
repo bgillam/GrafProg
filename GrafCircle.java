@@ -144,6 +144,7 @@ public class GrafCircle extends GrafObject{
    public double getUpperLeftY() { return cY+r; }
    public double getWidth() { return 2*r; } 
    public double getHeight() { return 2*r; }
+   public double getDiameter(){return 2*r;}
    public Color getFill(){return fill;}
    public void setFill(Color f){fill = f;}
    public GrafSettings getGrafSettings(){return gStuff;}

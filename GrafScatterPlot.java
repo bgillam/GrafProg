@@ -71,7 +71,7 @@ public class GrafScatterPlot extends GrafObject {
         gc.setColor(Color.BLACK);
     }
     
-    public static void createInputDialog(GrafProg gs){
+    public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("ScatterPlot"); 
         gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, true));
@@ -97,6 +97,7 @@ public class GrafScatterPlot extends GrafObject {
         gfd.setModal(true);
         gfd.pack();
         gfd.setVisible(true); 
+        return gfd;
     }
     
     private static void saveScatter(GrafProg gs, GrafInputDialog gfd){

@@ -86,7 +86,6 @@ public class GrafCircleTest
         gCircle.setCx(1);
         gCircle.setCy(2);
         gCircle.setR(3);
-        
         double d = .000001;
         assertEquals(gCircle.getCx(),1.0,d);
         assertEquals(gCircle.getCy(),2.0,d);
