@@ -69,7 +69,7 @@ public class GrafEllipse extends GrafRectangle{
            
         }
      
-     public static GrafInputDialog createInputDialog(GrafProg gs){
+     public static void createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);          
         gfd.setTitle("ELLIPSE");  
         gfd.setPointPanel(gfd.addPointPanel());
@@ -95,7 +95,7 @@ public class GrafEllipse extends GrafRectangle{
         gfd.setModal(true);
         gfd.pack();
         gfd.setVisible(true);  
-        return gfd;
+        //return gfd;
      }  
      
      private static void saveEllipse(GrafProg gs, GrafInputDialog gfd){

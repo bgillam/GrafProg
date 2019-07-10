@@ -64,13 +64,13 @@ public class GrafRectangleTest
         
     }
     
-    @Test
-    public void setDeleteValuesTest(){
-        GrafInputDialog gid = gRect.createInputDialog(gSess);
-        gid.getDeleter().setPlotIndex(indexList); 
-        gRect.setDeleteValues(3, gid, aList );
+    // @Test
+    // public void setDeleteValuesTest(){
+        // GrafInputDialog gid = gRect.createInputDialog(gSess);
+        // gid.getDeleter().setPlotIndex(indexList); 
+        // gRect.setDeleteValues(3, gid, aList );
     
-    }  
+    // }  
       
     @Test
     public void setAndGetColorTest(){

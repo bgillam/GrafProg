@@ -63,13 +63,13 @@ public class GrafScatterplotTest
         
     }
     
-    @Test
-    public void setDeleteValuesTest(){
-        GrafInputDialog gid = gScat.createInputDialog(gSess);
-        gid.getDeleter().setPlotIndex(indexList); 
-        gScat.setDeleteValues(3, gid, aList );
+    // @Test
+    // public void setDeleteValuesTest(){
+        // GrafInputDialog gid = gScat.createInputDialog(gSess);
+        // gid.getDeleter().setPlotIndex(indexList); 
+        // gScat.setDeleteValues(3, gid, aList );
     
-    }
+    // }
     
     @Test
     public void setAndGetMarkTest(){

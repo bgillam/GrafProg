@@ -59,8 +59,8 @@ public class GrafPoint extends GrafText
     }
     
     
-    
-     public static GrafInputDialog createInputDialog(GrafProg gs){
+     //@Override
+     public static void createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
          gfd.setTitle("Point"); 
          gfd.setPointPanel(gfd.addPointPanel());
@@ -87,7 +87,7 @@ public class GrafPoint extends GrafText
          gfd.setModal(true);
          gfd.pack();
          gfd.setVisible(true);  
-         return gfd;
+         //return gfd;
      }
     
      private static void savePoint(GrafProg gSess, GrafInputDialog gfd){

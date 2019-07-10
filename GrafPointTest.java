@@ -63,13 +63,13 @@ public class GrafPointTest
         
     }
     
-    @Test
-    public void setDeleteValuesTest(){
-        GrafInputDialog gid = gPoint.createInputDialog(gSess);
-        gid.getDeleter().setPlotIndex(indexList); 
-        gPoint.setDeleteValues(3, gid, aList );
+    // @Test
+    // public void setDeleteValuesTest(){
+        // GrafInputDialog gid = gPoint.createInputDialog(gSess);
+        // gid.getDeleter().setPlotIndex(indexList); 
+        // gPoint.setDeleteValues(3, gid, aList );
     
-    }
+    // }
     
     @Test
     public void setAndGetMarkTest(){

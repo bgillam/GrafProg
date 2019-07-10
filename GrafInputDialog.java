@@ -70,12 +70,12 @@ public class GrafInputDialog extends JDialog
     }
     
     //adds a column chooser to the input dialog
-    public ColumnChooserPanel addColumnChooserPanel(String[] str, boolean inputOn, boolean outputOn) {
+    public void addColumnChooserPanel(String[] str, boolean inputOn, boolean outputOn) {
          columnChooser = new ColumnChooserPanel(str, inputOn, outputOn);
          columnChooser.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
          columnChooser.setBackground(UIManager.getColor("Button.background"));
          getContentPane().add(columnChooser, BorderLayout.NORTH);
-         return columnChooser;
+         //return columnChooser;
     }    
     
      //Create panel to input points and place NORTH. Used for Shapes

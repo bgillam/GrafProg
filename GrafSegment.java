@@ -52,7 +52,7 @@ public class GrafSegment extends GrafObject
        
     }
  
-   public static GrafInputDialog createInputDialog(GrafProg gs){
+   public static void createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("LINESEGMENT"); 
         gfd.setPointPanel(gfd.addPointPanel());
@@ -78,7 +78,7 @@ public class GrafSegment extends GrafObject
         gfd.setModal(true);
         gfd.pack();
         gfd.setVisible(true);  
-        return gfd;
+        //return gfd;
     }
     
     private static void saveSegment(GrafProg gs, GrafInputDialog gfd){
@@ -139,6 +139,8 @@ public class GrafSegment extends GrafObject
        return "LineSegment("+getX1()+", "+getY1()+"); ("+getX2()+", "+getY2()+
                " "+getGrafColor()+")";
    }
+   
+   
    
  }
    

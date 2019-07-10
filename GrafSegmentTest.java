@@ -62,13 +62,13 @@ public class GrafSegmentTest
         
     }
     
-    @Test
-    public void setDeleteValuesTest(){
-        GrafInputDialog gid = gSeg.createInputDialog(gSess);
-        gid.getDeleter().setPlotIndex(indexList); 
-        gSeg.setDeleteValues(3, gid, aList );
+    // @Test
+    // public void setDeleteValuesTest(){
+        // GrafInputDialog gid = gSeg.createInputDialog(gSess);
+        // gid.getDeleter().setPlotIndex(indexList); 
+        // gSeg.setDeleteValues(3, gid, aList );
     
-    }  
+    // }  
     
     
     @Test

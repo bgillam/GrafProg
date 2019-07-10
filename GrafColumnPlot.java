@@ -64,10 +64,12 @@ public class GrafColumnPlot extends GrafObject {
         gc.setColor(Color.BLACK);
     }
     
-      public static GrafInputDialog createInputDialog(GrafProg gs){
+      public static void createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Column Plot");  
-        gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        //gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false);
+        //gfd.setColumnChooser(gfd.getColumnChooser());
         gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(true))); //addMarkPanel(gSess.getGraphics().getFont(), true, false, false, true, false, false, false);
         gfd.addSeparatorPanel();
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.COLUMN)); 
@@ -91,7 +93,7 @@ public class GrafColumnPlot extends GrafObject {
         gfd.setModal(true);
         gfd.pack();
         gfd.setVisible(true); 
-        return gfd;
+        //return gfd;
     }
     
     private static void saveColumn(GrafProg gs, GrafInputDialog gfd){

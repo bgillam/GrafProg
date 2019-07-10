@@ -64,13 +64,13 @@ public class GrafCircleTest
         
     }
     
-    @Test
-    public void setDeleteValuesTest(){
-        GrafInputDialog gid = gCircle.createInputDialog(gSess);
-        gid.getDeleter().setPlotIndex(indexList); 
-        gCircle.setDeleteValues(3, gid, aList );
+    // @Test
+    // public void setDeleteValuesTest(){
+        // GrafInputDialog gid = gCircle.createInputDialog(gSess);
+        // gid.getDeleter().setPlotIndex(indexList); 
+        // gCircle.setDeleteValues(3, gid, aList );
     
-    }  
+    // }  
     
       
     @Test

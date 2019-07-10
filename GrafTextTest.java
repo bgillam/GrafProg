@@ -62,14 +62,14 @@ public class GrafTextTest
         
     }
     
-    @Test
-    public void setDeleteValuesTest(){
-        GrafInputDialog gid = gText.createInputDialog(gSess);
-        //gid.getMarkChooser().setTextString("");
-        gid.getDeleter().setPlotIndex(indexList); 
-        gText.setDeleteValues(3, gid, aList);
+    // @Test
+    // public void setDeleteValuesTest(){
+        // GrafInputDialog gid = gText.createInputDialog(gSess);
+        // //gid.getMarkChooser().setTextString("");
+        // gid.getDeleter().setPlotIndex(indexList); 
+        // gText.setDeleteValues(3, gid, aList);
     
-    }
+    // }
   
     @Test
     public void setAndGetMarkTest(){

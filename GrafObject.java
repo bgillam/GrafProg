@@ -67,20 +67,20 @@ abstract public class GrafObject implements Serializable
    public void setGrafColor(Color c){grafColor = c;   }
    public Color getGrafColor() { return grafColor;}
     
-   protected ColumnChooserPanel addColumnChooserPanel(String[] str, boolean inputOn, boolean outputOn) {
+   protected void addColumnChooserPanel(String[] str, boolean inputOn, boolean outputOn) {//ColumnChooserPanel addColumnChooserPanel(String[] str, boolean inputOn, boolean outputOn) {
          ColumnChooserPanel columnChooser;
          columnChooser = new ColumnChooserPanel(str, inputOn, outputOn);
          columnChooser.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
          columnChooser.setBackground(UIManager.getColor("Button.background"));
          jd.add(columnChooser, BorderLayout.NORTH);
-         return columnChooser;
+         //return columnChooser;
     }  
     
-   protected MarkPanel addMarkPanel(MarkPanel mp){
+   protected void addMarkPanel(MarkPanel mp){ //MarkPanel addMarkPanel(MarkPanel mp){
         mp.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         mp.setBackground(UIManager.getColor("Button.background"));
         jd.add(mp, BorderLayout.WEST);
-        return mp;
+        //return mp;
    }
       
 }

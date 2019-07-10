@@ -177,7 +177,9 @@ public class GrafHistogram extends GrafObject {
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Histogram"); 
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
-        gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        //gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false);
+        //gfd.setColumnChooser(gfd.getColumnChooser());
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.HISTOGRAM)); 
         

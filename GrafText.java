@@ -75,7 +75,7 @@ public class GrafText extends GrafObject
    public void setText(String s){text = s;}
   
    
-  public static GrafInputDialog createInputDialog(GrafProg gs){
+  public static void createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
          gfd.setTitle("TEXT"); 
          gfd.setPointPanel(gfd.addPointPanel());
@@ -101,7 +101,7 @@ public class GrafText extends GrafObject
         gfd.setModal(true);
         gfd.pack();
         gfd.setVisible(true);  
-        return gfd;
+        //return gfd;
      }
     
   private static void saveText(GrafProg gSess, GrafInputDialog gfd){

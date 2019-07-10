@@ -168,7 +168,9 @@ public class GrafOgive extends GrafHistogram {
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Ogive"); 
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
-        gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        //gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
+        gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false);
+        //gfd.setColumnChooser(gfd.getColumnChooser());
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.OGIVE)); 
         gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));          

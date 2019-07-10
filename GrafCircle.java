@@ -58,7 +58,7 @@ public class GrafCircle extends GrafObject{
         }
      
         
-    public static GrafInputDialog createInputDialog(GrafProg gs){
+    public static void createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);     
         gfd.setTitle("CIRCLE"); 
         gfd.setPointPanel(gfd.addPointPanel());
@@ -84,7 +84,7 @@ public class GrafCircle extends GrafObject{
         gfd.setModal(true);
         gfd.pack();
         gfd.setVisible(true); 
-        return gfd;
+        //return gfd;
     }
     
     private static void saveCircle(GrafProg gs, GrafInputDialog gfd){
