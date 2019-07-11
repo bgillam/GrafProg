@@ -74,12 +74,12 @@ public class GrafColumnPlot extends GrafObject {
         gfd.addSeparatorPanel();
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.COLUMN)); 
         
-        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(),GrafType.COLUMN)));  
         
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveColumn(gs,gfd);
-                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(),GrafType.COLUMN)));  
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -90,9 +90,10 @@ public class GrafColumnPlot extends GrafObject {
                 gfd.dispose();
             }
         });
-        gfd.setModal(true);
-        gfd.pack();
-        gfd.setVisible(true); 
+        GrafObject.closeGFD(gfd);
+        // gfd.setModal(true);
+        // gfd.pack();
+        // gfd.setVisible(true); 
         //return gfd;
     }
     
@@ -120,17 +121,17 @@ public class GrafColumnPlot extends GrafObject {
     
     }
     
-    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.COLUMN);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-             GrafColumnPlot currentColumnPlot = (GrafColumnPlot)tempList.get(plotIndex.get(i)); 
-            if (currentColumnPlot.getConnected()) con = "connected"; else con = "discrete";
-            plotListArray[i] = "input: "+currentColumnPlot.getColumnNumber()+" "+con;    
-        }
-       return plotListArray;
-    }
+    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.COLUMN);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+             // GrafColumnPlot currentColumnPlot = (GrafColumnPlot)tempList.get(plotIndex.get(i)); 
+            // if (currentColumnPlot.getConnected()) con = "connected"; else con = "discrete";
+            // plotListArray[i] = "input: "+currentColumnPlot.getColumnNumber()+" "+con;    
+        // }
+       // return plotListArray;
+    // }
     
     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
              GrafColumnPlot cEdit = (GrafColumnPlot)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -151,7 +152,9 @@ public class GrafColumnPlot extends GrafObject {
         return connected;
     }
     
-  
+    public String toString(){
+        return "COLUMNPLOT: Col "+getColumnNumber()+","+", "+getMark();//+", "+ getGrafColor();
+    }
     
     /* Setters and Getters from Parent GrafObject
      *  public void drawGraf(Graphics2D g2D){};

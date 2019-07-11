@@ -113,11 +113,11 @@ public class GrafBoxPlot extends GrafObject {
             //gfd.setColumnChooser(gfd.getColumnChooser());
             gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, true)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
             gfd.setDeleter(gfd.addDeleterPanel(GrafType.BOXPLOT));  
-            gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+            gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.BOXPLOT)));  
             gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                     saveBoxPlot(gs,gfd);
-                    gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex()))); 
+                    gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(),GrafType.BOXPLOT))); 
                 }
             });
             gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -128,9 +128,10 @@ public class GrafBoxPlot extends GrafObject {
                     gfd.dispose();
                 }
             });
-            gfd.setModal(true);
-            gfd.pack();
-            gfd.setVisible(true); 
+            GrafObject.closeGFD(gfd);
+            // gfd.setModal(true);
+            // gfd.pack();
+            // gfd.setVisible(true); 
        
     }
     
@@ -154,17 +155,21 @@ public class GrafBoxPlot extends GrafObject {
     
     }
     
-    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.BOXPLOT);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-            GrafBoxPlot currentBoxPlot = (GrafBoxPlot)tempList.get(plotIndex.get(i)); 
-            plotListArray[i] = "input: "+currentBoxPlot.getColumnNumber();    
-           
-        }
-       return plotListArray;
+    public String toString(){
+        return "BOXPLOT: Col "+getColumnNumber()+", "+getMark();//+", "+ getGrafColor();
     }
+    
+    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.BOXPLOT);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+            // GrafBoxPlot currentBoxPlot = (GrafBoxPlot)tempList.get(plotIndex.get(i)); 
+            // plotListArray[i] = "input: "+currentBoxPlot.getColumnNumber();    
+           
+        // }
+       // return plotListArray;
+    // }
     
     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
          GrafBoxPlot bpEdit = (GrafBoxPlot)tempList.get(caller.getDeleter().getPlotIndex().get(index));

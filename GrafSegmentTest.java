@@ -58,7 +58,7 @@ public class GrafSegmentTest
     }
     
      public void getPlotListTest(){
-        gSeg.getPlotList(aList, indexList);
+        gSeg.getPlotList(aList, indexList, GrafType.LINESEGMENT);
         
     }
     

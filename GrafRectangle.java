@@ -62,11 +62,11 @@ public class GrafRectangle extends GrafObject
            gfd.getPointPanel().addWH();
            gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
            gfd.setDeleter(gfd.addDeleterPanel(GrafType.RECTANGLE)); 
-           gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));      
+           gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.RECTANGLE)));      
            gfd.getCreateButton().addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0    ) {
                     saveRectangle(gs,gfd);
-                     gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));     
+                     gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.RECTANGLE)));     
                 }
             });
             gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -77,9 +77,10 @@ public class GrafRectangle extends GrafObject
                     gfd.dispose();
                 }
             });
-            gfd.setModal(true);
-            gfd.pack();
-            gfd.setVisible(true);  
+            GrafObject.closeGFD(gfd);
+            // gfd.setModal(true);
+            // gfd.pack();
+            // gfd.setVisible(true);  
             //return gfd;    
    }
    
@@ -107,16 +108,16 @@ public class GrafRectangle extends GrafObject
     
     }
    
-     public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.RECTANGLE);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-             GrafRectangle currentR = (GrafRectangle)tempList.get(plotIndex.get(i)); 
-             plotListArray[i] = "("+currentR.getX()+", "+currentR.getY()+"); ("+currentR.getWidth()+", "+currentR.getHeight()+")";    
-        }
-       return plotListArray;
-     }
+     // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.RECTANGLE);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+             // GrafRectangle currentR = (GrafRectangle)tempList.get(plotIndex.get(i)); 
+             // plotListArray[i] = "("+currentR.getX()+", "+currentR.getY()+"); ("+currentR.getWidth()+", "+currentR.getHeight()+")";    
+        // }
+       // return plotListArray;
+     // }
      
      public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                      GrafRectangle rEdit = (GrafRectangle)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -147,7 +148,7 @@ public class GrafRectangle extends GrafObject
   
    
    public String toString(){
-       return "Rectangle("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight()+ " "+getGrafColor()+" "+getFill()+")";
+       return "RECTANGLE: ("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight();//+ " "+getGrafColor()+" "+getFill()+")";
    }
    
  }

@@ -59,7 +59,7 @@ public class GrafScatterplotTest
     }
     
     public void getPlotListTest(){
-        gScat.getPlotList(aList, indexList);
+        gScat.getPlotList(aList, indexList, GrafType.SCATTER);
         
     }
     

@@ -89,11 +89,11 @@ public class GrafTangent extends GrafObject
        gfd.getPointPanel().initFx();
        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
        gfd.setDeleter(gfd.addDeleterPanel(GrafType.TANGENT)); 
-       gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+       gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.TANGENT)));  
        gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveTangent(gs,gfd);
-                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));     
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.TANGENT)));     
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -104,9 +104,10 @@ public class GrafTangent extends GrafObject
                 gfd.dispose();
             }
         });
-        gfd.setModal(true);
-        gfd.pack();
-        gfd.setVisible(true);  
+        GrafObject.closeGFD(gfd);
+        // gfd.setModal(true);
+        // gfd.pack();
+        // gfd.setVisible(true);  
     
    } 
     
@@ -130,16 +131,16 @@ public class GrafTangent extends GrafObject
         gfd.getTempList().add(gt); 
     }
     
-    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.TANGENT);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-               GrafTangent currentTan = (GrafTangent)tempList.get(plotIndex.get(i)); 
-               plotListArray[i] = "("+currentTan.getFunctionString()+", "+currentTan.getX()+")";                    
-        }
-       return plotListArray;
-     }
+    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.TANGENT);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+               // GrafTangent currentTan = (GrafTangent)tempList.get(plotIndex.get(i)); 
+               // plotListArray[i] = "("+currentTan.getFunctionString()+", "+currentTan.getX()+")";                    
+        // }
+       // return plotListArray;
+     // }
     
      public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                      GrafTangent vEdit = (GrafTangent)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -158,7 +159,7 @@ public class GrafTangent extends GrafObject
    public String getMark(){return mark;}
    
    public String toString(){
-       return "("+getFunctionString()+", "+getX()+")";
+       return "TANGENT: "+getFunctionString()+", "+getX()+") ";//+getGrafColor();
    }
    
  }

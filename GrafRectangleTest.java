@@ -60,7 +60,7 @@ public class GrafRectangleTest
     
     @Test
     public void getPlotListTest(){
-        gRect.getPlotList(aList, indexList);
+        gRect.getPlotList(aList, indexList, GrafType.RECTANGLE);
         
     }
     

@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 public class GrafZeros extends GrafObject 
 {
         private String functionString="";
+        private String zeroString = "";
         private GrafProg myOwner;
         private GrafSettings gStuff;
         private String mark ="X";
@@ -78,12 +79,12 @@ public class GrafZeros extends GrafObject
        gfd.getPointPanel().setX2(gs.getGrafSettings().getXMax());
        gfd.getPointPanel().initFx();
        gfd.setDeleter(gfd.addDeleterPanel(GrafType.FZERO)); 
-       gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));
+       gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.FZERO)));
        gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
        gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveZero(gs,gfd);
-                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));       
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.FZERO)));       
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -94,9 +95,10 @@ public class GrafZeros extends GrafObject
                 gfd.dispose();
             }
         });
-        gfd.setModal(true);
-        gfd.pack();
-        gfd.setVisible(true);  
+        GrafObject.closeGFD(gfd);
+        // gfd.setModal(true);
+        // gfd.pack();
+        // gfd.setVisible(true);  
    }
    
    private static void saveZero(GrafProg gs, GrafInputDialog gfd){
@@ -143,18 +145,18 @@ public class GrafZeros extends GrafObject
         bottomPanel.add(rightPanel2, BorderLayout.EAST);
     }
     
-   public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.FZERO);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-            GrafZeros currentZ = (GrafZeros)tempList.get(plotIndex.get(i));
-            String str = "function: "+currentZ.getFunctionString()+" roots: ";
-            for (double root: currentZ.getZeroList()) str = str+root+" ";
-            plotListArray[i] = str;                 
-        }
-       return plotListArray;
-     }
+   // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.FZERO);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+            // GrafZeros currentZ = (GrafZeros)tempList.get(plotIndex.get(i));
+            // String str = "function: "+currentZ.getFunctionString()+" roots: ";
+            // for (double root: currentZ.getZeroList()) str = str+root+" ";
+            // plotListArray[i] = str;                 
+        // }
+       // return plotListArray;
+     // }
      
      public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                    GrafZeros zEdit = (GrafZeros)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -190,6 +192,7 @@ public class GrafZeros extends GrafObject
         //double dx = Double.parseDouble(textFieldDx.getText());
         double f1, f2;
         double currentRoot;
+        zeroString = "";
         //String functionStr = functionLabel.getText();
         for (double left = startX; left < endX; left=left+dx){
             try {
@@ -211,6 +214,7 @@ public class GrafZeros extends GrafObject
                 currentRoot = getCloseToRoot(functionString, left, left+dx);
                 zeroList.add(currentRoot);
                myOwner.setMessage2("Zero located at: "+currentRoot);
+               zeroString = zeroString+" "+currentRoot;
             }
         }
                 
@@ -237,6 +241,10 @@ public class GrafZeros extends GrafObject
                 if (difference < 1E10) return rootX1;
         }while(true);
     }
+    
+    public String toString(){
+       return "FZEROS: "+getFunctionString()+" "+zeroString;//+" "+getGrafColor();
+   }
  }
    
 

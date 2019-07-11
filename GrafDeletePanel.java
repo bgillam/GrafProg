@@ -49,7 +49,8 @@ public class GrafDeletePanel extends JPanel
                if (JOptionPane.showConfirmDialog(null, "Delete "+gType+" "+deleteComboBox.getSelectedItem(), "Delete Plot?", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION){ 
                        //setDeleteValues(deleteComboBox.getSelectedIndex(), tempList, gType);
                        deleteIndexedPlot(deleteComboBox.getSelectedIndex(), tempList, gType);  
-                       resetPlotListModel(tempList, gType);
+                       //resetPlotListModel(tempList, gType);
+                       deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafObject.getPlotList(tempList, plotIndex, gType)));
                }
             }
         });
@@ -61,7 +62,8 @@ public class GrafDeletePanel extends JPanel
                if (JOptionPane.showConfirmDialog(null, "Edit "+gType+" "+deleteComboBox.getSelectedItem(), "Edit Plot?", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION){ 
                        setDeleteValues(deleteComboBox.getSelectedIndex(), tempList, gType);
                        deleteIndexedPlot(deleteComboBox.getSelectedIndex(), tempList, gType);  
-                       resetPlotListModel(tempList, gType);
+                       //resetPlotListModel(tempList, gType);
+                       deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafObject.getPlotList(tempList, plotIndex, gType)));
                }
             }
         });
@@ -73,38 +75,41 @@ public class GrafDeletePanel extends JPanel
                 public void actionPerformed(ActionEvent arg0) {
                     while (plotIndex.size() > 0)
                         deleteIndexedPlot(0, tempList, gType);
-                        resetPlotListModel(tempList, gType);
+                        //resetPlotListModel(tempList, gType);
+                        deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafObject.getPlotList(tempList, plotIndex, gType)));
                         
                 }
        });
-      resetPlotListModel(tempList, gType);
+      //resetPlotListModel(tempList, gType);
+      deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafObject.getPlotList(tempList, plotIndex, gType)));
       deleteButtonPanel.add(btnClearAll, BorderLayout.SOUTH);  
       add(deleteButtonPanel, BorderLayout.SOUTH);
     }
           
-    //reseets the list of objects for the delete combo box
-    public void resetPlotListModel(ArrayList<GrafObject> tempList, GrafType gType){
-               switch (gType){
-                 case TEXT: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafText.getPlotList(tempList, plotIndex))); break;
-                 case COLUMN: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafColumnPlot.getPlotList(tempList, plotIndex))); break;
-                 case BOXPLOT: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafText.getPlotList(tempList, plotIndex))); break;
-                 case SCATTER: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafBoxPlot.getPlotList(tempList, plotIndex))); break;
-                 case HISTOGRAM: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafText.getPlotList(tempList, plotIndex))); break;
-                 case FREQPOLYGON: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafHistogram.getPlotList(tempList, plotIndex))); break;
-                 case OGIVE: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafOgive.getPlotList(tempList, plotIndex))); break;
-                 case POINT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafPoint.getPlotList(tempList, plotIndex))); break;
-                 case LINESEGMENT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafSegment.getPlotList(tempList, plotIndex))); break;
-                 case RECTANGLE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafRectangle.getPlotList(tempList, plotIndex))); break;
-                 case ELLIPSE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafEllipse.getPlotList(tempList, plotIndex))); break;
-                 case CIRCLE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafCircle.getPlotList(tempList, plotIndex))); break;
-                 case FUNCTION:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafFunction.getPlotList(tempList, plotIndex))); break;
-                 case FVALUE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafValue.getPlotList(tempList, plotIndex))); break;
-                 case TANGENT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafTangent.getPlotList(tempList, plotIndex))); break;
-                 case CHORD:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafChord.getPlotList(tempList, plotIndex))); break;
-                 case INTEGRAL:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafIntegral.getPlotList(tempList, plotIndex))); break;
-                 case FZERO:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafZeros.getPlotList(tempList, plotIndex))); break;
-             }
-    }
+    //resets the list of objects for the delete combo box
+    // public void resetPlotListModel(ArrayList<GrafObject> tempList, GrafType gType){
+                // deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafObject.getPlotList(tempList, plotIndex, gType)));
+               // // switch (gType){
+                 // // case TEXT: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafText.getPlotList(tempList, plotIndex, GrafType.TEXT))); break;
+                 // // case COLUMN: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafColumnPlot.getPlotList(tempList, plotIndex, GrafType.COLUMN))); break;
+                 // // case BOXPLOT: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafBoxPlot.getPlotList(tempList, plotIndex, GrafType.BOXPLOT))); break;
+                 // // case SCATTER: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafScatterPlot.getPlotList(tempList, plotIndex, GrafType.SCATTER))); break;
+                 // // case HISTOGRAM: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafHistogram.getPlotList(tempList, plotIndex, GrafType.HISTOGRAM))); break;
+                 // // case FREQPOLYGON: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafFreqPolygon.getPlotList(tempList, plotIndex, GrafType.FREQPOLYGON))); break;
+                 // // case OGIVE: deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafOgive.getPlotList(tempList, plotIndex, GrafType.OGIVE))); break;
+                 // // case POINT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafPoint.getPlotList(tempList, plotIndex, GrafType.POINT))); break;
+                 // // case LINESEGMENT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafSegment.getPlotList(tempList, plotIndex, GrafType.LINESEGMENT))); break;
+                 // // case RECTANGLE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafRectangle.getPlotList(tempList, plotIndex, GrafType.RECTANGLE))); break;
+                 // // case ELLIPSE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafEllipse.getPlotList(tempList, plotIndex, GrafType.ELLIPSE))); break;
+                 // // case CIRCLE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafCircle.getPlotList(tempList, plotIndex, GrafType.CIRCLE))); break;
+                 // // case FUNCTION:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafFunction.getPlotList(tempList, plotIndex, GrafType.FUNCTION))); break;
+                 // // case FVALUE:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafValue.getPlotList(tempList, plotIndex, GrafType.FVALUE))); break;
+                 // // case TANGENT:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafTangent.getPlotList(tempList, plotIndex, GrafType.TANGENT))); break;
+                 // // case CHORD:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafChord.getPlotList(tempList, plotIndex, GrafType.CHORD))); break;
+                 // // case INTEGRAL:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafIntegral.getPlotList(tempList, plotIndex, GrafType.INTEGRAL))); break;
+                 // // case FZERO:deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafZeros.getPlotList(tempList, plotIndex, GrafType.FZERO))); break;
+             // // }
+    // }
     
     
 

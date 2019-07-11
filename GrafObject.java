@@ -20,6 +20,8 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.UIManager;
 
+import java.util.ArrayList;
+
 abstract public class GrafObject implements Serializable 
 {
    private GrafType grType;
@@ -81,6 +83,25 @@ abstract public class GrafObject implements Serializable
         mp.setBackground(UIManager.getColor("Button.background"));
         jd.add(mp, BorderLayout.WEST);
         //return mp;
+   }
+   
+   
+   
+   public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex, GrafType gType){ 
+        String con;
+        GrafDeletePanel.indexPlots(tempList, gType);   
+        String[] plotListArray = new String[plotIndex.size()];
+        for (int i = 0; i < plotIndex.size(); i++){
+            GrafObject currentO = tempList.get(plotIndex.get(i)); 
+            plotListArray[i] = currentO.toString(); 
+        }
+       return plotListArray;
+ }
+   
+   protected static void closeGFD(GrafInputDialog gfd){
+        gfd.setModal(true);
+        gfd.pack();
+        gfd.setVisible(true); 
    }
       
 }

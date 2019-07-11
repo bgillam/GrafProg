@@ -60,11 +60,11 @@ public class GrafSegment extends GrafObject
         gfd.getPointPanel().addX2Y2();
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false)));  
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.LINESEGMENT));
-        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));          
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.LINESEGMENT)));          
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveSegment(gs,gfd);
-                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));        
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(),GrafType.LINESEGMENT)));        
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -75,9 +75,10 @@ public class GrafSegment extends GrafObject
                 gfd.dispose();
             }
         });
-        gfd.setModal(true);
-        gfd.pack();
-        gfd.setVisible(true);  
+        GrafObject.closeGFD(gfd);
+        // gfd.setModal(true);
+        // gfd.pack();
+        // gfd.setVisible(true);  
         //return gfd;
     }
     
@@ -102,16 +103,16 @@ public class GrafSegment extends GrafObject
     
     }
     
-    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.LINESEGMENT);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-             GrafSegment currentS = (GrafSegment)tempList.get(plotIndex.get(i)); 
-             plotListArray[i] = "("+currentS.getX1()+", "+currentS.getY1()+"); ("+currentS.getX2()+", "+currentS.getY2()+")";    
-        }
-       return plotListArray;
-    }
+    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.LINESEGMENT);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+             // GrafSegment currentS = (GrafSegment)tempList.get(plotIndex.get(i)); 
+             // plotListArray[i] = "("+currentS.getX1()+", "+currentS.getY1()+"); ("+currentS.getX2()+", "+currentS.getY2()+")";    
+        // }
+       // return plotListArray;
+    // }
     
      public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                      GrafSegment lEdit = (GrafSegment)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -136,9 +137,10 @@ public class GrafSegment extends GrafObject
    public EndType getEnds(){return ends;}
    
    public String toString(){
-       return "LineSegment("+getX1()+", "+getY1()+"); ("+getX2()+", "+getY2()+
-               " "+getGrafColor()+")";
+       return "LINESEGMENT: ("+getX1()+", "+getY1()+"); ("+getX2()+", "+getY2();
+       //+               " "+getGrafColor()+")";
    }
+   
    
    
    

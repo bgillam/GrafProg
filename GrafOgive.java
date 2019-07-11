@@ -173,11 +173,11 @@ public class GrafOgive extends GrafHistogram {
         //gfd.setColumnChooser(gfd.getColumnChooser());
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.OGIVE)); 
-        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));          
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.OGIVE)));          
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveOgive(gs,gfd);
-                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));     
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.OGIVE)));     
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -188,9 +188,10 @@ public class GrafOgive extends GrafHistogram {
                 gfd.dispose();
             }
         });
-        gfd.setModal(true);
-        gfd.pack();
-        gfd.setVisible(true);     
+        GrafObject.closeGFD(gfd);
+        // gfd.setModal(true);
+        // gfd.pack();
+        // gfd.setVisible(true);     
     }
     
     private static void saveOgive(GrafProg gs, GrafInputDialog gfd){
@@ -217,17 +218,17 @@ public class GrafOgive extends GrafHistogram {
     }
     
     
-     public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.OGIVE);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-             GrafOgive currentOgive = (GrafOgive)tempList.get(plotIndex.get(i)); 
-             plotListArray[i] = "input: "+currentOgive.getColumnNumber();  
-        }
-       return plotListArray;
+     // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.OGIVE);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+             // GrafOgive currentOgive = (GrafOgive)tempList.get(plotIndex.get(i)); 
+             // plotListArray[i] = "input: "+currentOgive.getColumnNumber();  
+        // }
+       // return plotListArray;
        
-    }
+    // }
     
     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                     GrafOgive oEdit = (GrafOgive)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -291,7 +292,9 @@ public class GrafOgive extends GrafHistogram {
         labelAxisByBoundries = tf;
     }
    
-    
+    public String toString(){
+        return "OGIVE: Col "+getColumnNumber();//+", "+ getGrafColor();
+    }
     
     /* Setters and Getters from Parent GrafObject
      *  public void drawGraf(Graphics2D g2D){};

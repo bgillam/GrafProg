@@ -111,7 +111,7 @@ public class PointPanel extends JPanel
      //sets up the function combobox
     public void setupFunctionChooser(){
             leftPanel.add(functionText, BorderLayout.WEST);
-            fComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafFunction.getPlotList(tempList, GrafDeletePanel.indexPlots(tempList, GrafType.FUNCTION))));
+            fComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafFunction.getPlotList(tempList, GrafDeletePanel.indexPlots(tempList, GrafType.FUNCTION), GrafType.FUNCTION)));
             leftPanel.add(fComboBox, BorderLayout.CENTER);
             
             fComboBox.addItemListener(new ItemListener(){

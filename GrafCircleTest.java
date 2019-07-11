@@ -60,7 +60,7 @@ public class GrafCircleTest
     
     @Test
     public void getPlotListTest(){
-        gCircle.getPlotList(aList, indexList);
+        gCircle.getPlotList(aList, indexList, GrafType.CIRCLE);
         
     }
     

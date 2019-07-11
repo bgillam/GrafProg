@@ -68,11 +68,11 @@ public class GrafPoint extends GrafText
          //gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(false, false))); 
          gfd.setMarkChooser(gfd.addMarkPanel(new ColorRadioMarkPanel(false)));
          gfd.setDeleter(gfd.addDeleterPanel(GrafType.POINT));   
-         gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+         gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.POINT)));  
          gfd.getCreateButton().addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent arg0    ) {
                 savePoint(gs,gfd);
-                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.POINT)));  
                 //gfd.getDeleter().resetPlotListModel(gfd.getTempList(), GrafType.POINT);    
          }
          });
@@ -84,9 +84,10 @@ public class GrafPoint extends GrafText
                 gfd.dispose();
             }
          });
-         gfd.setModal(true);
-         gfd.pack();
-         gfd.setVisible(true);  
+         GrafObject.closeGFD(gfd);
+         // gfd.setModal(true);
+         // gfd.pack();
+         // gfd.setVisible(true);  
          //return gfd;
      }
     
@@ -104,17 +105,17 @@ public class GrafPoint extends GrafText
        gfd.getTempList().add(gPlot);
     }
     
-     public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.POINT);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-            GrafPoint currentP = (GrafPoint)tempList.get(plotIndex.get(i)); 
-            plotListArray[i] = "("+currentP.getX()+", "+currentP.getY()+")";   
-        }
-       return plotListArray;
+     // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.POINT);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+            // GrafPoint currentP = (GrafPoint)tempList.get(plotIndex.get(i)); 
+            // plotListArray[i] = "("+currentP.getX()+", "+currentP.getY()+")";   
+        // }
+       // return plotListArray;
       
-    }
+    // }
     
     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                     GrafPoint ptEdit = (GrafPoint)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -127,6 +128,10 @@ public class GrafPoint extends GrafText
    
    public void setMark(String s){super.setText(s);}
    public String getMark(){return super.getText();}
+   
+   public String toString(){
+    return "POINT: ("+getX()+", "+getY()+") "+getMark();//+ ", "+getGrafColor();
+    }
    
 }
 

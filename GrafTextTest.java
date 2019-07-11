@@ -58,7 +58,7 @@ public class GrafTextTest
     }
     
     public void getPlotListTest(){
-        gText.getPlotList(aList, indexList);
+        gText.getPlotList(aList, indexList, GrafType.TEXT);
         
     }
     

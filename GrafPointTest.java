@@ -59,7 +59,7 @@ public class GrafPointTest
     }
     
     public void getPlotListTest(){
-        gPoint.getPlotList(aList, indexList);
+        gPoint.getPlotList(aList, indexList, GrafType.POINT); 
         
     }
     

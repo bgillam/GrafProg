@@ -59,7 +59,7 @@ public class GrafColumnplotTest
     }
     
     public void getPlotListTest(){
-        gCPlot.getPlotList(aList, indexList);
+        gCPlot.getPlotList(aList, indexList, GrafType.COLUMN);
         
     }
     

@@ -80,13 +80,13 @@ public class GrafIntegral extends GrafObject
         setupIntegral(gfd);
         gfd.getPointPanel().initFx();
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.INTEGRAL)); 
-        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.INTEGRAL)));  
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));//gSess.getGraphics().getFont(), true, false, false, false, false, false, false);
         
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveIntegral(gs,gfd);
-                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));   
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.INTEGRAL)));   
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -97,9 +97,10 @@ public class GrafIntegral extends GrafObject
                 gfd.dispose();
             }
         });
-        gfd.setModal(true);
-        gfd.pack();
-        gfd.setVisible(true);  
+        GrafObject.closeGFD(gfd);
+        // gfd.setModal(true);
+        // gfd.pack();
+        // gfd.setVisible(true);  
     }
     
     private static void saveIntegral(GrafProg gs, GrafInputDialog gfd){
@@ -141,16 +142,16 @@ public class GrafIntegral extends GrafObject
         bottomPanel.add(rightPanel2, BorderLayout.EAST);
     }
  
-    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.INTEGRAL);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-               GrafIntegral currentI = (GrafIntegral)tempList.get(plotIndex.get(i));
-               plotListArray[i] = "function: "+currentI.getFunctionString()+", X1: "+currentI.getX1()+" X2: "+currentI.getX2();                                        
-        }
-       return plotListArray;
-     }
+    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.INTEGRAL);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+               // GrafIntegral currentI = (GrafIntegral)tempList.get(plotIndex.get(i));
+               // plotListArray[i] = "function: "+currentI.getFunctionString()+", X1: "+currentI.getX1()+" X2: "+currentI.getX2();                                        
+        // }
+       // return plotListArray;
+     // }
      
      public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                    GrafIntegral intEdit = (GrafIntegral)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -174,7 +175,9 @@ public class GrafIntegral extends GrafObject
    public int getN(){return n;}
    public void setN(int nVal){n = nVal;}
    
-  
+   public String toString(){
+       return "INTEGRAL: "+getFunctionString()+", start: "+x1+" end: "+x2+", n: "+getN()+", ";//+getGrafColor();
+   }
  }
    
 

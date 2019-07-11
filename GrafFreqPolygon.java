@@ -172,12 +172,12 @@ public class GrafFreqPolygon extends GrafHistogram {
         gfd.setMarkChooser(gfd.addMarkPanel(new FillColorMarkPanel(true, false)));  //addMarkPanel(gSess.getGraphics().getFont(), true, true, true, false, false, false, false);
         gfd.setDeleter(gfd.addDeleterPanel(GrafType.FREQPOLYGON)); 
         
-        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+        gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.FREQPOLYGON)));  
         
         gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveFreqPolygon(gs,gfd);
-                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex())));  
+                gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.FREQPOLYGON)));  
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -188,9 +188,10 @@ public class GrafFreqPolygon extends GrafHistogram {
                 gfd.dispose();
             }
         });
-        gfd.setModal(true);
-        gfd.pack();
-        gfd.setVisible(true);     
+        GrafObject.closeGFD(gfd);
+        // gfd.setModal(true);
+        // gfd.pack();
+        // gfd.setVisible(true);     
     
     }
     
@@ -218,16 +219,16 @@ public class GrafFreqPolygon extends GrafHistogram {
     }
     
   
-     public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        String con;
-        GrafDeletePanel.indexPlots(tempList, GrafType.FREQPOLYGON);   
-        String[] plotListArray = new String[plotIndex.size()];
-        for (int i = 0; i < plotIndex.size(); i++){
-            GrafFreqPolygon currentFreqPolygon = (GrafFreqPolygon)tempList.get(plotIndex.get(i)); 
-            plotListArray[i] = "input: "+currentFreqPolygon.getColumnNumber();  
-        }
-       return plotListArray;
-    }
+     // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
+        // String con;
+        // GrafDeletePanel.indexPlots(tempList, GrafType.FREQPOLYGON);   
+        // String[] plotListArray = new String[plotIndex.size()];
+        // for (int i = 0; i < plotIndex.size(); i++){
+            // GrafFreqPolygon currentFreqPolygon = (GrafFreqPolygon)tempList.get(plotIndex.get(i)); 
+            // plotListArray[i] = "input: "+currentFreqPolygon.getColumnNumber();  
+        // }
+       // return plotListArray;
+    // }
     
     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                     GrafFreqPolygon gfpEdit = (GrafFreqPolygon)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -291,7 +292,9 @@ public class GrafFreqPolygon extends GrafHistogram {
         labelAxisByBoundries = tf;
     }
    
-    
+    public String toString(){
+        return "FREQPOLYGON: Col "+getColumnNumber();//+", "+ getGrafColor();
+    }
     
     /* Setters and Getters from Parent GrafObject
      *  public void drawGraf(Graphics2D g2D){};
