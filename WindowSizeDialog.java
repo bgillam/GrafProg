@@ -1,6 +1,7 @@
 
 /**************************************** 
-*  WindowSizeDialog  for GrafProg Project *
+*  WindowSizeDialog  for GrafProg Project
+*  sets size of graphing window
 *  @author Bill Gillam                  *
 *  2/25/15                              *
 *****************************************/

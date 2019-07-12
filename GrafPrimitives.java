@@ -1,5 +1,6 @@
 /**************************************** 
 *  GrafStuff  for GrafProg Project      *
+*  Basic graph routines 
 *  @author Bill Gillam                  *
 *  2/25/15                              *
 *****************************************/

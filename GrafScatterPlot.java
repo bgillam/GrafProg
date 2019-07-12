@@ -1,6 +1,7 @@
 
 
-/*  GrafFunction for GrafProg Project *
+/* GrafScatterplot for GrafProg Project *
+*  Graph of scatterplot from table data 
 *  @author Bill Gillam           *
 *  2/25/15                       *
 **********************************/
@@ -73,7 +74,7 @@ public class GrafScatterPlot extends GrafObject {
     
     
     
-    public static void createInputDialog(GrafProg gs){//GrafInputDialog createInputDialog(GrafProg gs){
+    public static GrafInputDialog createInputDialog(GrafProg gs){//GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("ScatterPlot"); 
         gfd.addColumnChooserPanel(gfd.getColumnsString(),true, true);
@@ -101,7 +102,7 @@ public class GrafScatterPlot extends GrafObject {
         // gfd.setModal(true);
         // gfd.pack();
         // gfd.setVisible(true); 
-        //return gfd;
+        return gfd;
     }
     
     private static void saveScatter(GrafProg gs, GrafInputDialog gfd){

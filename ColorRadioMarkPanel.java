@@ -1,10 +1,11 @@
   
 /**
- * Write a description of class ColorChooserPanel here.
+ * Panel in a dialog to set fill color for shapes and other GrafObjects
  * 
  * @Bill Gillam 
  * @4/24/18
  */
+ 
 import javax.swing.JPanel;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;

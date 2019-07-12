@@ -2,7 +2,7 @@
 
 
 /**
- * PointPanel input panel for shape types
+ * PointPanel input panel for GrafObjects defined by points
  * 
  * @author (Bill Gillam) 
  * @version (1/12/2017)

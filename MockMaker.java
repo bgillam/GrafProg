@@ -15,6 +15,12 @@ public class MockMaker
         
     }
     
+    // public static GrafTable createMockTable(GrafProg gSess){
+                  
+            // gSess.getData().setColumnValues(1,new double[]{1,3,5,7,9, 11, 15});
+    // }
+      
+    
     public static ArrayList<GrafObject> createMockObjectList(GrafProg gSess){
            ArrayList<GrafObject> aList = new ArrayList<GrafObject>();
            aList.add(new GrafAxes(gSess));

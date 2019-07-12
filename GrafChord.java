@@ -67,7 +67,7 @@ public class GrafChord extends GrafObject
        //gStuff.getGrafPanel().repaint();
     }
     
-   public static void createInputDialog(GrafProg gs){
+   public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("CHORD");
         gfd.setPointPanel(gfd.addPointPanel());
@@ -95,7 +95,7 @@ public class GrafChord extends GrafObject
         // gfd.setModal(true);
         // gfd.pack();
         // gfd.setVisible(true);  
-        
+        return gfd;
    }
    
    private static void saveChord(GrafProg gs, GrafInputDialog gfd){

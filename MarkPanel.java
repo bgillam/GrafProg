@@ -1,6 +1,7 @@
   
 /**
- * Write a description of class ColorChooserPanel here.
+ * for GrafProg Project
+ * Dialog to choose mark for points in graph
  * 
  * @Bill Gillam 
  * @4/24/18

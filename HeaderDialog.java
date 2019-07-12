@@ -1,5 +1,5 @@
 /**************************************** 
-*  Header editor for GrafProg Project *
+*  Header editor for GrafTable          *
 *  @author Bill Gillam                  *
 *  2/25/15                              *
 *****************************************/ 

@@ -1,5 +1,6 @@
 /**************************************** 
 *  GrafStats  for GrafProg Project *
+*  statistical calculation routines
 *  @author Bill Gillam                  *
 *  2/25/15                              *
 *****************************************/

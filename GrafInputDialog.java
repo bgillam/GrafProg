@@ -1,8 +1,8 @@
 
 
 /**
- * GrafInputDialog creates GrafObjects. 
- * 
+ * GrafInputDialog for GrafProg 
+ * gets parameters for object creation
  * @author (Bill Gillam) 
  * @version (1/1/2017)
  */

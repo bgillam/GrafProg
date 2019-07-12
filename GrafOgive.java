@@ -1,6 +1,7 @@
 
-/*  GrafFreqPolygon for GrafProg Project *
+/*  GrafOgive for GrafProg Project *
 *  Store info and methods for graphing   *
+*  Ogives
 *  @author Bill Gillam                   *
 *  2/3/17                                *
 *********************************        */
@@ -164,7 +165,7 @@ public class GrafOgive extends GrafHistogram {
         gc.setColor(Color.BLACK);
     }
     
-    public static void createInputDialog(GrafProg gs){
+    public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Ogive"); 
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
@@ -191,7 +192,8 @@ public class GrafOgive extends GrafHistogram {
         GrafObject.closeGFD(gfd);
         // gfd.setModal(true);
         // gfd.pack();
-        // gfd.setVisible(true);     
+        // gfd.setVisible(true);  
+        return gfd;
     }
     
     private static void saveOgive(GrafProg gs, GrafInputDialog gfd){

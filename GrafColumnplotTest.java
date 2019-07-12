@@ -58,18 +58,19 @@ public class GrafColumnplotTest
         
     }
     
+     @Test
     public void getPlotListTest(){
         gCPlot.getPlotList(aList, indexList, GrafType.COLUMN);
         
     }
     
-    // @Test
-    // public void setDeleteValuesTest(){
-        // GrafInputDialog gid = gCPlot.createInputDialog(gSess);
-        // gid.getDeleter().setPlotIndex(indexList); 
-        // gCPlot.setDeleteValues(3, gid, aList );
+    @Test
+    public void setDeleteValuesTest(){
+        GrafInputDialog gid = gCPlot.createInputDialog(gSess);
+        gid.getDeleter().setPlotIndex(indexList); 
+        gCPlot.setDeleteValues(3, gid, aList );
     
-    // }
+    }
     
     @Test
     public void setAndGetMarkTest(){

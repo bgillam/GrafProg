@@ -1,3 +1,8 @@
+/*GrafRectangle - graphs a rectangle
+ * 
+ * @author Bill Gillam
+ * @version 1/27/17]
+ */
 import java.io.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -54,7 +59,7 @@ public class GrafRectangle extends GrafObject
        
     }
     
-   public static void createInputDialog(GrafProg gs){
+   public static GrafInputDialog createInputDialog(GrafProg gs){
            GrafInputDialog gfd = new GrafInputDialog(gs);          
            gfd.setTitle("RECTANGLE"); 
            gfd.setPointPanel(gfd.addPointPanel());
@@ -81,7 +86,7 @@ public class GrafRectangle extends GrafObject
             // gfd.setModal(true);
             // gfd.pack();
             // gfd.setVisible(true);  
-            //return gfd;    
+            return gfd;    
    }
    
    private static void saveRectangle(GrafProg gs, GrafInputDialog gfd){

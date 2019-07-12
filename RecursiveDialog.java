@@ -1,3 +1,11 @@
+/**************************************** 
+*  RecursiveDialog for GrafProg Project *
+*   Creates a Dialog Box for recursion  *
+*  parameters                           *
+*  @author Bill Gillam                  *
+*  2/25/15                              *
+* 
+*****************************************/
 
 import java.awt.BorderLayout;
 import java.awt.Color;

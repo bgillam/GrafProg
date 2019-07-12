@@ -1,7 +1,8 @@
 /**************************************** 
-* Data Size Dialog for GrafProg Project *
-*  @author Bill Gillam                  *
-*  2/25/15                              *
+*  Data Size Dialog for GrafProg Project *
+*  Sets rows and columns sizes
+*  @author Bill Gillam                   *
+*  2/25/15                               *
 *****************************************/
 /**
  *  Dialog shown when sizing spreadsheet

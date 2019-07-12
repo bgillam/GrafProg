@@ -1,3 +1,10 @@
+
+/*GrafCircle in GrafProg 
+ * used to graphs a circle
+ * 
+ * @author Bill Gillam
+ * @version 1/27/17]
+ */
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
@@ -7,7 +14,7 @@ import java.util.ArrayList;
 //import GrafProg.GrafType;
 
 
-public class GrafCircle extends GrafObject{
+public class GrafCircle extends GrafObject {
         
         //private String functionString="";
         private GrafProg myOwner;
@@ -58,7 +65,7 @@ public class GrafCircle extends GrafObject{
         }
      
         
-    public static void createInputDialog(GrafProg gs){
+    public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);     
         gfd.setTitle("CIRCLE"); 
         gfd.setPointPanel(gfd.addPointPanel());
@@ -85,7 +92,7 @@ public class GrafCircle extends GrafObject{
         // gfd.setModal(true);
         // gfd.pack();
         // gfd.setVisible(true); 
-        //return gfd;
+        return gfd;
     }
     
     private static void saveCircle(GrafProg gs, GrafInputDialog gfd){
@@ -122,7 +129,7 @@ public class GrafCircle extends GrafObject{
        // return plotListArray;
      // }
      
-     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+     public  static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                      GrafCircle circEdit = (GrafCircle)tempList.get(caller.getDeleter().getPlotIndex().get(index));
                      caller.getPointChooser().setX1(circEdit.getCx());
                      caller.getPointChooser().setX2(circEdit.getCy());

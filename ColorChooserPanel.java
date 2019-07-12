@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class ColorChooserPanel here.
+ * Panel in a dialog to choose color
  *
  * @author (your name)
  * @version (a version number or a date)

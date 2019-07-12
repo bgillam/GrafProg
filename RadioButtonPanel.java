@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class RadioButtonPanel here.
+ * RadioButton Panel for choosing marks for graphs
  *
  * @author (your name)
  * @version (a version number or a date)

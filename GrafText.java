@@ -54,7 +54,7 @@ public class GrafText extends GrafObject
   }
    
    
-   
+   @Override
    public void drawGraf(Graphics2D gc){
       
        gc.setColor(super.getGrafColor());
@@ -65,17 +65,8 @@ public class GrafText extends GrafObject
        gc.setColor(Color.BLACK);
     }
  
-   public void setX(double xval){ x = xval; }
-   public double getX() { return x; }   
-   public void setY(double yval){ y = yval; }
-   public double getY() { return y; }   
-   public void setFont(Font f){font = f;}
-   public Font getFont(){return font;}
-   public String getText(){return text;}
-   public void setText(String s){text = s;}
-  
-   
-  public static void createInputDialog(GrafProg gs){
+  //@Override   
+  public static GrafInputDialog createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
          gfd.setTitle("TEXT"); 
          gfd.setPointPanel(gfd.addPointPanel());
@@ -102,7 +93,7 @@ public class GrafText extends GrafObject
         // gfd.setModal(true);
         // gfd.pack();
         // gfd.setVisible(true);  
-        //return gfd;
+        return gfd;
      }
     
   private static void saveText(GrafProg gSess, GrafInputDialog gfd){
@@ -130,7 +121,7 @@ public class GrafText extends GrafObject
         // }
        // return plotListArray;
  // }
- 
+ //@Override
  public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
      try{
          GrafText tEdit = (GrafText)tempList.get(caller.getDeleter().getPlotIndex().get(index));
@@ -143,6 +134,16 @@ public class GrafText extends GrafObject
      }
  }
    
+   public void setX(double xval){ x = xval; }
+   public double getX() { return x; }   
+   public void setY(double yval){ y = yval; }
+   public double getY() { return y; }   
+   public void setFont(Font f){font = f;}
+   public Font getFont(){return font;}
+   public String getText(){return text;}
+   public void setText(String s){text = s;}
+  
+ 
  public String toString(){
     return "TEXT: ("+getX()+", "+getY()+") "+getText();
     }

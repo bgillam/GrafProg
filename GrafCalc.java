@@ -1,6 +1,6 @@
 /********************************* 
 *  GrafCalc for GrafProg Project *
-* Creates a calculator that can be used to build strings for function input or just as a calculator 
+*  Creates a calculator that can be used to build strings for function input or just as a calculator 
 *  @author Bill Gillam           *
 *  2/25/15                       *
 **********************************/

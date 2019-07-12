@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class FontChooserPanel here.
+ * Fontchooser dialog holder
  *
  * @author Bill Gillam  
  * @version 4/30/18

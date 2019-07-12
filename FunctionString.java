@@ -1,5 +1,6 @@
   /**************************************
 * FunctionString for GrafProg Project *
+* function input parser
 *  @author Bill Gillam                *
 *  2/25/15                            *
 ***************************************/

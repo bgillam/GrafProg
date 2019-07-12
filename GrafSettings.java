@@ -1,6 +1,8 @@
 
 /**************************************** 
 *  GrafSettings for GrafProg Project      *
+*  settings for graphing window
+*  and virtual screen conversions
 *  @author Bill Gillam                  *
 *  4/4/18                              *
 *****************************************/

@@ -1,5 +1,6 @@
 
 /*  GrafHistoGram for GrafProg Project *
+ * used to graph a histogram from table data
 *  @author Bill Gillam           *
 *  2/3/17                       *
 **********************************/
@@ -173,7 +174,7 @@ public class GrafHistogram extends GrafObject {
         
     }
     
-    public static void createInputDialog(GrafProg gs){
+    public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Histogram"); 
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
@@ -202,7 +203,8 @@ public class GrafHistogram extends GrafObject {
         GrafObject.closeGFD(gfd);
         // gfd.setModal(true);
         // gfd.pack();
-        // gfd.setVisible(true);        
+        // gfd.setVisible(true);     
+        return gfd;
     }
 
     protected static HistoPanel addHistoPanel(GrafProg gs, GrafInputDialog gfd){

@@ -1,5 +1,6 @@
 /********************************* 
 *  GrafFunction for GrafProg Project *
+*  Object for graphing a function
 *  @author Bill Gillam           *
 *  2/25/15                       *
 **********************************/
@@ -69,7 +70,7 @@ public class GrafFunction extends GrafObject {
         
     }
     
-   public static void createInputDialog(GrafProg gs){
+   public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("FUNCTION");
         gfd.setPointPanel(gfd.addPointPanel());
@@ -96,7 +97,7 @@ public class GrafFunction extends GrafObject {
         // gfd.setModal(true);
         // gfd.pack();
         // gfd.setVisible(true);
-        //return gft
+        return gfd;
    }
    
       

@@ -37,6 +37,36 @@ abstract public class GrafObject implements Serializable
    
    public void drawGraf(Graphics2D g2D){};
    
+   public static GrafInputDialog createInputDialog(GrafProg gs){return null;};
+   
+   public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){};
+   
+   public static GrafObject createGrafObject(GrafType gType){
+       switch (gType){
+               
+                case TEXT: return new GrafText(); 
+                case COLUMN: return new GrafText(); 
+                case BOXPLOT: return new GrafText();
+                case SCATTER:return new GrafText();
+                case HISTOGRAM: return new GrafText(); 
+                case FREQPOLYGON: return new GrafText(); 
+                case OGIVE: return new GrafText(); 
+                case POINT: return new GrafText();
+                case LINESEGMENT: return new GrafText(); 
+                case RECTANGLE: return new GrafText(); 
+                case ELLIPSE: return new GrafText();
+                case   CIRCLE: return new GrafText();
+                case FUNCTION: return new GrafText();
+                case FVALUE: return new GrafText();
+                case TANGENT: return new GrafText();
+                case CHORD: return new GrafText(); 
+                case INTEGRAL: return new GrafText(); 
+                case FZERO: return new GrafText(); 
+                default: return null;
+                       
+        }
+    }
+   
    public static void createPanel(){}
    
    public boolean axesAreReversible(){
@@ -89,11 +119,13 @@ abstract public class GrafObject implements Serializable
    
    public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex, GrafType gType){ 
         String con;
+        GrafObject currentObj;
         GrafDeletePanel.indexPlots(tempList, gType);   
         String[] plotListArray = new String[plotIndex.size()];
         for (int i = 0; i < plotIndex.size(); i++){
-            GrafObject currentO = tempList.get(plotIndex.get(i)); 
-            plotListArray[i] = currentO.toString(); 
+            //GrafObject 
+            currentObj = tempList.get(plotIndex.get(i)); 
+            plotListArray[i] = currentObj.toString(); 
         }
        return plotListArray;
  }

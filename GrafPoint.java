@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class GrafPoint here.
+ * Oject for graphing a point
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Bill Gillam
+ * @version 2/25/15   
  */
 import java.awt.Color;
 import java.awt.Font;
@@ -60,7 +60,7 @@ public class GrafPoint extends GrafText
     
     
      //@Override
-     public static void createInputDialog(GrafProg gs){
+     public static GrafInputDialog createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
          gfd.setTitle("Point"); 
          gfd.setPointPanel(gfd.addPointPanel());
@@ -88,7 +88,7 @@ public class GrafPoint extends GrafText
          // gfd.setModal(true);
          // gfd.pack();
          // gfd.setVisible(true);  
-         //return gfd;
+         return gfd;
      }
     
      private static void savePoint(GrafProg gSess, GrafInputDialog gfd){
@@ -117,7 +117,7 @@ public class GrafPoint extends GrafText
       
     // }
     
-    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+    public  static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                     GrafPoint ptEdit = (GrafPoint)tempList.get(caller.getDeleter().getPlotIndex().get(index));
                     caller.getPointChooser().setX1(ptEdit.getX());
                     caller.getPointChooser().setY1(ptEdit.getY());

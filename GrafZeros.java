@@ -1,4 +1,4 @@
-/*GrafChord - graphs a chord on a curve
+/*GrafZeros - graphs the zeros of a function
  * 
  * @author Bill Gillam
  * @version j1.0]
@@ -70,7 +70,7 @@ public class GrafZeros extends GrafObject
        //gStuff.getGrafPanel().repaint();
     }
     
-   public static void createInputDialog(GrafProg gs){
+   public static GrafInputDialog createInputDialog(GrafProg gs){
        GrafInputDialog gfd = new GrafInputDialog(gs);
        gfd.setTitle("ZEROS");
        gfd.setPointPanel(gfd.addPointPanel());
@@ -99,6 +99,7 @@ public class GrafZeros extends GrafObject
         // gfd.setModal(true);
         // gfd.pack();
         // gfd.setVisible(true);  
+        return gfd;
    }
    
    private static void saveZero(GrafProg gs, GrafInputDialog gfd){

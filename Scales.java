@@ -1,5 +1,6 @@
 /**************************************** 
 *  Scales  for GrafProg Project *
+*  sets scales for axes on graphs
 *  @author Bill Gillam                  *
 *  2/25/15                              *
 *****************************************/

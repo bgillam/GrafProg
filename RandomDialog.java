@@ -1,4 +1,10 @@
-
+/**************************************** 
+*  RandomDialog for GrafProg Project *
+*  Dialog to generate random values in 
+*  GrafTable column
+*  @author Bill Gillam                   *
+*  2/25/15                               *
+*****************************************/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;

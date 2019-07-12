@@ -1,3 +1,10 @@
+
+/*GrafEllipse in GrafProg
+ * used to graph and ellipse
+ * 
+ * @author Bill Gillam
+ * @version 1/27/17]
+ */
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
@@ -8,7 +15,8 @@ import java.util.ArrayList;
 //import GrafProg.GrafType;
 
 
-public class GrafEllipse extends GrafRectangle{
+public class GrafEllipse extends GrafRectangle 
+{
     /**
      * 
      */
@@ -69,7 +77,7 @@ public class GrafEllipse extends GrafRectangle{
            
         }
      
-     public static void createInputDialog(GrafProg gs){
+     public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);          
         gfd.setTitle("ELLIPSE");  
         gfd.setPointPanel(gfd.addPointPanel());
@@ -96,7 +104,7 @@ public class GrafEllipse extends GrafRectangle{
         // gfd.setModal(true);
         // gfd.pack();
         // gfd.setVisible(true);  
-        //return gfd;
+        return gfd;
      }  
      
      private static void saveEllipse(GrafProg gs, GrafInputDialog gfd){
@@ -134,7 +142,7 @@ public class GrafEllipse extends GrafRectangle{
        // return plotListArray;
      // }
      
-     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+     public  static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                      GrafEllipse ellEdit = (GrafEllipse)tempList.get(caller.getDeleter().getPlotIndex().get(index));
                      caller.getPointChooser().setX1(ellEdit.getX());
                      caller.getPointChooser().setY1(ellEdit.getY());

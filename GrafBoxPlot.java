@@ -1,5 +1,6 @@
 
-/*  GrafFunction for GrafProg Project *
+/*  GrafBoxplot for GrafProg Project *
+ * used to graph a boxplot
 *  @author Bill Gillam           *
 *  2/25/15                       *
 **********************************/
@@ -105,7 +106,7 @@ public class GrafBoxPlot extends GrafObject {
         gc.setColor(Color.BLACK);
     }
     
-    public static void createInputDialog(GrafProg gs){
+    public static  GrafInputDialog createInputDialog(GrafProg gs){
             GrafInputDialog gfd = new GrafInputDialog(gs); 
             gfd.setTitle("BoxPlot"); 
             //gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
@@ -132,7 +133,7 @@ public class GrafBoxPlot extends GrafObject {
             // gfd.setModal(true);
             // gfd.pack();
             // gfd.setVisible(true); 
-       
+            return gfd;
     }
     
     private static void saveBoxPlot(GrafProg gs, GrafInputDialog gfd){

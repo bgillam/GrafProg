@@ -1,6 +1,7 @@
 
 /*  GrafFreqPolygon for GrafProg Project *
 *  Store info and methods for graphing   *
+*  Frequncy Polygons
 *  @author Bill Gillam                   *
 *  2/3/17                                *
 *********************************        */
@@ -162,7 +163,7 @@ public class GrafFreqPolygon extends GrafHistogram {
     }
     
     
-    public static void createInputDialog(GrafProg gs){
+    public static GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Histogram Polygon"); 
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
@@ -192,7 +193,7 @@ public class GrafFreqPolygon extends GrafHistogram {
         // gfd.setModal(true);
         // gfd.pack();
         // gfd.setVisible(true);     
-    
+        return gfd;
     }
     
     private static void saveFreqPolygon(GrafProg gs, GrafInputDialog gfd){

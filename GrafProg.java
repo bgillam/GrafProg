@@ -1,7 +1,8 @@
 /**************************************** 
-*  GrafProg  for GrafProg Project *
+*  GrafProg  for GrafProg Project       *
 *  @author Bill Gillam                  *
-*  2/25/15                              *
+*  2/25/15             
+*  Main Class for Project
 *****************************************/
 
 /* Creates frame, graphing panel and menus. 
@@ -43,14 +44,14 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
     private JLabel message3;
        
    //constructor
-   public GrafProg(){
+    public GrafProg(){
         calc = new GrafCalc();
         calc.setVisible(false);  
         SetupFrame(); 
         grafObjectList.add(axes);
         setTitle("GrafProg");
         data.setTitle("Data:");
-   }
+    }
            
     //Sets up Frame values
     private void SetupFrame(){
@@ -87,85 +88,85 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
         
   
    
-  //Set Titles and saved status after saving file
-  private void setAsSaved(){
-      setTitle(grafFile.toString());
-      data.setTitle("Data: "+grafFile.toString());
-      grafSaved=true;
-      repaint();
-  }
+      //Set Titles and saved status after saving file
+    private void setAsSaved(){
+          setTitle(grafFile.toString());
+          data.setTitle("Data: "+grafFile.toString());
+          grafSaved=true;
+          repaint();
+    }
   
-  //Close an open file
-  public void closeGraf(){
-    if (!grafSaved) 
-        switch (JOptionPane.showConfirmDialog(null, "Save File?", "File"+grafFile.toString()+"not saved.", JOptionPane.YES_NO_CANCEL_OPTION)){
-        case JOptionPane.YES_OPTION : { GrafFiles.saveFile(this); setAsSaved(); }    
-        case JOptionPane.CANCEL_OPTION : { repaint(); return;}
-    }    
+    //Close an open file
+    public void closeGraf(){
+        if (!grafSaved) 
+            switch (JOptionPane.showConfirmDialog(null, "Save File?", "File"+grafFile.toString()+"not saved.", JOptionPane.YES_NO_CANCEL_OPTION)){
+            case JOptionPane.YES_OPTION : { GrafFiles.saveFile(this); setAsSaved(); }    
+            case JOptionPane.CANCEL_OPTION : { repaint(); return;}
+        }    
         data.dispose(); dispose();
-  }
+    }
   
   
  
-  /**
- * This handles the action for the menu choices
- * @param ActionEvent event
- */
- public void actionPerformed(ActionEvent event)
- {  
-     About about;
-     switch (event.getActionCommand()){
-        case "New"                          : { new GrafProg(); break;}
-        case "Open"                         : { GrafProg newg = (GrafProg)GrafFiles.openGrafFromFile(); break;}
-        case "Import Data"                  : { GrafFiles.importFile();}
-        case "Save"                         : { grafFile = GrafFiles.saveFile(this); break;}
-        case "Save As"                      : { grafFile = GrafFiles.saveFileAs(this); break; } 
-        case "Print"                        : { GrafPrint.printBit(grafPanel); break;}
-        case "Printer Setup"                : { GrafPrint.printDiag(); break; }
-        case "Exit"                         : { closeGraf(); break; }
-        case "Data"                         : { data.setVisible(true); repaint(); }
-        case "Left"                         : { grafSet.toggleLeftFlag(); break; }
-        case "Hide y-axis"                  : { grafSet.toggleShowYAxis(); break; }
-        case "Hide x-axis"                  : { grafSet.toggleShowXAxis();  break;}
-        case "Hide X Scale"                 : { grafSet.toggleShowXScale(); break; }
-        case "Hide Y Scale"                 : { grafSet.toggleShowYScale();  break; }
-        case "Standard"                     : { grafSet.setStandardAxes();  break;}
-        case "Graphs On Y-Axis"             : { grafSet.toggleReverseXY(); break;}
-        case "Auto"                         : { break;}// not implemented at this time
-        case "Calculator"                   : { calc.setVisible(true); break; }
-        
-        case "About"                        : { About.createInputDialog(this);      break;}
-        case "Set"                          : { WindowSizeDialog.createInputDialog(this);   break; } 
-        case "Frequency Distribution Table" : { FrequencyChartDialog.createInputDialog(this); break;}
-        case "Single Variable Statistics"   : { GrafStatsDialog.createInputDialog(this);    break;}
-        case "Regression"                   : { RegressionDialog.createInputDialog(this);   break; }
-        
-        case "Input"                        : { GrafFunction.createInputDialog(this);    break;}
-        case "Value"                        : { GrafValue.createInputDialog(this);      break;}
-        case "Point"                        : { GrafPoint.createInputDialog(this);        break;}
-        case "Tangent"                      : { GrafTangent.createInputDialog(this);  break;}
-        case "Chord"                        : { GrafChord.createInputDialog(this); break;}
-        case "Integrate"                    : { GrafIntegral.createInputDialog(this);     break;}
-        case "Roots"                        : { GrafZeros.createInputDialog(this);  break;}
-        case "Line Segment"                 : { GrafSegment.createInputDialog(this);   break;}
-        case "Rectangle"                    : { GrafRectangle.createInputDialog(this);     break;}
-        case "Ellipse"                      : { GrafEllipse.createInputDialog(this); break;}
-        case "Circle"                       : { GrafCircle.createInputDialog(this);break;}
-        case "Text"                         : { GrafText.createInputDialog(this);  break;}
-        case "Scatterplot"                  : { GrafScatterPlot.createInputDialog(this);  break;} 
-        case "Column Plot"                  : { GrafColumnPlot.createInputDialog(this);     break;}
-        case "Boxplot"                      : { GrafBoxPlot.createInputDialog(this);   break;}
-        case "Histogram"                    : { GrafHistogram.createInputDialog(this);  break;}
-        case "Distribution Polygon"         : { GrafFreqPolygon.createInputDialog(this);   break;}
-        case "Ogive"                        : { GrafOgive.createInputDialog(this);  break;}
-        
-        
-     }
+    /**
+    * This handles the action for the menu choices
+    * @param ActionEvent event
+    */
+    public void actionPerformed(ActionEvent event)
+    {  
+         About about;
+         switch (event.getActionCommand()){
+            case "New"                          : { new GrafProg(); break;}
+            case "Open"                         : { GrafProg newg = (GrafProg)GrafFiles.openGrafFromFile(); break;}
+            case "Import Data"                  : { GrafFiles.importFile();}
+            case "Save"                         : { grafFile = GrafFiles.saveFile(this); break;}
+            case "Save As"                      : { grafFile = GrafFiles.saveFileAs(this); break; } 
+            case "Print"                        : { GrafPrint.printBit(grafPanel); break;}
+            case "Printer Setup"                : { GrafPrint.printDiag(); break; }
+            case "Exit"                         : { closeGraf(); break; }
+            case "Data"                         : { data.setVisible(true); repaint(); }
+            case "Left"                         : { grafSet.toggleLeftFlag(); break; }
+            case "Hide y-axis"                  : { grafSet.toggleShowYAxis(); break; }
+            case "Hide x-axis"                  : { grafSet.toggleShowXAxis();  break;}
+            case "Hide X Scale"                 : { grafSet.toggleShowXScale(); break; }
+            case "Hide Y Scale"                 : { grafSet.toggleShowYScale();  break; }
+            case "Standard"                     : { grafSet.setStandardAxes();  break;}
+            case "Graphs On Y-Axis"             : { grafSet.toggleReverseXY(); break;}
+            case "Auto"                         : { break;}// not implemented at this time
+            case "Calculator"                   : { calc.setVisible(true); break; }
+            
+            case "About"                        : { About.createInputDialog(this);      break;}
+            case "Set"                          : { WindowSizeDialog.createInputDialog(this);   break; } 
+            case "Frequency Distribution Table" : { FrequencyChartDialog.createInputDialog(this); break;}
+            case "Single Variable Statistics"   : { GrafStatsDialog.createInputDialog(this);    break;}
+            case "Regression"                   : { RegressionDialog.createInputDialog(this);   break; }
+            
+            case "Input"                        : { GrafFunction.createInputDialog(this);    break;}
+            case "Value"                        : { GrafValue.createInputDialog(this);      break;}
+            case "Point"                        : { GrafPoint.createInputDialog(this);        break;}
+            case "Tangent"                      : { GrafTangent.createInputDialog(this);  break;}
+            case "Chord"                        : { GrafChord.createInputDialog(this); break;}
+            case "Integrate"                    : { GrafIntegral.createInputDialog(this);     break;}
+            case "Roots"                        : { GrafZeros.createInputDialog(this);  break;}
+            case "Line Segment"                 : { GrafSegment.createInputDialog(this);   break;}
+            case "Rectangle"                    : { GrafRectangle.createInputDialog(this);     break;}
+            case "Ellipse"                      : { GrafEllipse.createInputDialog(this); break;}
+            case "Circle"                       : { GrafCircle.createInputDialog(this);break;}
+            case "Text"                         : { GrafText.createInputDialog(this);  break;}
+            case "Scatterplot"                  : { GrafScatterPlot.createInputDialog(this);  break;} 
+            case "Column Plot"                  : { GrafColumnPlot.createInputDialog(this);     break;}
+            case "Boxplot"                      : { GrafBoxPlot.createInputDialog(this);   break;}
+            case "Histogram"                    : { GrafHistogram.createInputDialog(this);  break;}
+            case "Distribution Polygon"         : { GrafFreqPolygon.createInputDialog(this);   break;}
+            case "Ogive"                        : { GrafOgive.createInputDialog(this);  break;}
+            
+            
+         }
      
-     grafPanel.repaint();
-     repaint();
-     //printObjectTypes
- }
+      grafPanel.repaint();
+      repaint();
+      //printObjectTypes
+    }
  
  
    

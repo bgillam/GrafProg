@@ -1,3 +1,15 @@
+/**************************************** 
+*  GrafProg  for GrafProg Project *
+*  @author Bill Gillam                  *
+*  2/25/15                              *
+*****************************************/
+/**************************************** 
+*  GrafInputHelpers  for GrafProg  
+*  Data Entry Helpers
+*  @author Bill Gillam                  *
+*  2/25/15                              *
+*****************************************/
+
 import java.awt.event.KeyEvent;
 
 import javax.swing.JOptionPane;

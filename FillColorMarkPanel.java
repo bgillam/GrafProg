@@ -1,6 +1,6 @@
 
 /**
- * Write a description of class ColorChooserPanel here.
+ * Panel in a dialog to set fill color for shapes and other GrafObjects
  * 
  * @Bill Gillam 
  * @4/24/18

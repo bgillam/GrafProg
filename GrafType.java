@@ -1,7 +1,7 @@
 
 /**
  * GrafType: globally available enum.
- * 
+ * Types of graph objects
  * @author (Bill Gillam) 
  * @version (1/1/17)
  */

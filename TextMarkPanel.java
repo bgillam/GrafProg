@@ -1,7 +1,7 @@
   
 /**
- * Write a description of class ColorOnlyMarkPanel here.
- * MarkPanel used for Function and Ogive
+ * Special mmark panel for GrafText objects
+ * 
  * @4/24/18
  */
 import javax.swing.JPanel;

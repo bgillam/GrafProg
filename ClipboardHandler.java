@@ -1,4 +1,9 @@
-import java.awt.Toolkit;
+/**************************************** 
+*  Clipboard handler for GrafProg Project *
+*  Copy and Paste methods
+*  @author Bill Gillam                   *
+*  2/25/15                               *
+*****************************************/import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;

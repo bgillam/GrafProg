@@ -1,7 +1,9 @@
 /**************************************** 
-*  GrafTable  for GrafProg Project *
+*  GrafTable  for GrafProg Project 
+*  Spreadsheet for data used for stat 
+*  calculations and graphs *
 *  @author Bill Gillam                  *
-*  2/25/15                              *
+*  2/25/15    *
 *****************************************/ 
 /** 
  * Table/spreadsheet object for data input 
@@ -113,39 +115,37 @@ class GrafTable extends JDialog implements ActionListener, KeyListener
     public void numberTheRows(){
     int rows = getNumRows();
     for (int i = 1; i <= rows; i++)
-    	setCellValueInteger(i , 0, i );
-    	
+        setCellValueInteger(i , 0, i );
+        
     }
     
         
-   
-    
    //change the table dimensions
    private void resizeData(){
-	  DataSizeDialog dataDialog = new DataSizeDialog(new JFrame(), getNumRows(), getNumCols());
-	  Point xy = dataDialog.showDataSizeDialog();
-	  String [] oldHeaders = saveHeaders();
-	  try{
-		  setNumRows((int)xy.getX());
-		  setNumCols((int)xy.getY());
-		  restoreHeaders(oldHeaders);
-		  numberTheRows();
-	  } catch (NumberFormatException e){
-		  gSess.setMessage1("bad number format for row or column count");
-	  }
-	 
-	  
-	   
+      DataSizeDialog dataDialog = new DataSizeDialog(new JFrame(), getNumRows(), getNumCols());
+      Point xy = dataDialog.showDataSizeDialog();
+      String [] oldHeaders = saveHeaders();
+      try{
+          setNumRows((int)xy.getX());
+          setNumCols((int)xy.getY());
+          restoreHeaders(oldHeaders);
+          numberTheRows();
+         } catch (NumberFormatException e){
+          gSess.setMessage1("bad number format for row or column count");
+      }
+     
+      
+       
   }
    
    public String[] saveHeaders(){
-	   String[] headerHolder = new String[getNumCols()+1];
-	   int cols = getNumCols();
-	   for (int i = 1; i<= cols; i++) {           // don't use index 0 just to keep indexes concurrent with Table calls
-			   headerHolder[i] = getHeaderString(i);
-			
-	   }
-	   return headerHolder;
+       String[] headerHolder = new String[getNumCols()+1];
+       int cols = getNumCols();
+       for (int i = 1; i<= cols; i++) {           // don't use index 0 just to keep indexes concurrent with Table calls
+               headerHolder[i] = getHeaderString(i);
+            
+       }
+       return headerHolder;
    }
     
     public String[] getHeaderStringArray(){
@@ -222,9 +222,9 @@ class GrafTable extends JDialog implements ActionListener, KeyListener
             numberTheRows();
         }       
               
-       }
+   }
        
-       public void deleteColumns(){
+   public void deleteColumns(){
        ArrayList<Integer> selected = getSelectedColumns();
        int colCount = table.getColumnCount();
        if (selected.size() == 0) { gSess.setMessage1("No columns selected!"); return;}
@@ -553,6 +553,12 @@ class GrafTable extends JDialog implements ActionListener, KeyListener
     
     public void setCellValueNull(int row, int col){
        model.setValueAt(null, row-1,  col); //we are using a starting row of 1 vs zero
+    }
+    
+    public void setColumnValues(int col, double a[]){
+        for (int i = 1; i<=a.length; i++){
+            setCellValueDouble(i, col, a[i]);
+        }
     }
     
     public void setHeaderString(int c, String s){
