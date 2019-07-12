@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class GrafRectangle extends GrafObject 
+public class GrafRectangle extends GrafObject implements IGrafable
 {
         private String functionString="";
         private GrafProg myOwner;
@@ -23,7 +23,7 @@ public class GrafRectangle extends GrafObject
         //private String yString = "";
         
         
-        
+      
    public GrafRectangle(GrafProg sess){
         setGrafType(GrafType.RECTANGLE);
         setMoveable(false);
@@ -45,7 +45,7 @@ public class GrafRectangle extends GrafObject
         setGrafColor(gColor);
     }
    
-   
+   @Override 
    public void drawGraf(Graphics2D gc){
        if (fillFlag) {
            gc.setColor(fill);
@@ -58,8 +58,9 @@ public class GrafRectangle extends GrafObject
        gc.setPaint(Color.WHITE);
        
     }
-    
-   public static GrafInputDialog createInputDialog(GrafProg gs){
+   
+    @Override 
+   public  GrafInputDialog createInputDialog(GrafProg gs){
            GrafInputDialog gfd = new GrafInputDialog(gs);          
            gfd.setTitle("RECTANGLE"); 
            gfd.setPointPanel(gfd.addPointPanel());
@@ -89,42 +90,11 @@ public class GrafRectangle extends GrafObject
             return gfd;    
    }
    
-   private static void saveRectangle(GrafProg gs, GrafInputDialog gfd){
-        if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
-        addRect(gs, gfd);
-        gfd.getPointPanel().blankX1();
-        gfd.getPointPanel().blankY1();
-        gfd.getPointPanel().blankW();
-        gfd.getPointPanel().blankH();
-    
-    }
-    
-    private static void addRect(GrafProg gs, GrafInputDialog gfd){
-           if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
-           if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
-           if (Double.isNaN(gfd.getPointPanel().getW())){gfd.NumErrorMessage("Width", "valid number"); return;}
-           if (Double.isNaN(gfd.getPointPanel().getH())){gfd.NumErrorMessage("Height", "valid number"); return;}    
-           GrafRectangle gPlot = new GrafRectangle(gs, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getPointPanel().getW(), gfd.getPointPanel().getH(), gfd.getMarkChooser().getColor());
-           if (gfd.getMarkChooser().fillChecked()) {
-               gPlot.setFillFlag(true);
-               gPlot.setFill(gfd.getMarkChooser().getFillColor());
-            }
-           gfd.getTempList().add(gPlot);  
-    
-    }
    
-     // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.RECTANGLE);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-             // GrafRectangle currentR = (GrafRectangle)tempList.get(plotIndex.get(i)); 
-             // plotListArray[i] = "("+currentR.getX()+", "+currentR.getY()+"); ("+currentR.getWidth()+", "+currentR.getHeight()+")";    
-        // }
-       // return plotListArray;
-     // }
-     
-     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+   
+    
+     @Override 
+     public  void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                      GrafRectangle rEdit = (GrafRectangle)tempList.get(caller.getDeleter().getPlotIndex().get(index));
                      caller.getPointChooser().setX1(rEdit.getX());
                      caller.getPointChooser().setY1(rEdit.getY());
@@ -155,6 +125,30 @@ public class GrafRectangle extends GrafObject
    public String toString(){
        return "RECTANGLE: ("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight();//+ " "+getGrafColor()+" "+getFill()+")";
    }
+   
+   private static void saveRectangle(GrafProg gs, GrafInputDialog gfd){
+        if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
+        addRect(gs, gfd);
+        gfd.getPointPanel().blankX1();
+        gfd.getPointPanel().blankY1();
+        gfd.getPointPanel().blankW();
+        gfd.getPointPanel().blankH();
+    
+    }
+    
+    private static void addRect(GrafProg gs, GrafInputDialog gfd){
+           if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
+           if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
+           if (Double.isNaN(gfd.getPointPanel().getW())){gfd.NumErrorMessage("Width", "valid number"); return;}
+           if (Double.isNaN(gfd.getPointPanel().getH())){gfd.NumErrorMessage("Height", "valid number"); return;}    
+           GrafRectangle gPlot = new GrafRectangle(gs, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getPointPanel().getW(), gfd.getPointPanel().getH(), gfd.getMarkChooser().getColor());
+           if (gfd.getMarkChooser().fillChecked()) {
+               gPlot.setFillFlag(true);
+               gPlot.setFill(gfd.getMarkChooser().getFillColor());
+            }
+           gfd.getTempList().add(gPlot);  
+    
+    }
    
  }
    

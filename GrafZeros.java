@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class GrafZeros extends GrafObject 
+public class GrafZeros extends GrafObject implements IGrafable
 {
         private String functionString="";
         private String zeroString = "";
@@ -54,7 +54,7 @@ public class GrafZeros extends GrafObject
         super.setGrafColor(c);
     }
    
-     
+   @Override
    public void drawGraf(Graphics2D gc){
        double y = 0;
        gc.setColor(super.getGrafColor());
@@ -69,8 +69,9 @@ public class GrafZeros extends GrafObject
        gc.setColor(Color.BLACK);
        //gStuff.getGrafPanel().repaint();
     }
-    
-   public static GrafInputDialog createInputDialog(GrafProg gs){
+   
+    @Override
+   public GrafInputDialog createInputDialog(GrafProg gs){
        GrafInputDialog gfd = new GrafInputDialog(gs);
        gfd.setTitle("ZEROS");
        gfd.setPointPanel(gfd.addPointPanel());
@@ -96,12 +97,40 @@ public class GrafZeros extends GrafObject
             }
         });
         GrafObject.closeGFD(gfd);
-        // gfd.setModal(true);
-        // gfd.pack();
-        // gfd.setVisible(true);  
+         
         return gfd;
    }
    
+   
+    
+
+     @Override
+     public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                   GrafZeros zEdit = (GrafZeros)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(zEdit.getFunctionString());
+                     caller.getPointChooser().setX1(zEdit.getStartX());
+                     caller.getPointChooser().setX2(zEdit.getEndX());
+                     caller.getPointChooser().setDx(zEdit.getDx());
+                     caller.getMarkChooser().setColor(zEdit.getGrafColor());
+                  
+                    
+       }
+    
+   public void setStartX(double xval){ startX = xval; }
+   public double getStartX() { return startX; } 
+   public void setEndX(double xval){ endX = xval; }
+   public double getEndX() { return endX; } 
+   public void setFunctionString(String fString){ functionString = fString; }
+   public String getFunctionString() { return functionString; } 
+   public void setMark(String m){mark = m;}
+   public String getMark(){return mark;}
+   public double getDx(){return dx;}
+   public void setDx(int nVal){dx = nVal;}
+   public ArrayList<Double> getZeroList(){
+       return zeroList;
+   }
+   
+          
    private static void saveZero(GrafProg gs, GrafInputDialog gfd){
        if (gfd.getFinalSave() == true && gfd.getPointPanel().getF().equals("")) return; 
        addZeros(gs, gfd);
@@ -146,46 +175,6 @@ public class GrafZeros extends GrafObject
         bottomPanel.add(rightPanel2, BorderLayout.EAST);
     }
     
-   // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.FZERO);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-            // GrafZeros currentZ = (GrafZeros)tempList.get(plotIndex.get(i));
-            // String str = "function: "+currentZ.getFunctionString()+" roots: ";
-            // for (double root: currentZ.getZeroList()) str = str+root+" ";
-            // plotListArray[i] = str;                 
-        // }
-       // return plotListArray;
-     // }
-     
-     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                   GrafZeros zEdit = (GrafZeros)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                     caller.getPointChooser().setF(zEdit.getFunctionString());
-                     caller.getPointChooser().setX1(zEdit.getStartX());
-                     caller.getPointChooser().setX2(zEdit.getEndX());
-                     caller.getPointChooser().setDx(zEdit.getDx());
-                     caller.getMarkChooser().setColor(zEdit.getGrafColor());
-                  
-                    
-       }
-    
-   public void setStartX(double xval){ startX = xval; }
-   public double getStartX() { return startX; } 
-   public void setEndX(double xval){ endX = xval; }
-   public double getEndX() { return endX; } 
-   public void setFunctionString(String fString){ functionString = fString; }
-   public String getFunctionString() { return functionString; } 
-   public void setMark(String m){mark = m;}
-   public String getMark(){return mark;}
-   public double getDx(){return dx;}
-   public void setDx(int nVal){dx = nVal;}
-   public ArrayList<Double> getZeroList(){
-       return zeroList;
-   }
-   
-          
-   
    private void findZeroPoints(){
         //if (!checkInputValues()) return;
         //double leftValue = Double.parseDouble(textFieldLeft.getText());

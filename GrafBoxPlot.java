@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 //Class Header
-public class GrafBoxPlot extends GrafObject {
+public class GrafBoxPlot extends GrafObject implements IGrafable {
     //Instance Variables
     private int columnNumber;
     private GrafProg myOwner;
@@ -49,7 +49,8 @@ public class GrafBoxPlot extends GrafObject {
         
     }
     
-    //drawGraf overriding method in parent GrafObject
+    //drawG   raf overriding method in parent GrafObject
+    @Override
     public void drawGraf(Graphics2D gc){
         double xMin = gStuff.getXMin();
         double xMax = gStuff.getXMax();
@@ -106,7 +107,8 @@ public class GrafBoxPlot extends GrafObject {
         gc.setColor(Color.BLACK);
     }
     
-    public static  GrafInputDialog createInputDialog(GrafProg gs){
+    @Override
+    public  GrafInputDialog createInputDialog(GrafProg gs){
             GrafInputDialog gfd = new GrafInputDialog(gs); 
             gfd.setTitle("BoxPlot"); 
             //gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
@@ -136,6 +138,26 @@ public class GrafBoxPlot extends GrafObject {
             return gfd;
     }
     
+    
+    
+
+    @Override
+    public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+         GrafBoxPlot bpEdit = (GrafBoxPlot)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+         caller.getColumnChooser().setInputIndex(bpEdit.getColumnNumber());
+         caller.getMarkChooser().setColor(bpEdit.getGrafColor()); 
+       }
+    
+    //Setters and Getters
+    public void setColumnNumber(int c){ columnNumber = c;}
+    public int getColumnNumber(){ return columnNumber;}
+    public void setMark(String m){mark = m;}
+    public String getMark(){return mark;}
+    public void setShowFNS(boolean tf){showFNS = tf;}
+    public boolean getShowFNS(){
+        return showFNS;
+    }
+    
     private static void saveBoxPlot(GrafProg gs, GrafInputDialog gfd){
             int col = gfd.getColumnChooser().getInputColumn();
             if (gfd.getFinalSave() == true && col == 0) return; 
@@ -158,34 +180,6 @@ public class GrafBoxPlot extends GrafObject {
     
     public String toString(){
         return "BOXPLOT: Col "+getColumnNumber()+", "+getMark();//+", "+ getGrafColor();
-    }
-    
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.BOXPLOT);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-            // GrafBoxPlot currentBoxPlot = (GrafBoxPlot)tempList.get(plotIndex.get(i)); 
-            // plotListArray[i] = "input: "+currentBoxPlot.getColumnNumber();    
-           
-        // }
-       // return plotListArray;
-    // }
-    
-    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-         GrafBoxPlot bpEdit = (GrafBoxPlot)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-         caller.getColumnChooser().setInputIndex(bpEdit.getColumnNumber());
-         caller.getMarkChooser().setColor(bpEdit.getGrafColor()); 
-       }
-    
-    //Setters and Getters
-    public void setColumnNumber(int c){ columnNumber = c;}
-    public int getColumnNumber(){ return columnNumber;}
-    public void setMark(String m){mark = m;}
-    public String getMark(){return mark;}
-    public void setShowFNS(boolean tf){showFNS = tf;}
-    public boolean getShowFNS(){
-        return showFNS;
     }
     
     

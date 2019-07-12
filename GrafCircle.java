@@ -14,7 +14,7 @@ import java.util.ArrayList;
 //import GrafProg.GrafType;
 
 
-public class GrafCircle extends GrafObject {
+public class GrafCircle extends GrafObject implements IGrafable{
         
         //private String functionString="";
         private GrafProg myOwner;
@@ -50,7 +50,7 @@ public class GrafCircle extends GrafObject {
                   
     }
     
-    
+     @Override
      public void drawGraf(Graphics2D gc){
          //System.out.println(super.getFillFlag());
          if (getFillFlag()) {
@@ -64,8 +64,8 @@ public class GrafCircle extends GrafObject {
            
         }
      
-        
-    public static GrafInputDialog createInputDialog(GrafProg gs){
+     @Override   
+    public GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);     
         gfd.setTitle("CIRCLE"); 
         gfd.setPointPanel(gfd.addPointPanel());
@@ -94,42 +94,10 @@ public class GrafCircle extends GrafObject {
         // gfd.setVisible(true); 
         return gfd;
     }
+         
     
-    private static void saveCircle(GrafProg gs, GrafInputDialog gfd){
-        if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
-        addCircle(gs, gfd);
-        gfd.getPointPanel().blankX1();
-        gfd.getPointPanel().blankY1();
-        gfd.getPointPanel().blankR();
-
-    
-    }
-        
-    private static void addCircle(GrafProg gs, GrafInputDialog gfd){
-       if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
-       if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
-       if (Double.isNaN(gfd.getPointPanel().getR())){gfd.NumErrorMessage("R", "valid number"); return;}
-       GrafCircle gPlot = new GrafCircle(gs, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getPointPanel().getR(), gfd.getMarkChooser().getColor());
-       if (gfd.getMarkChooser().fillChecked()) {
-           gPlot.setFillFlag(true);
-           gPlot.setFill(gfd.getMarkChooser().getFillColor());
-       }
-       gfd.getTempList().add(gPlot);
-    
-    }
-    
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.CIRCLE);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-             // GrafCircle currentCirc = (GrafCircle)tempList.get(plotIndex.get(i)); 
-             // plotListArray[i] = "("+currentCirc.getCx()+", "+currentCirc.getCy()+"); ("+currentCirc.getR()+")";                    
-        // }
-       // return plotListArray;
-     // }
-     
-     public  static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+     @Override
+     public  void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                      GrafCircle circEdit = (GrafCircle)tempList.get(caller.getDeleter().getPlotIndex().get(index));
                      caller.getPointChooser().setX1(circEdit.getCx());
                      caller.getPointChooser().setX2(circEdit.getCy());
@@ -162,4 +130,27 @@ public class GrafCircle extends GrafObject {
      public String toString(){
            return "CIRCLE: ("+getCx()+", "+getCy()+"); "+getR();//+", "+ " "+getGrafColor()+")";
        }
+       
+        private static void saveCircle(GrafProg gs, GrafInputDialog gfd){
+        if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
+        addCircle(gs, gfd);
+        gfd.getPointPanel().blankX1();
+        gfd.getPointPanel().blankY1();
+        gfd.getPointPanel().blankR();
+
+    
+    }
+        
+    private static void addCircle(GrafProg gs, GrafInputDialog gfd){
+       if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
+       if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
+       if (Double.isNaN(gfd.getPointPanel().getR())){gfd.NumErrorMessage("R", "valid number"); return;}
+       GrafCircle gPlot = new GrafCircle(gs, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getPointPanel().getR(), gfd.getMarkChooser().getColor());
+       if (gfd.getMarkChooser().fillChecked()) {
+           gPlot.setFillFlag(true);
+           gPlot.setFill(gfd.getMarkChooser().getFillColor());
+       }
+       gfd.getTempList().add(gPlot);
+    
+    }
 }

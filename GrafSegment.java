@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 
-public class GrafSegment extends GrafObject 
+public class GrafSegment extends GrafObject implements IGrafable
 {
         private String functionString="";
         private GrafProg myOwner;
@@ -48,7 +48,7 @@ public class GrafSegment extends GrafObject
     }
    
    
-   
+   @Override
    public void drawGraf(Graphics2D gc){
        gc.setColor(super.getGrafColor());
        GrafPrimitives.grafLine(gStuff,x1, y1, x2, y2 ,gc);
@@ -56,7 +56,8 @@ public class GrafSegment extends GrafObject
        
     }
  
-   public  static GrafInputDialog createInputDialog(GrafProg gs){
+   @Override
+   public   GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("LINESEGMENT"); 
         gfd.setPointPanel(gfd.addPointPanel());
@@ -86,39 +87,10 @@ public class GrafSegment extends GrafObject
         return gfd;
     }
     
-    private static void saveSegment(GrafProg gs, GrafInputDialog gfd){
-            if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
-            addSegment(gs, gfd);
-            gfd.getPointPanel().blankX1();
-            gfd.getPointPanel().blankY1();
-            gfd.getPointPanel().blankX2();
-            gfd.getPointPanel().blankY2();  
+   
     
-    }
-    
-    
-    private static void addSegment(GrafProg gs, GrafInputDialog gfd){
-            if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
-            if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
-            if (Double.isNaN(gfd.getPointPanel().getX2())){gfd.NumErrorMessage("x2", "valid number"); return;}
-            if (Double.isNaN(gfd.getPointPanel().getY2())){gfd.NumErrorMessage("y2", "valid number"); return;}    
-            GrafSegment gPlot = new GrafSegment(gs, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getPointPanel().getX2(), gfd.getPointPanel().getY2(), gfd.getMarkChooser().getColor());
-            gfd.getTempList().add(gPlot);
-    
-    }
-    
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.LINESEGMENT);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-             // GrafSegment currentS = (GrafSegment)tempList.get(plotIndex.get(i)); 
-             // plotListArray[i] = "("+currentS.getX1()+", "+currentS.getY1()+"); ("+currentS.getX2()+", "+currentS.getY2()+")";    
-        // }
-       // return plotListArray;
-    // }
-    
-     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+    @Override    
+    public  void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                      GrafSegment lEdit = (GrafSegment)tempList.get(caller.getDeleter().getPlotIndex().get(index));
                      caller.getPointChooser().setX1(lEdit.getX1());
                      caller.getPointChooser().setY1(lEdit.getY1());
@@ -146,7 +118,26 @@ public class GrafSegment extends GrafObject
    }
    
    
-   
+    private static void saveSegment(GrafProg gs, GrafInputDialog gfd){
+            if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
+            addSegment(gs, gfd);
+            gfd.getPointPanel().blankX1();
+            gfd.getPointPanel().blankY1();
+            gfd.getPointPanel().blankX2();
+            gfd.getPointPanel().blankY2();  
+    
+    }
+    
+    
+    private static void addSegment(GrafProg gs, GrafInputDialog gfd){
+            if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
+            if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
+            if (Double.isNaN(gfd.getPointPanel().getX2())){gfd.NumErrorMessage("x2", "valid number"); return;}
+            if (Double.isNaN(gfd.getPointPanel().getY2())){gfd.NumErrorMessage("y2", "valid number"); return;}    
+            GrafSegment gPlot = new GrafSegment(gs, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getPointPanel().getX2(), gfd.getPointPanel().getY2(), gfd.getMarkChooser().getColor());
+            gfd.getTempList().add(gPlot);
+    
+    }
    
  }
    

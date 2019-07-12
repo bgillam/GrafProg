@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class GrafIntegral extends GrafObject 
+public class GrafIntegral extends GrafObject implements IGrafable
 {
         private String functionString="";
         private GrafProg myOwner;
@@ -49,7 +49,7 @@ public class GrafIntegral extends GrafObject
         super.setGrafColor(c);
     }
    
-     
+   @Override  
    public void drawGraf(Graphics2D gc){
        gc.setColor(super.getGrafColor());
        double dx = (x2-x1)/n;
@@ -73,7 +73,8 @@ public class GrafIntegral extends GrafObject
        //gStuff.getGrafPanel().repaint();
     }
     
-    public static GrafInputDialog createInputDialog(GrafProg gs){
+    @Override
+    public GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("INTEGRAL");
         gfd.setPointPanel(gfd.addPointPanel());
@@ -104,7 +105,22 @@ public class GrafIntegral extends GrafObject
         return gfd;
     }
     
-    private static void saveIntegral(GrafProg gs, GrafInputDialog gfd){
+ 
+ 
+
+     @Override
+     public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                   GrafIntegral intEdit = (GrafIntegral)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(intEdit.getFunctionString());
+                     caller.getPointChooser().setX1(intEdit.getX1());
+                     caller.getPointChooser().setX2(intEdit.getX2());
+                     caller.getPointChooser().setN(intEdit.getN());
+                     caller.getMarkChooser().setColor(intEdit.getGrafColor());
+                  
+                    
+       }
+       
+          private static void saveIntegral(GrafProg gs, GrafInputDialog gfd){
         if (gfd.getFinalSave() == true && gfd.getPointPanel().getF().equals("")) return; 
         addIntegral(gs, gfd);
         gfd.getPointPanel().blankF();
@@ -142,28 +158,6 @@ public class GrafIntegral extends GrafObject
         bottomPanel.add(rightPanel, BorderLayout.CENTER);
         bottomPanel.add(rightPanel2, BorderLayout.EAST);
     }
- 
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.INTEGRAL);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-               // GrafIntegral currentI = (GrafIntegral)tempList.get(plotIndex.get(i));
-               // plotListArray[i] = "function: "+currentI.getFunctionString()+", X1: "+currentI.getX1()+" X2: "+currentI.getX2();                                        
-        // }
-       // return plotListArray;
-     // }
-     
-     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                   GrafIntegral intEdit = (GrafIntegral)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                     caller.getPointChooser().setF(intEdit.getFunctionString());
-                     caller.getPointChooser().setX1(intEdit.getX1());
-                     caller.getPointChooser().setX2(intEdit.getX2());
-                     caller.getPointChooser().setN(intEdit.getN());
-                     caller.getMarkChooser().setColor(intEdit.getGrafColor());
-                  
-                    
-       }
     
    public void setX1(double xval){ x1 = xval; }
    public double getX1() { return x1; } 

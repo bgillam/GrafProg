@@ -58,7 +58,7 @@ public class GrafDeletePanel extends JPanel
        editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                if (JOptionPane.showConfirmDialog(null, "Edit "+gType+" "+deleteComboBox.getSelectedItem(), "Edit Plot?", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION){ 
-                       GrafText.setDeleteValues(deleteComboBox.getSelectedIndex(), caller, tempList);
+                       GrafObject.createGrafObject(gType).setDeleteValues(deleteComboBox.getSelectedIndex(), caller, tempList);
                        deleteIndexedPlot(deleteComboBox.getSelectedIndex(), tempList, gType);  
                        deleteComboBox.setModel(new javax.swing.DefaultComboBoxModel(GrafObject.getPlotList(tempList, plotIndex, gType)));
                }

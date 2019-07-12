@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 
-public class GrafPoint extends GrafText
+public class GrafPoint extends GrafText implements IGrafable
 {
    //Constructors      
    public GrafPoint(){
@@ -51,7 +51,7 @@ public class GrafPoint extends GrafText
         setGrafType(GrafType.POINT);
    }
    
-   
+     @Override
      public void drawGraf(Graphics2D gc){
        gc.setColor(getGrafColor());
        GrafPrimitives.grafString(gStuff,x, y, getMark(),  gc);
@@ -59,8 +59,8 @@ public class GrafPoint extends GrafText
     }
     
     
-     //@Override
-     public static GrafInputDialog createInputDialog(GrafProg gs){
+     @Override
+     public GrafInputDialog createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
          gfd.setTitle("Point"); 
          gfd.setPointPanel(gfd.addPointPanel());
@@ -91,33 +91,9 @@ public class GrafPoint extends GrafText
          return gfd;
      }
     
-     private static void savePoint(GrafProg gSess, GrafInputDialog gfd){
-         if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
-             addPoint(gSess,gfd );
-             gfd.getPointPanel().blankX1();
-             gfd.getPointPanel().blankY1();
-    }
-
-    private static void addPoint(GrafProg gSess, GrafInputDialog gfd){
-       if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
-       if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
-       GrafPoint gPlot = new GrafPoint(gSess, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getMark(), gfd.getMarkChooser().getColor());
-       gfd.getTempList().add(gPlot);
-    }
-    
-     // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.POINT);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-            // GrafPoint currentP = (GrafPoint)tempList.get(plotIndex.get(i)); 
-            // plotListArray[i] = "("+currentP.getX()+", "+currentP.getY()+")";   
-        // }
-       // return plotListArray;
-      
-    // }
-    
-    public  static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+     
+    @Override
+    public  void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
                     GrafPoint ptEdit = (GrafPoint)tempList.get(caller.getDeleter().getPlotIndex().get(index));
                     caller.getPointChooser().setX1(ptEdit.getX());
                     caller.getPointChooser().setY1(ptEdit.getY());
@@ -133,6 +109,20 @@ public class GrafPoint extends GrafText
     return "POINT: ("+getX()+", "+getY()+") "+getMark();//+ ", "+getGrafColor();
     }
    
+    private static void savePoint(GrafProg gSess, GrafInputDialog gfd){
+         if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
+             addPoint(gSess,gfd );
+             gfd.getPointPanel().blankX1();
+             gfd.getPointPanel().blankY1();
+    }
+
+    private static void addPoint(GrafProg gSess, GrafInputDialog gfd){
+       if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
+       if (Double.isNaN(gfd.getPointPanel().getY1())){gfd.NumErrorMessage("Y1", "valid number"); return;}    
+       GrafPoint gPlot = new GrafPoint(gSess, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getMark(), gfd.getMarkChooser().getColor());
+       gfd.getTempList().add(gPlot);
+    }
+    
 }
 
 

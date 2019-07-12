@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 
 
-public class GrafText extends GrafObject 
+public class GrafText extends GrafObject implements IGrafable
 {       private String text;
         private GrafProg myOwner;
         protected GrafSettings gStuff;
@@ -65,20 +65,20 @@ public class GrafText extends GrafObject
        gc.setColor(Color.BLACK);
     }
  
-  //@Override   
-  public static GrafInputDialog createInputDialog(GrafProg gs){
+  @Override   
+  public GrafInputDialog createInputDialog(GrafProg gs){
          GrafInputDialog gfd = new GrafInputDialog(gs);
          gfd.setTitle("TEXT"); 
          gfd.setPointPanel(gfd.addPointPanel());
          gfd.getPointPanel().addX1Y1();
          gfd.setMarkChooser(gfd.addMarkPanel(new TextMarkPanel()));
-         gfd.setDeleter(gfd.addDeleterPanel(GrafType.TEXT));//something wrong here?
+         gfd.setDeleter(gfd.addDeleterPanel(GrafType.TEXT));
          gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.TEXT)));  
          gfd.getCreateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0    ) {
                 saveText(gs,gfd);
                 gfd.getDeleter().getDeleteComboBox().setModel(new javax.swing.DefaultComboBoxModel(getPlotList(gfd.getTempList(), gfd.getDeleter().getPlotIndex(), GrafType.TEXT)));  
-                //resetPlotListModel(gfd.getTempList(), deletePanel.getPlotIndex(), deleteComboBox);    
+                
             }
         });
         gfd.getSaveChanges().addActionListener(new ActionListener() {
@@ -90,13 +90,27 @@ public class GrafText extends GrafObject
             }
         });
         GrafObject.closeGFD(gfd);
-        // gfd.setModal(true);
-        // gfd.pack();
-        // gfd.setVisible(true);  
+        
         return gfd;
      }
     
-  private static void saveText(GrafProg gSess, GrafInputDialog gfd){
+  
+    
+
+ @Override
+ public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+     try{
+         GrafText tEdit = (GrafText)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+         caller.getPointChooser().setX1(tEdit.getX());
+         caller.getPointChooser().setY1(tEdit.getY());
+         caller.getMarkChooser().setTextString(tEdit.getText());
+         caller.getMarkChooser().setGrafFont(tEdit.getFont());
+         caller.getMarkChooser().setColor(tEdit.getGrafColor());
+       }catch (NullPointerException e){
+     }
+ }
+ 
+ private static void saveText(GrafProg gSess, GrafInputDialog gfd){
          if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
              addText(gSess,gfd );
              gfd.getPointPanel().blankX1();
@@ -110,29 +124,6 @@ public class GrafText extends GrafObject
        GrafText gPlot = new GrafText(gSess, gfd.getPointPanel().getX1(), gfd.getPointPanel().getY1(), gfd.getMarkChooser().getTextMark() , gfd.getMarkChooser().getFont() , gfd.getMarkChooser().getColor());
        gfd.getTempList().add(gPlot);
   }  
-    
- // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.TEXT);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-            // GrafText currentT = (GrafText)tempList.get(plotIndex.get(i)); 
-            // plotListArray[i] = "("+currentT.getX()+", "+currentT.getY()+"); ("+currentT.getText()+")"; 
-        // }
-       // return plotListArray;
- // }
- //@Override
- public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-     try{
-         GrafText tEdit = (GrafText)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-         caller.getPointChooser().setX1(tEdit.getX());
-         caller.getPointChooser().setY1(tEdit.getY());
-         caller.getMarkChooser().setTextString(tEdit.getText());
-         caller.getMarkChooser().setGrafFont(tEdit.getFont());
-         caller.getMarkChooser().setColor(tEdit.getGrafColor());
-       }catch (NullPointerException e){
-     }
- }
    
    public void setX(double xval){ x = xval; }
    public double getX() { return x; }   

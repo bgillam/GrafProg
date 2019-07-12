@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 
 //Class Header
-public class GrafScatterPlot extends GrafObject {
+public class GrafScatterPlot extends GrafObject implements IGrafable{
     //Instance Variables
     private int inputColumnNumber, outputColumnNumber;
     private GrafProg myOwner;
@@ -44,6 +44,7 @@ public class GrafScatterPlot extends GrafObject {
     }
     
     //drawGraf overriding method in parent GrafObject
+    @Override
     public void drawGraf(Graphics2D gc){
         double xMin = gStuff.getXMin();
         double xMax = gStuff.getXMax();
@@ -73,8 +74,8 @@ public class GrafScatterPlot extends GrafObject {
     }
     
     
-    
-    public static GrafInputDialog createInputDialog(GrafProg gs){//GrafInputDialog createInputDialog(GrafProg gs){
+    @Override
+    public GrafInputDialog createInputDialog(GrafProg gs){//GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("ScatterPlot"); 
         gfd.addColumnChooserPanel(gfd.getColumnsString(),true, true);
@@ -105,47 +106,11 @@ public class GrafScatterPlot extends GrafObject {
         return gfd;
     }
     
-    private static void saveScatter(GrafProg gs, GrafInputDialog gfd){
-            int col = gfd.getColumnChooser().getInputColumn();
-            if (gfd.getFinalSave() == true && col == 0) return; 
-            addScatter(gs, gfd);
-            gfd.getColumnChooser().setInputIndex(0);
-            gfd.getColumnChooser().setOutputIndex(0);
-    
-    }
-    
-    private static void addScatter(GrafProg gs, GrafInputDialog gfd){
-        int input = gfd.getInput();
-        int output = gfd.getOutput();
-        if (input == 0 || output == 0) return;
-        GrafScatterPlot gPlot = new GrafScatterPlot(gs, input, output);
-        gPlot.setGrafColor(gfd.getMarkChooser().getGrafColor());
-        //set correct mark for points
-        //markChooser = (ColorRadioMarkPanel)markChooser;
-        if (gfd.getMarkChooser().xMark()) gPlot.setMark("x"); 
-        else if (gfd.getMarkChooser().oMark()) gPlot.setMark("o"); 
-        else if (gfd.getMarkChooser().periodMark()) gPlot.setMark("."); 
-        else { String text = gfd.getMarkChooser().getTextMark(); 
-        gPlot.setMark(text);} 
-        if (gfd.getMarkChooser().isLineGraph()) gPlot.setConnected(true); else gPlot.setConnected(false);
-        gfd.getTempList().add(gPlot);
-    
-    }
     
     
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.SCATTER);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-            // GrafScatterPlot currentScatterPlot = (GrafScatterPlot)tempList.get(plotIndex.get(i)); 
-            // if (currentScatterPlot.getConnected()) con = "connected"; else con = "discrete";
-            // plotListArray[i] = "input: "+currentScatterPlot.getInputColumnNumber()+", output: "+currentScatterPlot.getOutputColumnNumber()+" "+con;   
-        // }
-       // return plotListArray;
-    // }
-    
-    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+  
+    @Override
+    public  void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
          GrafScatterPlot scEdit = (GrafScatterPlot)tempList.get(caller.getDeleter().getPlotIndex().get(index));
          caller.getColumnChooser().setInputIndex(scEdit.getInputColumnNumber());
          caller.getColumnChooser().setOutputIndex(scEdit.getOutputColumnNumber());
@@ -175,6 +140,33 @@ public class GrafScatterPlot extends GrafObject {
     
     public String toString(){
         return "SCATTERPLOT: Col "+getInputColumnNumber()+", Col "+getOutputColumnNumber()+", "+getMark();//+", "+ getGrafColor();
+    }
+    
+    private static void saveScatter(GrafProg gs, GrafInputDialog gfd){
+            int col = gfd.getColumnChooser().getInputColumn();
+            if (gfd.getFinalSave() == true && col == 0) return; 
+            addScatter(gs, gfd);
+            gfd.getColumnChooser().setInputIndex(0);
+            gfd.getColumnChooser().setOutputIndex(0);
+    
+    }
+    
+    private static void addScatter(GrafProg gs, GrafInputDialog gfd){
+        int input = gfd.getInput();
+        int output = gfd.getOutput();
+        if (input == 0 || output == 0) return;
+        GrafScatterPlot gPlot = new GrafScatterPlot(gs, input, output);
+        gPlot.setGrafColor(gfd.getMarkChooser().getGrafColor());
+        //set correct mark for points
+        //markChooser = (ColorRadioMarkPanel)markChooser;
+        if (gfd.getMarkChooser().xMark()) gPlot.setMark("x"); 
+        else if (gfd.getMarkChooser().oMark()) gPlot.setMark("o"); 
+        else if (gfd.getMarkChooser().periodMark()) gPlot.setMark("."); 
+        else { String text = gfd.getMarkChooser().getTextMark(); 
+        gPlot.setMark(text);} 
+        if (gfd.getMarkChooser().isLineGraph()) gPlot.setConnected(true); else gPlot.setConnected(false);
+        gfd.getTempList().add(gPlot);
+    
     }
     
     /* Setters and Getters from Parent GrafObject

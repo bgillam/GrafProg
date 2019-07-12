@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class GrafTangent extends GrafObject 
+public class GrafTangent extends GrafObject implements IGrafable
 {
         private String functionString="";
         private int segLength = 1000;
@@ -46,6 +46,7 @@ public class GrafTangent extends GrafObject
         setMark(mark);
    }
    
+   @Override
    public void drawGraf(Graphics2D gc){
        gc.setColor(super.getGrafColor());
        double dx = (gStuff.getXMax() - gStuff.getXMin())/1000;
@@ -81,7 +82,8 @@ public class GrafTangent extends GrafObject
        //gStuff.getGrafPanel().repaint();
     }
  
-   public static GrafInputDialog createInputDialog(GrafProg gs){
+    @Override
+   public  GrafInputDialog createInputDialog(GrafProg gs){
        GrafInputDialog gfd = new GrafInputDialog(gs);
        gfd.setTitle("TANGENT");
        gfd.setPointPanel(gfd.addPointPanel());
@@ -105,13 +107,23 @@ public class GrafTangent extends GrafObject
             }
         });
         GrafObject.closeGFD(gfd);
-        // gfd.setModal(true);
-        // gfd.pack();
-        // gfd.setVisible(true);  
+      
         return gfd;
    } 
     
-   private static void saveTangent(GrafProg gs, GrafInputDialog gfd){
+   
+    
+    @Override
+     public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                     GrafTangent vEdit = (GrafTangent)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(vEdit.getFunctionString());
+                     caller.getPointChooser().setX1(vEdit.getX());
+                     caller.getMarkChooser().setColor(vEdit.getGrafColor());
+                  
+                    
+       }
+       
+       private static void saveTangent(GrafProg gs, GrafInputDialog gfd){
         if (gfd.getFinalSave() == true && gfd.getPointPanel().getF().equals("")) return; 
         addTangent(gs, gfd);
         gfd.getPointPanel().blankF();
@@ -131,25 +143,6 @@ public class GrafTangent extends GrafObject
         gfd.getTempList().add(gt); 
     }
     
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.TANGENT);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-               // GrafTangent currentTan = (GrafTangent)tempList.get(plotIndex.get(i)); 
-               // plotListArray[i] = "("+currentTan.getFunctionString()+", "+currentTan.getX()+")";                    
-        // }
-       // return plotListArray;
-     // }
-    
-     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                     GrafTangent vEdit = (GrafTangent)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                     caller.getPointChooser().setF(vEdit.getFunctionString());
-                     caller.getPointChooser().setX1(vEdit.getX());
-                     caller.getMarkChooser().setColor(vEdit.getGrafColor());
-                  
-                    
-       }
      
    public void setX(double xval){ x = xval; }
    public double getX() { return x; }   

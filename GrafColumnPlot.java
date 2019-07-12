@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 //Class Header
-public class GrafColumnPlot extends GrafObject {
+public class GrafColumnPlot extends GrafObject implements IGrafable{
     //Instance Variables
     private int columnNumber;
     private GrafProg myOwner;
@@ -47,6 +47,7 @@ public class GrafColumnPlot extends GrafObject {
     
        
     //drawGraf overriding method in parent GrafObject
+    @Override
     public void drawGraf(Graphics2D gc){
         double xMin = gStuff.getXMin();
         double xMax = gStuff.getXMax();
@@ -65,7 +66,8 @@ public class GrafColumnPlot extends GrafObject {
         gc.setColor(Color.BLACK);
     }
     
-      public static GrafInputDialog createInputDialog(GrafProg gs){
+    @Override
+      public GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Column Plot");  
         //gfd.setColumnChooser(gfd.addColumnChooserPanel(gfd.getColumnsString(),true, false));
@@ -98,6 +100,33 @@ public class GrafColumnPlot extends GrafObject {
         return gfd;
     }
     
+    
+    
+
+    @Override
+    public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+             GrafColumnPlot cEdit = (GrafColumnPlot)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+             caller.getColumnChooser().setInputIndex(cEdit.getColumnNumber());
+             caller.getMarkChooser().setMark(cEdit.getMark());
+             caller.getMarkChooser().setConnectedChecked(cEdit.getConnected());
+             caller.getMarkChooser().setColor(cEdit.getGrafColor()); 
+}
+    //Setters and Getters
+    public void setColumnNumber(int c){ columnNumber = c;}
+    public int getColumnNumber(){ return columnNumber;}
+    public void setMark(String m){mark = m;}
+    public String getMark(){return mark;}
+    public void setConnected(boolean tf){
+        connected = tf;
+    }
+    public boolean getConnected(){
+        return connected;
+    }
+    
+    public String toString(){
+        return "COLUMNPLOT: Col "+getColumnNumber()+","+", "+getMark();//+", "+ getGrafColor();
+    }
+    
     private static void saveColumn(GrafProg gs, GrafInputDialog gfd){
         int col = gfd.getColumnChooser().getInputColumn();
         if (gfd.getFinalSave() == true && col == 0) return; 
@@ -120,41 +149,6 @@ public class GrafColumnPlot extends GrafObject {
         if (gfd.getMarkChooser().isLineGraph()) gPlot.setConnected(true); else gPlot.setConnected(false);
         gfd.getTempList().add(gPlot);
     
-    }
-    
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.COLUMN);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-             // GrafColumnPlot currentColumnPlot = (GrafColumnPlot)tempList.get(plotIndex.get(i)); 
-            // if (currentColumnPlot.getConnected()) con = "connected"; else con = "discrete";
-            // plotListArray[i] = "input: "+currentColumnPlot.getColumnNumber()+" "+con;    
-        // }
-       // return plotListArray;
-    // }
-    
-    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-             GrafColumnPlot cEdit = (GrafColumnPlot)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-             caller.getColumnChooser().setInputIndex(cEdit.getColumnNumber());
-             caller.getMarkChooser().setMark(cEdit.getMark());
-             caller.getMarkChooser().setConnectedChecked(cEdit.getConnected());
-             caller.getMarkChooser().setColor(cEdit.getGrafColor()); 
-}
-    //Setters and Getters
-    public void setColumnNumber(int c){ columnNumber = c;}
-    public int getColumnNumber(){ return columnNumber;}
-    public void setMark(String m){mark = m;}
-    public String getMark(){return mark;}
-    public void setConnected(boolean tf){
-        connected = tf;
-    }
-    public boolean getConnected(){
-        return connected;
-    }
-    
-    public String toString(){
-        return "COLUMNPLOT: Col "+getColumnNumber()+","+", "+getMark();//+", "+ getGrafColor();
     }
     
     /* Setters and Getters from Parent GrafObject

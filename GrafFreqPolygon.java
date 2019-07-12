@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 //Class Header
-public class GrafFreqPolygon extends GrafHistogram {
+public class GrafFreqPolygon extends GrafHistogram implements IGrafable{
     //Instance Variables
     private int columnNumber;
     private GrafProg myOwner;
@@ -78,18 +78,9 @@ public class GrafFreqPolygon extends GrafHistogram {
         classLimits = GrafStats.getClassesByClassSize(classW, begin, end);  
         numClasses = classLimits.length;
     }
-   //public GrafFreqPolygon(GrafProg sess, int column, double b, double e, Color c, boolean byNC, int numCl, double classW){
-    //    this(sess, column);
-    //    begin = b;
-   //     end = e;
-   //     setGrafColor(c);
-    //    byNumClasses = byNC;
-   //     numClasses = numCl;
-   //     classWidth = classW;
-     
-   // }
-    
+   
     //drawGraf overriding method in parent GrafObject
+    @Override
     public void drawGraf(Graphics2D gc){
         //double xMin = gStuff.getXMin();
         //double xMax = gStuff.getXMax();
@@ -162,8 +153,8 @@ public class GrafFreqPolygon extends GrafHistogram {
         gc.setColor(Color.BLACK);
     }
     
-    
-    public static GrafInputDialog createInputDialog(GrafProg gs){
+    @Override
+    public  GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Histogram Polygon"); 
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
@@ -190,13 +181,28 @@ public class GrafFreqPolygon extends GrafHistogram {
             }
         });
         GrafObject.closeGFD(gfd);
-        // gfd.setModal(true);
-        // gfd.pack();
-        // gfd.setVisible(true);     
+           
         return gfd;
     }
     
-    private static void saveFreqPolygon(GrafProg gs, GrafInputDialog gfd){
+   
+    
+  
+    @Override
+    public  void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                    GrafFreqPolygon gfpEdit = (GrafFreqPolygon)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                    caller.getColumnChooser().setInputIndex(gfpEdit.getColumnNumber());
+                    caller.getMarkChooser().setFillChecked(gfpEdit.getFillFlag());
+                    caller.getMarkChooser().setColor(gfpEdit.getGrafColor());  
+                    caller.getMarkChooser().setFillColor(gfpEdit.getFill());  
+                    caller.getHisto().setBegin(gfpEdit.getBegin());
+                    caller.getHisto().setEnd(gfpEdit.getEnd());
+                    caller.getHisto().setnumClassesChecked(gfpEdit.getByNumClassChecked());
+                    caller.getHisto().setNumClasses(gfpEdit.getNumClasses());
+                    caller.getHisto().setClassSize(gfpEdit.getClassWidth());
+       }
+       
+        private static void saveFreqPolygon(GrafProg gs, GrafInputDialog gfd){
             int col = gfd.getColumnChooser().getInputColumn();
             if (gfd.getFinalSave() == true && col == 0) return; 
             addFreqPoly(gs, gfd);
@@ -218,31 +224,6 @@ public class GrafFreqPolygon extends GrafHistogram {
               gfd.getTempList().add(gfpPlot);
     
     }
-    
-  
-     // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.FREQPOLYGON);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-            // GrafFreqPolygon currentFreqPolygon = (GrafFreqPolygon)tempList.get(plotIndex.get(i)); 
-            // plotListArray[i] = "input: "+currentFreqPolygon.getColumnNumber();  
-        // }
-       // return plotListArray;
-    // }
-    
-    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                    GrafFreqPolygon gfpEdit = (GrafFreqPolygon)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                    caller.getColumnChooser().setInputIndex(gfpEdit.getColumnNumber());
-                    caller.getMarkChooser().setFillChecked(gfpEdit.getFillFlag());
-                    caller.getMarkChooser().setColor(gfpEdit.getGrafColor());  
-                    caller.getMarkChooser().setFillColor(gfpEdit.getFill());  
-                    caller.getHisto().setBegin(gfpEdit.getBegin());
-                    caller.getHisto().setEnd(gfpEdit.getEnd());
-                    caller.getHisto().setnumClassesChecked(gfpEdit.getByNumClassChecked());
-                    caller.getHisto().setNumClasses(gfpEdit.getNumClasses());
-                    caller.getHisto().setClassSize(gfpEdit.getClassWidth());
-       }
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

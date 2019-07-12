@@ -141,24 +141,24 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
             case "Single Variable Statistics"   : { GrafStatsDialog.createInputDialog(this);    break;}
             case "Regression"                   : { RegressionDialog.createInputDialog(this);   break; }
             
-            case "Input"                        : { GrafFunction.createInputDialog(this);    break;}
-            case "Value"                        : { GrafValue.createInputDialog(this);      break;}
-            case "Point"                        : { GrafPoint.createInputDialog(this);        break;}
-            case "Tangent"                      : { GrafTangent.createInputDialog(this);  break;}
-            case "Chord"                        : { GrafChord.createInputDialog(this); break;}
-            case "Integrate"                    : { GrafIntegral.createInputDialog(this);     break;}
-            case "Roots"                        : { GrafZeros.createInputDialog(this);  break;}
-            case "Line Segment"                 : { GrafSegment.createInputDialog(this);   break;}
-            case "Rectangle"                    : { GrafRectangle.createInputDialog(this);     break;}
-            case "Ellipse"                      : { GrafEllipse.createInputDialog(this); break;}
-            case "Circle"                       : { GrafCircle.createInputDialog(this);break;}
-            case "Text"                         : { GrafText.createInputDialog(this);  break;}
-            case "Scatterplot"                  : { GrafScatterPlot.createInputDialog(this);  break;} 
-            case "Column Plot"                  : { GrafColumnPlot.createInputDialog(this);     break;}
-            case "Boxplot"                      : { GrafBoxPlot.createInputDialog(this);   break;}
-            case "Histogram"                    : { GrafHistogram.createInputDialog(this);  break;}
-            case "Distribution Polygon"         : { GrafFreqPolygon.createInputDialog(this);   break;}
-            case "Ogive"                        : { GrafOgive.createInputDialog(this);  break;}
+            case "Input"                        : { GrafObject.createGrafObject(GrafType.FUNCTION).createInputDialog(this);    break;}
+            case "Value"                        : { GrafObject.createGrafObject(GrafType.FVALUE).createInputDialog(this);      break;}
+            case "Point"                        : { GrafObject.createGrafObject(GrafType.POINT).createInputDialog(this);        break;}
+            case "Tangent"                      : { GrafObject.createGrafObject(GrafType.TANGENT).createInputDialog(this);  break;}
+            case "Chord"                        : { GrafObject.createGrafObject(GrafType.CHORD).createInputDialog(this); break;}
+            case "Integrate"                    : { GrafObject.createGrafObject(GrafType.INTEGRAL).createInputDialog(this);     break;}
+            case "Roots"                        : { GrafObject.createGrafObject(GrafType.FZERO).createInputDialog(this);  break;}
+            case "Line Segment"                 : { GrafObject.createGrafObject(GrafType.LINESEGMENT).createInputDialog(this);   break;}
+            case "Rectangle"                    : { GrafObject.createGrafObject(GrafType.RECTANGLE).createInputDialog(this);     break;}
+            case "Ellipse"                      : { GrafObject.createGrafObject(GrafType.ELLIPSE).createInputDialog(this); break;}
+            case "Circle"                       : { GrafObject.createGrafObject(GrafType.CIRCLE).createInputDialog(this);break;}
+            case "Text"                         : { GrafObject.createGrafObject(GrafType.TEXT).createInputDialog(this);  break;}
+            case "Scatterplot"                  : { GrafObject.createGrafObject(GrafType.SCATTER).createInputDialog(this);  break;} 
+            case "Column Plot"                  : { GrafObject.createGrafObject(GrafType.COLUMN).createInputDialog(this);     break;}
+            case "Boxplot"                      : { GrafObject.createGrafObject(GrafType.BOXPLOT).createInputDialog(this);   break;}
+            case "Histogram"                    : { GrafObject.createGrafObject(GrafType.HISTOGRAM).createInputDialog(this);  break;}
+            case "Distribution Polygon"         : { GrafObject.createGrafObject(GrafType.FREQPOLYGON).createInputDialog(this);   break;}
+            case "Ogive"                        : { GrafObject.createGrafObject(GrafType.OGIVE).createInputDialog(this);  break;}
             
             
          }

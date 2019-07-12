@@ -16,7 +16,7 @@ import javax.swing.UIManager;
 import java.util.ArrayList;
 
 //Class Header
-public class GrafFunction extends GrafObject {
+public class GrafFunction extends GrafObject implements IGrafable{
     //Instance Variables
     private String functionString;
     private int segLength = 200;
@@ -48,6 +48,7 @@ public class GrafFunction extends GrafObject {
    
 
     //drawGraf overri[]ding method in parent GrafObject
+    @Override
     public void drawGraf(Graphics2D gc){
         double xMin = gStuff.getXMin();
         double xMax = gStuff.getXMax();
@@ -70,7 +71,8 @@ public class GrafFunction extends GrafObject {
         
     }
     
-   public static GrafInputDialog createInputDialog(GrafProg gs){
+   @Override 
+   public GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("FUNCTION");
         gfd.setPointPanel(gfd.addPointPanel());
@@ -102,7 +104,29 @@ public class GrafFunction extends GrafObject {
    
       
    
-   private static void saveFunction(GrafProg gSess, GrafInputDialog gfd){
+
+    
+
+     @Override
+     public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                   GrafFunction gEdit = (GrafFunction)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                   caller.getPointChooser().setF(gEdit.getFunction());
+                   caller.getMarkChooser().setColor(gEdit.getGrafColor());
+                  
+                    
+       }
+    
+    //Setters and Getters
+    public void setFunction(String s){ functionString = s;}
+    public String getFunction(){ return functionString;}
+    
+    public void setSegLength(int sl){segLength = sl;}
+    public int getSegLength(){return segLength;}
+    
+    public String toString(){
+        return "FUNCTION: "+ getFunction();//+", "+ getGrafColor();
+    }
+       private static void saveFunction(GrafProg gSess, GrafInputDialog gfd){
          if (gfd.getFinalSave() == true && gfd.getPtPanel().getF().equals("")) return;
          addFunction(gSess, gfd);
          gfd.getPtPanel().setF("");
@@ -121,36 +145,6 @@ public class GrafFunction extends GrafObject {
        
         GrafFunction gf = new GrafFunction(gSess, gfd.getPtPanel().getF(), gfd.getMarkChooser().getColor());
         gfd.getTempList().add(gf);
-    }
-    
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.FUNCTION);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-              // GrafFunction currentF = (GrafFunction)tempList.get(plotIndex.get(i)); 
-              // plotListArray[i] = "Y"+(i)+" ="+currentF.getFunction();                    
-        // }
-       // return plotListArray;
-     // }
-     
-     public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                   GrafFunction gEdit = (GrafFunction)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                   caller.getPointChooser().setF(gEdit.getFunction());
-                   caller.getMarkChooser().setColor(gEdit.getGrafColor());
-                  
-                    
-       }
-    
-    //Setters and Getters
-    public void setFunction(String s){ functionString = s;}
-    public String getFunction(){ return functionString;}
-    
-    public void setSegLength(int sl){segLength = sl;}
-    public int getSegLength(){return segLength;}
-    
-    public String toString(){
-        return "FUNCTION: "+ getFunction();//+", "+ getGrafColor();
     }
     
     /* Setters and Getters from Parent GrafObject

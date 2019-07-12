@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 
 //Class Header
-public class GrafOgive extends GrafHistogram {
+public class GrafOgive extends GrafHistogram implements IGrafable{
     //Instance Variables
     private int columnNumber;
     private GrafProg myOwner;
@@ -80,6 +80,7 @@ public class GrafOgive extends GrafHistogram {
    
     
     //drawGraf overriding method in parent GrafObject
+    @Override
     public void drawGraf(Graphics2D gc){
         gc.setColor(super.getGrafColor());
         Double[] temp = GrafStats.getRidOfNulls(myOwner.getData().getColumnValues(columnNumber));
@@ -165,7 +166,8 @@ public class GrafOgive extends GrafHistogram {
         gc.setColor(Color.BLACK);
     }
     
-    public static GrafInputDialog createInputDialog(GrafProg gs){
+    @Override
+    public GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Ogive"); 
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
@@ -196,7 +198,23 @@ public class GrafOgive extends GrafHistogram {
         return gfd;
     }
     
-    private static void saveOgive(GrafProg gs, GrafInputDialog gfd){
+     
+  
+    @Override
+    public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                    GrafOgive oEdit = (GrafOgive)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                    caller.getColumnChooser().setInputIndex(oEdit.getColumnNumber());
+                    caller.getMarkChooser().setFillChecked(oEdit.getFillFlag());
+                    caller.getMarkChooser().setColor(oEdit.getGrafColor());  
+                    caller.getMarkChooser().setFillColor(oEdit.getFill());  
+                    caller.getHisto().setBegin(oEdit.getBegin());
+                    caller.getHisto().setEnd(oEdit.getEnd());
+                    caller.getHisto().setnumClassesChecked(oEdit.getByNumClassChecked());
+                    caller.getHisto().setNumClasses(oEdit.getNumClasses());
+                    caller.getHisto().setClassSize(oEdit.getClassWidth());   
+       }
+       
+        private static void saveOgive(GrafProg gs, GrafInputDialog gfd){
         int col = gfd.getColumnChooser().getInputColumn();
         if (gfd.getFinalSave() == true && col == 0) return; 
         addOgive(gs, gfd);
@@ -218,32 +236,6 @@ public class GrafOgive extends GrafHistogram {
           gfd.getTempList().add(oPlot);
     
     }
-    
-    
-     // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.OGIVE);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-             // GrafOgive currentOgive = (GrafOgive)tempList.get(plotIndex.get(i)); 
-             // plotListArray[i] = "input: "+currentOgive.getColumnNumber();  
-        // }
-       // return plotListArray;
-       
-    // }
-    
-    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                    GrafOgive oEdit = (GrafOgive)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                    caller.getColumnChooser().setInputIndex(oEdit.getColumnNumber());
-                    caller.getMarkChooser().setFillChecked(oEdit.getFillFlag());
-                    caller.getMarkChooser().setColor(oEdit.getGrafColor());  
-                    caller.getMarkChooser().setFillColor(oEdit.getFill());  
-                    caller.getHisto().setBegin(oEdit.getBegin());
-                    caller.getHisto().setEnd(oEdit.getEnd());
-                    caller.getHisto().setnumClassesChecked(oEdit.getByNumClassChecked());
-                    caller.getHisto().setNumClasses(oEdit.getNumClasses());
-                    caller.getHisto().setClassSize(oEdit.getClassWidth());   
-       }
     
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}

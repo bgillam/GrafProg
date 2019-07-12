@@ -37,9 +37,9 @@ abstract public class GrafObject implements Serializable
    
    public void drawGraf(Graphics2D g2D){};
    
-   public static GrafInputDialog createInputDialog(GrafProg gs){return null;};
+   public GrafInputDialog createInputDialog(GrafProg gs){return null;};
    
-   public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){};
+   public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){};
    
    public static GrafObject createGrafObject(GrafType gType){
        switch (gType){

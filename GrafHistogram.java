@@ -12,27 +12,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-//import javax.swing.JDialog;
-//import java.util.ArrayList;
 import java.awt.BorderLayout;
-//import java.awt.Font;
+
 import javax.swing.UIManager;
-/*import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;*/
+
 import javax.swing.border.BevelBorder;
-//import javax.swing.JSeparator;
-//import javax.swing.SwingConstants;
 
 
 
 //Class Header
-public class GrafHistogram extends GrafObject {
+public class GrafHistogram extends GrafObject implements IGrafable{
     //Instance Variables
     private int columnNumber;
     private GrafProg myOwner;
@@ -102,18 +91,10 @@ public class GrafHistogram extends GrafObject {
         classLimits = GrafStats.getClassesByClassSize(classW, begin, end);  
         numClasses = classLimits.length;
     }
-   //public GrafHistogram(GrafProg sess, int column, double b, double e, Color c, boolean byNC, int numCl, double classW){
-    //    this(sess, column);
-    //    begin = b;
-   //     end = e;
-   //     setGrafColor(c);
-    //    byNumClasses = byNC;
-   //     numClasses = numCl;
-   //     classWidth = classW;
-     
-   // }
+
     
     //drawGraf overriding method in parent GrafObject
+    @Override
     public void drawGraf(Graphics2D gc){
         gc.setColor(super.getGrafColor());
         Double[] temp = GrafStats.getRidOfNulls(myOwner.getData().getColumnValues(columnNumber));
@@ -174,7 +155,8 @@ public class GrafHistogram extends GrafObject {
         
     }
     
-    public static GrafInputDialog createInputDialog(GrafProg gs){
+     @Override
+    public GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs); 
         gfd.setTitle("Histogram"); 
         gfd.setHistoPanel(addHistoPanel(gs, gfd));
@@ -207,7 +189,24 @@ public class GrafHistogram extends GrafObject {
         return gfd;
     }
 
-    protected static HistoPanel addHistoPanel(GrafProg gs, GrafInputDialog gfd){
+    
+    
+   
+     @Override
+    public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                    GrafHistogram histEdit = (GrafHistogram)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                    caller.getColumnChooser().setInputIndex(histEdit.getColumnNumber());
+                    caller.getMarkChooser().setFillChecked(histEdit.getFillFlag());
+                    caller.getMarkChooser().setColor(histEdit.getGrafColor());  
+                    caller.getMarkChooser().setFillColor(histEdit.getFill());  
+                    caller.getHisto().setBegin(histEdit.getBegin());
+                    caller.getHisto().setEnd(histEdit.getEnd());
+                    caller.getHisto().setnumClassesChecked(histEdit.getByNumClassChecked());
+                    caller.getHisto().setNumClasses(histEdit.getNumClasses());
+                    caller.getHisto().setClassSize(histEdit.getClassWidth());
+       }
+    
+       protected static HistoPanel addHistoPanel(GrafProg gs, GrafInputDialog gfd){
         HistoPanel histoPanel = new HistoPanel();
         histoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         histoPanel.setBackground(UIManager.getColor("Button.background"));
@@ -243,32 +242,7 @@ public class GrafHistogram extends GrafObject {
           gfd.getTempList().add(hPlot);
     
     }
-    
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.HISTOGRAM);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-            // GrafHistogram currentHistoPlot = (GrafHistogram)tempList.get(plotIndex.get(i)); 
-            // plotListArray[i] = "input: "+currentHistoPlot.getColumnNumber()+" "+currentHistoPlot.getGrafColor();   
-           
-        // }
-       // return plotListArray;
-    // }
-    
-    public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                    GrafHistogram histEdit = (GrafHistogram)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                    caller.getColumnChooser().setInputIndex(histEdit.getColumnNumber());
-                    caller.getMarkChooser().setFillChecked(histEdit.getFillFlag());
-                    caller.getMarkChooser().setColor(histEdit.getGrafColor());  
-                    caller.getMarkChooser().setFillColor(histEdit.getFill());  
-                    caller.getHisto().setBegin(histEdit.getBegin());
-                    caller.getHisto().setEnd(histEdit.getEnd());
-                    caller.getHisto().setnumClassesChecked(histEdit.getByNumClassChecked());
-                    caller.getHisto().setNumClasses(histEdit.getNumClasses());
-                    caller.getHisto().setClassSize(histEdit.getClassWidth());
-       }
-    
+       
     //Setters and Getters
     public void setColumnNumber(int c){ columnNumber = c;}
     public int getColumnNumber(){ return columnNumber;}

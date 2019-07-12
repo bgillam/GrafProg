@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class GrafChord extends GrafObject 
+public class GrafChord extends GrafObject implements IGrafable
 {
         private String functionString="";
         private GrafProg myOwner;
@@ -51,7 +51,7 @@ public class GrafChord extends GrafObject
         
     }
    
-     
+   @Override
    public void drawGraf(Graphics2D gc){
        gc.setColor(super.getGrafColor());
        GrafPrimitives.grafString(gStuff,x1, y1, getMark() , gc);
@@ -67,7 +67,8 @@ public class GrafChord extends GrafObject
        //gStuff.getGrafPanel().repaint();
     }
     
-   public static GrafInputDialog createInputDialog(GrafProg gs){
+    @Override
+   public  GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);
         gfd.setTitle("CHORD");
         gfd.setPointPanel(gfd.addPointPanel());
@@ -97,6 +98,29 @@ public class GrafChord extends GrafObject
         // gfd.setVisible(true);  
         return gfd;
    }
+   
+   
+   
+  
+     
+      @Override
+      public void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                     GrafChord chEdit = (GrafChord)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setF(chEdit.getFunctionString());
+                     caller.getPointChooser().setX1(chEdit.getX1());
+                     caller.getPointChooser().setX2(chEdit.getX2());
+                     caller.getMarkChooser().setColor(chEdit.getGrafColor());
+                    
+       }
+     
+   public void setX1(double xval){ x1 = xval; }
+   public double getX1() { return x1; } 
+   public void setX2(double xval){ x2 = xval; }
+   public double getX2() { return x2; } 
+   public void sety1(double xval){ y1 = xval; }
+   public double gety1() { return y1; } 
+   public void sety2(double xval){ y2 = xval; }
+   public double gety2() { return y2; } 
    
    private static void saveChord(GrafProg gs, GrafInputDialog gfd){
         if (gfd.getFinalSave() == true && gfd.getPointPanel().getF().equals("")) return; 
@@ -130,37 +154,6 @@ public class GrafChord extends GrafObject
         rightPanel.add(pointPanel.getX2JText(), BorderLayout.CENTER);
         gfd.getPointPanel().getBottomPanel().add(rightPanel, BorderLayout.CENTER);
     }
-   
-    // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.CHORD);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-               // GrafChord currentC = (GrafChord)tempList.get(plotIndex.get(i)); 
-               // plotListArray[i] = "function: "+currentC.getFunctionString()+", X1: "+currentC.getX1()+" , X2: "+currentC.getX2();                     
-        // }
-       // return plotListArray;
-     // }
-    
-      public static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                     GrafChord chEdit = (GrafChord)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                     caller.getPointChooser().setF(chEdit.getFunctionString());
-                     caller.getPointChooser().setX1(chEdit.getX1());
-                     caller.getPointChooser().setX2(chEdit.getX2());
-                     caller.getMarkChooser().setColor(chEdit.getGrafColor());
-                    
-       }
-     
-   public void setX1(double xval){ x1 = xval; }
-   public double getX1() { return x1; } 
-   public void setX2(double xval){ x2 = xval; }
-   public double getX2() { return x2; } 
-   public void sety1(double xval){ y1 = xval; }
-   public double gety1() { return y1; } 
-   public void sety2(double xval){ y2 = xval; }
-   public double gety2() { return y2; } 
-   
-   
    
    public void calcY1(){
        try {

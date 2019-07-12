@@ -15,7 +15,7 @@ import java.util.ArrayList;
 //import GrafProg.GrafType;
 
 
-public class GrafEllipse extends GrafRectangle 
+public class GrafEllipse extends GrafRectangle implements IGrafable
 {
     /**
      * 
@@ -63,7 +63,7 @@ public class GrafEllipse extends GrafRectangle
         }
         
     
-    
+     @Override
      public void drawGraf(Graphics2D gc){
          //System.out.println(super.getFillFlag());
          if (super.getFillFlag()) {
@@ -77,7 +77,8 @@ public class GrafEllipse extends GrafRectangle
            
         }
      
-     public static GrafInputDialog createInputDialog(GrafProg gs){
+     @Override
+     public GrafInputDialog createInputDialog(GrafProg gs){
         GrafInputDialog gfd = new GrafInputDialog(gs);          
         gfd.setTitle("ELLIPSE");  
         gfd.setPointPanel(gfd.addPointPanel());
@@ -107,7 +108,29 @@ public class GrafEllipse extends GrafRectangle
         return gfd;
      }  
      
-     private static void saveEllipse(GrafProg gs, GrafInputDialog gfd){
+     
+         
+    
+     
+     @Override
+     public  void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
+                     GrafEllipse ellEdit = (GrafEllipse)tempList.get(caller.getDeleter().getPlotIndex().get(index));
+                     caller.getPointChooser().setX1(ellEdit.getX());
+                     caller.getPointChooser().setY1(ellEdit.getY());
+                     caller.getPointChooser().setW(ellEdit.getWidth());
+                     caller.getPointChooser().setH(ellEdit.getHeight());
+                     caller.getMarkChooser().setFillChecked(ellEdit.getFillFlag());
+                     caller.getMarkChooser().setColor(ellEdit.getGrafColor());  
+                     caller.getMarkChooser().setFillColor(ellEdit.getFill());  
+                  
+                    
+       }
+        
+     public String toString(){
+           return "ELLIPSE: ("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight();//+ " "+getGrafColor()+")";
+       }
+       
+        private static void saveEllipse(GrafProg gs, GrafInputDialog gfd){
         if (gfd.getFinalSave() == true && Double.isNaN(gfd.getPointPanel().getX1())) return; 
         addEllipse(gs, gfd);
         gfd.getPointPanel().blankX1();
@@ -130,32 +153,4 @@ public class GrafEllipse extends GrafRectangle
            gfd.getTempList().add(gPlot);
         
         }
-        
-        // public static String[] getPlotList(ArrayList<GrafObject> tempList, ArrayList<Integer> plotIndex){ 
-        // String con;
-        // GrafDeletePanel.indexPlots(tempList, GrafType.ELLIPSE);   
-        // String[] plotListArray = new String[plotIndex.size()];
-        // for (int i = 0; i < plotIndex.size(); i++){
-             // GrafEllipse currentE = (GrafEllipse)tempList.get(plotIndex.get(i)); 
-             // plotListArray[i] = "("+currentE.getX()+", "+currentE.getY()+"); ("+currentE.getWidth()+", "+currentE.getHeight()+")";            
-        // }
-       // return plotListArray;
-     // }
-     
-     public  static void setDeleteValues(int index, GrafInputDialog caller, ArrayList<GrafObject> tempList ){
-                     GrafEllipse ellEdit = (GrafEllipse)tempList.get(caller.getDeleter().getPlotIndex().get(index));
-                     caller.getPointChooser().setX1(ellEdit.getX());
-                     caller.getPointChooser().setY1(ellEdit.getY());
-                     caller.getPointChooser().setW(ellEdit.getWidth());
-                     caller.getPointChooser().setH(ellEdit.getHeight());
-                     caller.getMarkChooser().setFillChecked(ellEdit.getFillFlag());
-                     caller.getMarkChooser().setColor(ellEdit.getGrafColor());  
-                     caller.getMarkChooser().setFillColor(ellEdit.getFill());  
-                  
-                    
-       }
-        
-     public String toString(){
-           return "ELLIPSE: ("+getX()+", "+getY()+"); ("+getWidth()+", "+getHeight();//+ " "+getGrafColor()+")";
-       }
 }
