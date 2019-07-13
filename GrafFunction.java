@@ -24,6 +24,15 @@ public class GrafFunction extends GrafObject implements IGrafable{
     private GrafSettings gStuff;
         
     //Constructor
+    
+    public GrafFunction(){
+        setGrafType(GrafType.FUNCTION);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+       
+        
+    }
+    
     public GrafFunction(GrafProg sess){
         setGrafType(GrafType.FUNCTION);
         setMoveable(false);

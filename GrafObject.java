@@ -45,23 +45,23 @@ abstract public class GrafObject implements Serializable
        switch (gType){
                
                 case TEXT: return new GrafText(); 
-                case COLUMN: return new GrafText(); 
-                case BOXPLOT: return new GrafText();
-                case SCATTER:return new GrafText();
-                case HISTOGRAM: return new GrafText(); 
-                case FREQPOLYGON: return new GrafText(); 
-                case OGIVE: return new GrafText(); 
-                case POINT: return new GrafText();
-                case LINESEGMENT: return new GrafText(); 
-                case RECTANGLE: return new GrafText(); 
-                case ELLIPSE: return new GrafText();
-                case   CIRCLE: return new GrafText();
-                case FUNCTION: return new GrafText();
-                case FVALUE: return new GrafText();
-                case TANGENT: return new GrafText();
-                case CHORD: return new GrafText(); 
-                case INTEGRAL: return new GrafText(); 
-                case FZERO: return new GrafText(); 
+                case COLUMN: return new GrafColumnPlot(); 
+                case BOXPLOT: return new GrafBoxPlot();
+                case SCATTER:return new GrafScatterPlot();
+                case HISTOGRAM: return new GrafHistogram(); 
+                case FREQPOLYGON: return new GrafFreqPolygon(); 
+                case OGIVE: return new GrafOgive(); 
+                case POINT: return new GrafPoint();
+                case LINESEGMENT: return new GrafSegment(); 
+                case RECTANGLE: return new GrafRectangle(); 
+                case ELLIPSE: return new GrafEllipse();
+                case   CIRCLE: return new GrafCircle();
+                case FUNCTION: return new GrafFunction();
+                case FVALUE: return new GrafValue();
+                case TANGENT: return new GrafTangent();
+                case CHORD: return new GrafChord(); 
+                case INTEGRAL: return new GrafIntegral(); 
+                case FZERO: return new GrafZeros(); 
                 default: return null;
                        
         }

@@ -23,6 +23,12 @@ public class GrafRectangle extends GrafObject implements IGrafable
         //private String yString = "";
         
         
+   public GrafRectangle(){
+        setGrafType(GrafType.RECTANGLE);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+        
+       }
       
    public GrafRectangle(GrafProg sess){
         setGrafType(GrafType.RECTANGLE);

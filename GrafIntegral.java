@@ -24,7 +24,12 @@ public class GrafIntegral extends GrafObject implements IGrafable
         int n=100;
         //private String yString = "";
         
-        
+   public GrafIntegral(){
+        setGrafType(GrafType.INTEGRAL);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+       
+       }     
         
    public GrafIntegral(GrafProg sess){
         setGrafType(GrafType.INTEGRAL);

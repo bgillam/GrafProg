@@ -49,6 +49,7 @@ public class GrafHistogram extends GrafObject implements IGrafable{
        setGrafType(GrafType.HISTOGRAM);
        setMoveable(false);
        setGrafColor(Color.BLACK); 
+       setColumnNumber(1);
     }
     
     public GrafHistogram(GrafProg sess){

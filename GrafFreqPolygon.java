@@ -41,6 +41,13 @@ public class GrafFreqPolygon extends GrafHistogram implements IGrafable{
     
         
     //Constructor
+    
+    public GrafFreqPolygon(){
+     setGrafType(GrafType.FREQPOLYGON);
+     setMoveable(false);
+     setGrafColor(Color.BLACK);
+     setColumnNumber(1);
+    }
     public GrafFreqPolygon(GrafProg sess){
         super();
         setGrafType(GrafType.FREQPOLYGON);

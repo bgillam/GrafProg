@@ -25,6 +25,12 @@ public class GrafSegment extends GrafObject implements IGrafable
         //private String yString = "";
         
         
+   public GrafSegment(){
+        setGrafType(GrafType.LINESEGMENT);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+        
+       }
         
    public GrafSegment(GrafProg sess){
         setGrafType(GrafType.LINESEGMENT);

@@ -40,6 +40,13 @@ public class GrafOgive extends GrafHistogram implements IGrafable{
     
         
     //Constructor
+    public GrafOgive(){
+     setGrafType(GrafType.OGIVE);
+     setMoveable(false);
+     setGrafColor(Color.BLACK);
+     setColumnNumber(1);
+    }
+    
     public GrafOgive(GrafProg sess){
         super();
         setGrafType(GrafType.OGIVE);

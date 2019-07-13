@@ -22,6 +22,13 @@ public class GrafColumnPlot extends GrafObject implements IGrafable{
     private boolean connected = false;
         
     //Constructor
+    public GrafColumnPlot(){
+     setGrafType(GrafType.COLUMN);
+     setMoveable(false);
+     setGrafColor(Color.BLACK);
+     setColumnNumber(1);
+    }
+    
     public GrafColumnPlot(GrafProg sess){
         int column = 1;
         setGrafType(GrafType.COLUMN);
@@ -34,6 +41,7 @@ public class GrafColumnPlot extends GrafObject implements IGrafable{
         sess.setMessage1("Plotting Column "+columnNumber);
     }
     
+        
     public GrafColumnPlot(GrafProg sess, int column){
         setGrafType(GrafType.COLUMN);
         setMoveable(false);

@@ -25,7 +25,12 @@ public class GrafChord extends GrafObject implements IGrafable
         boolean segment = true;
         //private String yString = "";
         
-        
+   public GrafChord(){
+        setGrafType(GrafType.CHORD);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+       
+       }     
         
    public GrafChord(GrafProg sess){
         setGrafType(GrafType.CHORD);

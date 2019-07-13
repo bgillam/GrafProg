@@ -26,7 +26,12 @@ public class GrafCircle extends GrafObject implements IGrafable{
         private boolean fillFlag = false;
         //private String yString = "";
     
-    
+    public GrafCircle(){
+        setGrafType(GrafType.CIRCLE);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+        
+       }
 
     public GrafCircle(GrafProg sess){
         setGrafType(GrafType.CIRCLE);

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 
 //Class Header
+
+
 public class GrafBoxPlot extends GrafObject implements IGrafable {
     //Instance Variables
     private int columnNumber;
@@ -24,6 +26,13 @@ public class GrafBoxPlot extends GrafObject implements IGrafable {
     private boolean showFNS = true;
         
     //Constructor
+    public GrafBoxPlot(){
+     setGrafType(GrafType.BOXPLOT);
+     setMoveable(false);
+     setGrafColor(Color.BLACK);
+     setColumnNumber(1);
+    }
+    
     public GrafBoxPlot(GrafProg sess){
         setGrafType(GrafType.BOXPLOT);
         setMoveable(false);

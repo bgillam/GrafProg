@@ -24,7 +24,13 @@ public class GrafValue extends GrafObject implements IGrafable{
         private double x = 0;
         private double y = 0;
        
-        
+    public GrafValue(){
+        setGrafType(GrafType.FVALUE);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+      
+       
+       }    
         
         
    public GrafValue(GrafProg sess){

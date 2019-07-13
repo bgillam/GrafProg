@@ -25,6 +25,14 @@ public class GrafScatterPlot extends GrafObject implements IGrafable{
     private boolean connected = false;
         
     //Constructor
+    public GrafScatterPlot(){
+       setGrafType(GrafType.SCATTER);
+       setMoveable(false);
+       setGrafColor(Color.BLACK);
+       setInputColumnNumber(1);
+       setOutputColumnNumber(2);
+    }
+    
     public GrafScatterPlot(GrafProg sess){
         setGrafType(GrafType.SCATTER);
         setMoveable(false);

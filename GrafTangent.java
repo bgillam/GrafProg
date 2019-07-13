@@ -20,7 +20,12 @@ public class GrafTangent extends GrafObject implements IGrafable
         private String mark ="x";
         private double x = 0;
        
+   public GrafTangent(){
+        setGrafType(GrafType.TANGENT);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
         
+       }     
         
         
    public GrafTangent(GrafProg sess){

@@ -23,10 +23,13 @@ public class GrafEllipse extends GrafRectangle implements IGrafable
     private static final long serialVersionUID = 1L;
     private GrafProg myOwner;
     private GrafSettings gStuff;
-    //private Color fill = Color.WHITE;
-    //private boolean fillFlag = false;
+   
     
-    
+    public GrafEllipse() {
+        super();
+        this.setGrafType(GrafType.ELLIPSE);
+        
+    }
 
     public GrafEllipse(GrafProg sess) {
         super(sess);

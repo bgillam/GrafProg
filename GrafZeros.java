@@ -27,7 +27,12 @@ public class GrafZeros extends GrafObject implements IGrafable
         private ArrayList<Double> zeroList = new ArrayList<Double>(); 
         //private String yString = "";
         
-        
+        public GrafZeros(){
+        setGrafType(GrafType.FZERO);
+        setMoveable(false);
+        setGrafColor(Color.BLACK);
+       
+       }
         
    public GrafZeros(GrafProg sess){
         setGrafType(GrafType.FZERO);
