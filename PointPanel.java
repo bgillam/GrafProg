@@ -7,21 +7,11 @@
  * @author (Bill Gillam) 
  * @version (1/12/2017)
  */
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import java.awt.Color;
-import javax.swing.JSeparator;
-import javax.swing.JFrame;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 public class PointPanel extends JPanel
 {
@@ -96,7 +86,7 @@ public class PointPanel extends JPanel
        if (!(fComboBox.getItemCount()==0)) {
           // System.out.println("Item Count: "fComboBox.getItemCount());
            String fString = (String)fComboBox.getItemAt(0);
-           fString = fString.substring(4);
+           fString = fString.substring(9);
        functionTextField.setText(fString) ;
        }
     }
@@ -275,9 +265,7 @@ public class PointPanel extends JPanel
      public void blankR(){
          r.setText("");
     }
-    public String getF(){
-        return functionTextField.getText();
-    }
+    public String getF(){return functionTextField.getText(); }
     public void blankF(){
         functionTextField.setText("");
     }

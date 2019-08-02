@@ -7,22 +7,12 @@
  * @version (1/1/2017)
  */
 
-import javax.swing.JDialog;
-import java.util.ArrayList;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import javax.swing.UIManager;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class GrafInputDialog extends JDialog
@@ -94,6 +84,14 @@ public class GrafInputDialog extends JDialog
         getContentPane().add(deleter, BorderLayout.EAST);
         return deleter;
     }
+
+//    public GrafDeletePanel addDeleterPanel(GrafObject g){
+//        deleter = new GrafDeletePanel(this, tempList);
+//        deleter.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+//        deleter.setBackground(UIManager.getColor("Button.background"));
+//        getContentPane().add(deleter, BorderLayout.EAST);
+//        return deleter;
+//    }
    
     //Create mark and color chooser and place WEST
     public MarkPanel addMarkPanel(MarkPanel mp){

@@ -5,20 +5,11 @@
  * @author (Bill Gillam) 
  * @version (1/1/2017)
  */
-import javax.swing.JPanel;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import java.awt.BorderLayout;
-
-import java.util.ArrayList;
-import java.awt.Color;
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class GrafDeletePanel extends JPanel
@@ -31,7 +22,7 @@ public class GrafDeletePanel extends JPanel
     private GrafInputDialog caller;
    
     
-    public GrafDeletePanel(GrafInputDialog c, GrafType gType, ArrayList<GrafObject> tempList)
+    public GrafDeletePanel(GrafInputDialog c, GrafType gType, ArrayList<GrafObject> tempList)//, GrafObject g)
     {
        caller = c;  
        setBackground(new Color(220, 220, 220));

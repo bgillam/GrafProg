@@ -4,12 +4,11 @@
  * @version j1.0]
  */
 //import javax.swing.*;
-import java.io.*;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class GrafTangent extends GrafObject implements IGrafable
 {
@@ -144,6 +143,7 @@ public class GrafTangent extends GrafObject implements IGrafable
                    return;
         }
         if (Double.isNaN(gfd.getPointPanel().getX1())){gfd.NumErrorMessage("x1", "valid number"); return;}
+        //System.out.println(gfd.getPointPanel().getF());
         GrafTangent gt = new GrafTangent(gSess, gfd.getPointPanel().getF(), gfd.getPointPanel().getX1(), gfd.getMarkChooser().getColor(), gfd.getMarkChooser().getMark());
         gfd.getTempList().add(gt); 
     }

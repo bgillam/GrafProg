@@ -6,20 +6,10 @@
  * @version j1.0]
  */
 //import javax.swing.*;
-import java.io.*;
-import java.awt.*;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import javax.swing.UIManager;
-
+import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 abstract public class GrafObject implements Serializable 
@@ -43,27 +33,27 @@ abstract public class GrafObject implements Serializable
    
    public static GrafObject createGrafObject(GrafType gType){
        switch (gType){
-               
-                case TEXT: return new GrafText(); 
-                case COLUMN: return new GrafColumnPlot(); 
+
+                case TEXT: return new GrafText();
+                case COLUMN: return new GrafColumnPlot();
                 case BOXPLOT: return new GrafBoxPlot();
                 case SCATTER:return new GrafScatterPlot();
-                case HISTOGRAM: return new GrafHistogram(); 
-                case FREQPOLYGON: return new GrafFreqPolygon(); 
-                case OGIVE: return new GrafOgive(); 
+                case HISTOGRAM: return new GrafHistogram();
+                case FREQPOLYGON: return new GrafFreqPolygon();
+                case OGIVE: return new GrafOgive();
                 case POINT: return new GrafPoint();
-                case LINESEGMENT: return new GrafSegment(); 
-                case RECTANGLE: return new GrafRectangle(); 
+                case LINESEGMENT: return new GrafSegment();
+                case RECTANGLE: return new GrafRectangle();
                 case ELLIPSE: return new GrafEllipse();
                 case   CIRCLE: return new GrafCircle();
                 case FUNCTION: return new GrafFunction();
                 case FVALUE: return new GrafValue();
                 case TANGENT: return new GrafTangent();
-                case CHORD: return new GrafChord(); 
-                case INTEGRAL: return new GrafIntegral(); 
-                case FZERO: return new GrafZeros(); 
+                case CHORD: return new GrafChord();
+                case INTEGRAL: return new GrafIntegral();
+                case FZERO: return new GrafZeros();
                 default: return null;
-                       
+
         }
     }
    
