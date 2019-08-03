@@ -1,14 +1,11 @@
-
-
-
-import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+
+import java.awt.*;
 import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 /**
  * The test class GrafCircleTest.
  *
