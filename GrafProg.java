@@ -42,6 +42,8 @@ public class GrafProg extends JFrame implements ActionListener, Serializable {
     private JLabel message1;
     private JLabel message2;
     private JLabel message3;
+    
+   
        
    //constructor
     public GrafProg(){
